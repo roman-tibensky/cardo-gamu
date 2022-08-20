@@ -1,9 +1,254 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://CardBase.gd" type="Script" id=1]
+[ext_resource path="res://Assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Assets/cardParts/background shade.png" type="Texture" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 14
+font_data = ExtResource( 2 )
 
 [node name="CardBase" type="MarginContainer"]
 margin_right = 205.0
 margin_bottom = 250.0
 rect_pivot_offset = Vector2( 102.5, 125 )
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CardFront" type="Sprite" parent="."]
+centered = false
+
+[node name="Border" type="Sprite" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 205.0
+margin_bottom = 250.0
+
+[node name="TopGap" type="MarginContainer" parent="VBoxContainer"]
+margin_right = 205.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="NameCont" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 14.0
+margin_right = 205.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 25, 0 )
+
+[node name="LeftGap" type="MarginContainer" parent="VBoxContainer/NameCont"]
+margin_right = 25.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 25, 0 )
+
+[node name="NameContainer" type="MarginContainer" parent="VBoxContainer/NameCont"]
+margin_left = 29.0
+margin_right = 176.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="VBoxContainer/NameCont/NameContainer"]
+margin_right = 147.0
+margin_bottom = 25.0
+texture = ExtResource( 3 )
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/NameCont/NameContainer"]
+margin_right = 147.0
+margin_bottom = 25.0
+
+[node name="Name" type="Label" parent="VBoxContainer/NameCont/NameContainer/CenterContainer"]
+margin_left = 35.0
+margin_right = 111.0
+margin_bottom = 25.0
+custom_fonts/font = SubResource( 1 )
+text = "[insert]"
+
+[node name="RightGap" type="MarginContainer" parent="VBoxContainer/NameCont"]
+margin_left = 180.0
+margin_right = 205.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 25, 0 )
+
+[node name="PostName" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 43.0
+margin_right = 205.0
+margin_bottom = 68.0
+rect_min_size = Vector2( 0, 25 )
+
+[node name="RedPoolCont" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 72.0
+margin_right = 205.0
+margin_bottom = 97.0
+rect_min_size = Vector2( 25, 0 )
+
+[node name="LeftGap" type="MarginContainer" parent="VBoxContainer/RedPoolCont"]
+margin_right = 25.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 25, 0 )
+
+[node name="RedPoolContainer" type="MarginContainer" parent="VBoxContainer/RedPoolCont"]
+margin_left = 29.0
+margin_right = 176.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="VBoxContainer/RedPoolCont/RedPoolContainer"]
+margin_right = 147.0
+margin_bottom = 25.0
+texture = ExtResource( 3 )
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/RedPoolCont/RedPoolContainer"]
+margin_right = 147.0
+margin_bottom = 25.0
+
+[node name="RedPool" type="Label" parent="VBoxContainer/RedPoolCont/RedPoolContainer/CenterContainer"]
+margin_left = 35.0
+margin_right = 111.0
+margin_bottom = 25.0
+custom_colors/font_color = Color( 0.941176, 0.470588, 0.470588, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "[insert]"
+
+[node name="RightGap" type="MarginContainer" parent="VBoxContainer/RedPoolCont"]
+margin_left = 180.0
+margin_right = 205.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 25, 0 )
+
+[node name="GreenPoolCont" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 101.0
+margin_right = 205.0
+margin_bottom = 126.0
+rect_min_size = Vector2( 25, 0 )
+
+[node name="LeftGap" type="MarginContainer" parent="VBoxContainer/GreenPoolCont"]
+margin_right = 25.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 25, 0 )
+
+[node name="GreenPoolContainer" type="MarginContainer" parent="VBoxContainer/GreenPoolCont"]
+margin_left = 29.0
+margin_right = 176.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="VBoxContainer/GreenPoolCont/GreenPoolContainer"]
+margin_right = 147.0
+margin_bottom = 25.0
+texture = ExtResource( 3 )
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/GreenPoolCont/GreenPoolContainer"]
+margin_right = 147.0
+margin_bottom = 25.0
+
+[node name="GreenPool" type="Label" parent="VBoxContainer/GreenPoolCont/GreenPoolContainer/CenterContainer"]
+margin_left = 35.0
+margin_right = 111.0
+margin_bottom = 25.0
+custom_colors/font_color = Color( 0.470588, 0.941176, 0.470588, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "[insert]"
+
+[node name="RightGap" type="MarginContainer" parent="VBoxContainer/GreenPoolCont"]
+margin_left = 180.0
+margin_right = 205.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 25, 0 )
+
+[node name="BluePoolCont" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 130.0
+margin_right = 205.0
+margin_bottom = 155.0
+rect_min_size = Vector2( 25, 0 )
+
+[node name="LeftGap" type="MarginContainer" parent="VBoxContainer/BluePoolCont"]
+margin_right = 25.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 25, 0 )
+
+[node name="BluePoolContainer" type="MarginContainer" parent="VBoxContainer/BluePoolCont"]
+margin_left = 29.0
+margin_right = 176.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="VBoxContainer/BluePoolCont/BluePoolContainer"]
+margin_right = 147.0
+margin_bottom = 25.0
+texture = ExtResource( 3 )
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/BluePoolCont/BluePoolContainer"]
+margin_right = 147.0
+margin_bottom = 25.0
+
+[node name="BluePool" type="Label" parent="VBoxContainer/BluePoolCont/BluePoolContainer/CenterContainer"]
+margin_left = 35.0
+margin_right = 111.0
+margin_bottom = 25.0
+custom_colors/font_color = Color( 0.470588, 0.470588, 0.941176, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "[insert]"
+
+[node name="RightGap" type="MarginContainer" parent="VBoxContainer/BluePoolCont"]
+margin_left = 180.0
+margin_right = 205.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 25, 0 )
+
+[node name="PostPools" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 159.0
+margin_right = 205.0
+margin_bottom = 184.0
+rect_min_size = Vector2( 0, 25 )
+
+[node name="DescCont" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 188.0
+margin_right = 205.0
+margin_bottom = 236.0
+rect_min_size = Vector2( 25, 0 )
+size_flags_vertical = 3
+
+[node name="LeftGap" type="MarginContainer" parent="VBoxContainer/DescCont"]
+margin_right = 25.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 25, 0 )
+
+[node name="DescContainer" type="MarginContainer" parent="VBoxContainer/DescCont"]
+margin_left = 29.0
+margin_right = 176.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="VBoxContainer/DescCont/DescContainer"]
+margin_right = 147.0
+margin_bottom = 48.0
+texture = ExtResource( 3 )
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/DescCont/DescContainer"]
+margin_right = 147.0
+margin_bottom = 48.0
+
+[node name="Desc" type="Label" parent="VBoxContainer/DescCont/DescContainer/CenterContainer"]
+margin_left = 46.0
+margin_top = 15.0
+margin_right = 100.0
+margin_bottom = 33.0
+custom_fonts/font = SubResource( 2 )
+text = "[insert]"
+
+[node name="RightGap" type="MarginContainer" parent="VBoxContainer/DescCont"]
+margin_left = 180.0
+margin_right = 205.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 25, 0 )
+
+[node name="BottomGap" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 240.0
+margin_right = 205.0
+margin_bottom = 250.0
+rect_min_size = Vector2( 0, 10 )

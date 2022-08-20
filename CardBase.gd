@@ -1,16 +1,25 @@
 extends MarginContainer
 
 onready var CardList = preload("res://Assets/cards/card_management.gd")
-var card_name = 'card1'
+var cardList
+var cardName = 'card1'
+
 
 #onready var card_info = card_list.get_card_data()[card_name]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var card_list = CardList.new().get_card_data()
+	cardList = CardList.new()
+	var card = cardList.get_card_data()[cardName]
+	var poolsText = cardList.preparePoolStrings(card.action)
+	var cardSize = rect_size
+	$CardFront.texture = load(card.source_front)
+	$CardFront.scale *= cardSize/$CardFront.texture.get_size()
+	$VBoxContainer/NameCont/NameContainer/CenterContainer/Name.text = card.card_name
+	$VBoxContainer/RedPoolCont/RedPoolContainer/CenterContainer/RedPool.text = poolsText.red
+	$VBoxContainer/GreenPoolCont/GreenPoolContainer/CenterContainer/GreenPool.text = poolsText.green
+	$VBoxContainer/BluePoolCont/BluePoolContainer/CenterContainer/BluePool.text = poolsText.blue
+	$VBoxContainer/DescCont/DescContainer/CenterContainer/Desc.text = card.description
 
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
