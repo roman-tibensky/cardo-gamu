@@ -31,7 +31,7 @@ func draw_card():
 	new_card.rect_position = centerCardOval + ovalAngleVector - new_card.rect_size/2
 	new_card.rect_scale *= CardSize/new_card.rect_size
 	
-	#TODO: pixelated and ugly; research why later
+	#TODO: pixelated and ugly; research why later -check anti-aliasing maybe?
 	#new_card.rect_rotation = (90 - rad2deg(angle)) / 4
 	
 	
