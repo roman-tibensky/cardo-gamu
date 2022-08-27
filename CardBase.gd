@@ -1,6 +1,7 @@
 extends MarginContainer
 
 onready var CardList = preload("res://Assets/cards/card_management.gd")
+
 var cardList
 var cardName = 'card1'
 

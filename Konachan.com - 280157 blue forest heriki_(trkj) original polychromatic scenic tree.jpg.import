@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/card4.png-d381de30209f5172e9633ac71a71cefc.stex"
+path="res://.import/Konachan.com - 280157 blue forest heriki_(trkj) original polychromatic scenic tree.jpg-bbfd0ad7cd9899e52054dc973fb5d9cb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/cards/images/card4.png"
-dest_files=[ "res://.import/card4.png-d381de30209f5172e9633ac71a71cefc.stex" ]
+source_file="res://Konachan.com - 280157 blue forest heriki_(trkj) original polychromatic scenic tree.jpg"
+dest_files=[ "res://.import/Konachan.com - 280157 blue forest heriki_(trkj) original polychromatic scenic tree.jpg-bbfd0ad7cd9899e52054dc973fb5d9cb.stex" ]
 
 [params]
 
