@@ -42,3 +42,7 @@ func draw_card():
 	deckSize = PlayerHand.HandCards.size()
 	return deckSize
 		
+
+
+func _on_DeckDraw_draw_card():
+	return draw_card()

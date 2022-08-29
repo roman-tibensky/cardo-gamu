@@ -9,7 +9,6 @@ size = 20
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=2]
-size = 14
 font_data = ExtResource( 2 )
 
 [node name="CardBase" type="MarginContainer"]
@@ -234,10 +233,10 @@ margin_right = 147.0
 margin_bottom = 48.0
 
 [node name="Desc" type="Label" parent="VBoxContainer/DescCont/DescContainer/CenterContainer"]
-margin_left = 46.0
-margin_top = 15.0
-margin_right = 100.0
-margin_bottom = 33.0
+margin_left = 42.0
+margin_top = 14.0
+margin_right = 104.0
+margin_bottom = 34.0
 custom_fonts/font = SubResource( 2 )
 text = "[insert]"
 

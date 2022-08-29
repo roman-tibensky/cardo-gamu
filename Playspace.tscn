@@ -21,8 +21,8 @@ __meta__ = {
 }
 
 [node name="DeckDraw" type="TextureButton" parent="Deck"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 281.0
+margin_bottom = 338.0
 texture_normal = ExtResource( 4 )
 texture_pressed = ExtResource( 4 )
 texture_hover = ExtResource( 4 )

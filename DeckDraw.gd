@@ -1,4 +1,7 @@
 extends TextureButton
+
+#signal draw_card
+
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -9,15 +12,14 @@ func _ready():
 	rect_scale *= $"../..".CardSize/rect_size
 
 
-func _input(event):
-	print(event)
-	#TODO: buggy if combined with parent? convert to signal, see if it helps
-	#if Input.is_action_just_released("left_click"):
-	if Input.is_action_just_pressed("left_click"):
+func _gui_input(event):
+	if Input.is_action_just_released("left_click"):
+	#if Input.is_action_just_pressed("left_click"):
 		print("INIT MAYBE")
 		if deckSize > 0:
 			print("INIT DRAW")
-		#	deckSize = $"../..".draw_card()
+			deckSize = $"../..".draw_card()
+			#emit_signal("draw_card")
 			print(deckSize)
 			if(deckSize == 0):
 				disabled = true
