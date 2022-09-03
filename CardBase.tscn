@@ -25,87 +25,87 @@ centered = false
 
 [node name="Border" type="Sprite" parent="."]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="TextGrid" type="VBoxContainer" parent="."]
 margin_right = 205.0
 margin_bottom = 250.0
 
-[node name="TopGap" type="MarginContainer" parent="VBoxContainer"]
+[node name="TopGap" type="MarginContainer" parent="TextGrid"]
 margin_right = 205.0
 margin_bottom = 10.0
 rect_min_size = Vector2( 0, 10 )
 
-[node name="NameCont" type="HBoxContainer" parent="VBoxContainer"]
+[node name="NameCont" type="HBoxContainer" parent="TextGrid"]
 margin_top = 14.0
 margin_right = 205.0
 margin_bottom = 39.0
 rect_min_size = Vector2( 25, 0 )
 
-[node name="LeftGap" type="MarginContainer" parent="VBoxContainer/NameCont"]
+[node name="LeftGap" type="MarginContainer" parent="TextGrid/NameCont"]
 margin_right = 25.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 25, 0 )
 
-[node name="NameContainer" type="MarginContainer" parent="VBoxContainer/NameCont"]
+[node name="NameContainer" type="MarginContainer" parent="TextGrid/NameCont"]
 margin_left = 29.0
 margin_right = 176.0
 margin_bottom = 25.0
 size_flags_horizontal = 3
 
-[node name="NinePatchRect" type="NinePatchRect" parent="VBoxContainer/NameCont/NameContainer"]
+[node name="NinePatchRect" type="NinePatchRect" parent="TextGrid/NameCont/NameContainer"]
 margin_right = 147.0
 margin_bottom = 25.0
 texture = ExtResource( 3 )
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/NameCont/NameContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="TextGrid/NameCont/NameContainer"]
 margin_right = 147.0
 margin_bottom = 25.0
 
-[node name="Name" type="Label" parent="VBoxContainer/NameCont/NameContainer/CenterContainer"]
+[node name="Name" type="Label" parent="TextGrid/NameCont/NameContainer/CenterContainer"]
 margin_left = 35.0
 margin_right = 111.0
 margin_bottom = 25.0
 custom_fonts/font = SubResource( 1 )
 text = "[insert]"
 
-[node name="RightGap" type="MarginContainer" parent="VBoxContainer/NameCont"]
+[node name="RightGap" type="MarginContainer" parent="TextGrid/NameCont"]
 margin_left = 180.0
 margin_right = 205.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 25, 0 )
 
-[node name="PostName" type="MarginContainer" parent="VBoxContainer"]
+[node name="PostName" type="MarginContainer" parent="TextGrid"]
 margin_top = 43.0
 margin_right = 205.0
 margin_bottom = 68.0
 rect_min_size = Vector2( 0, 25 )
 
-[node name="RedPoolCont" type="HBoxContainer" parent="VBoxContainer"]
+[node name="RedPoolCont" type="HBoxContainer" parent="TextGrid"]
 margin_top = 72.0
 margin_right = 205.0
 margin_bottom = 97.0
 rect_min_size = Vector2( 25, 0 )
 
-[node name="LeftGap" type="MarginContainer" parent="VBoxContainer/RedPoolCont"]
+[node name="LeftGap" type="MarginContainer" parent="TextGrid/RedPoolCont"]
 margin_right = 25.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 25, 0 )
 
-[node name="RedPoolContainer" type="MarginContainer" parent="VBoxContainer/RedPoolCont"]
+[node name="RedPoolContainer" type="MarginContainer" parent="TextGrid/RedPoolCont"]
 margin_left = 29.0
 margin_right = 176.0
 margin_bottom = 25.0
 size_flags_horizontal = 3
 
-[node name="NinePatchRect" type="NinePatchRect" parent="VBoxContainer/RedPoolCont/RedPoolContainer"]
+[node name="NinePatchRect" type="NinePatchRect" parent="TextGrid/RedPoolCont/RedPoolContainer"]
 margin_right = 147.0
 margin_bottom = 25.0
 texture = ExtResource( 3 )
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/RedPoolCont/RedPoolContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="TextGrid/RedPoolCont/RedPoolContainer"]
 margin_right = 147.0
 margin_bottom = 25.0
 
-[node name="RedPool" type="Label" parent="VBoxContainer/RedPoolCont/RedPoolContainer/CenterContainer"]
+[node name="RedPool" type="Label" parent="TextGrid/RedPoolCont/RedPoolContainer/CenterContainer"]
 margin_left = 35.0
 margin_right = 111.0
 margin_bottom = 25.0
@@ -113,39 +113,39 @@ custom_colors/font_color = Color( 0.941176, 0.470588, 0.470588, 1 )
 custom_fonts/font = SubResource( 1 )
 text = "[insert]"
 
-[node name="RightGap" type="MarginContainer" parent="VBoxContainer/RedPoolCont"]
+[node name="RightGap" type="MarginContainer" parent="TextGrid/RedPoolCont"]
 margin_left = 180.0
 margin_right = 205.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 25, 0 )
 
-[node name="GreenPoolCont" type="HBoxContainer" parent="VBoxContainer"]
+[node name="GreenPoolCont" type="HBoxContainer" parent="TextGrid"]
 margin_top = 101.0
 margin_right = 205.0
 margin_bottom = 126.0
 rect_min_size = Vector2( 25, 0 )
 
-[node name="LeftGap" type="MarginContainer" parent="VBoxContainer/GreenPoolCont"]
+[node name="LeftGap" type="MarginContainer" parent="TextGrid/GreenPoolCont"]
 margin_right = 25.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 25, 0 )
 
-[node name="GreenPoolContainer" type="MarginContainer" parent="VBoxContainer/GreenPoolCont"]
+[node name="GreenPoolContainer" type="MarginContainer" parent="TextGrid/GreenPoolCont"]
 margin_left = 29.0
 margin_right = 176.0
 margin_bottom = 25.0
 size_flags_horizontal = 3
 
-[node name="NinePatchRect" type="NinePatchRect" parent="VBoxContainer/GreenPoolCont/GreenPoolContainer"]
+[node name="NinePatchRect" type="NinePatchRect" parent="TextGrid/GreenPoolCont/GreenPoolContainer"]
 margin_right = 147.0
 margin_bottom = 25.0
 texture = ExtResource( 3 )
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/GreenPoolCont/GreenPoolContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="TextGrid/GreenPoolCont/GreenPoolContainer"]
 margin_right = 147.0
 margin_bottom = 25.0
 
-[node name="GreenPool" type="Label" parent="VBoxContainer/GreenPoolCont/GreenPoolContainer/CenterContainer"]
+[node name="GreenPool" type="Label" parent="TextGrid/GreenPoolCont/GreenPoolContainer/CenterContainer"]
 margin_left = 35.0
 margin_right = 111.0
 margin_bottom = 25.0
@@ -153,39 +153,39 @@ custom_colors/font_color = Color( 0.470588, 0.941176, 0.470588, 1 )
 custom_fonts/font = SubResource( 1 )
 text = "[insert]"
 
-[node name="RightGap" type="MarginContainer" parent="VBoxContainer/GreenPoolCont"]
+[node name="RightGap" type="MarginContainer" parent="TextGrid/GreenPoolCont"]
 margin_left = 180.0
 margin_right = 205.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 25, 0 )
 
-[node name="BluePoolCont" type="HBoxContainer" parent="VBoxContainer"]
+[node name="BluePoolCont" type="HBoxContainer" parent="TextGrid"]
 margin_top = 130.0
 margin_right = 205.0
 margin_bottom = 155.0
 rect_min_size = Vector2( 25, 0 )
 
-[node name="LeftGap" type="MarginContainer" parent="VBoxContainer/BluePoolCont"]
+[node name="LeftGap" type="MarginContainer" parent="TextGrid/BluePoolCont"]
 margin_right = 25.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 25, 0 )
 
-[node name="BluePoolContainer" type="MarginContainer" parent="VBoxContainer/BluePoolCont"]
+[node name="BluePoolContainer" type="MarginContainer" parent="TextGrid/BluePoolCont"]
 margin_left = 29.0
 margin_right = 176.0
 margin_bottom = 25.0
 size_flags_horizontal = 3
 
-[node name="NinePatchRect" type="NinePatchRect" parent="VBoxContainer/BluePoolCont/BluePoolContainer"]
+[node name="NinePatchRect" type="NinePatchRect" parent="TextGrid/BluePoolCont/BluePoolContainer"]
 margin_right = 147.0
 margin_bottom = 25.0
 texture = ExtResource( 3 )
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/BluePoolCont/BluePoolContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="TextGrid/BluePoolCont/BluePoolContainer"]
 margin_right = 147.0
 margin_bottom = 25.0
 
-[node name="BluePool" type="Label" parent="VBoxContainer/BluePoolCont/BluePoolContainer/CenterContainer"]
+[node name="BluePool" type="Label" parent="TextGrid/BluePoolCont/BluePoolContainer/CenterContainer"]
 margin_left = 35.0
 margin_right = 111.0
 margin_bottom = 25.0
@@ -193,46 +193,46 @@ custom_colors/font_color = Color( 0.470588, 0.470588, 0.941176, 1 )
 custom_fonts/font = SubResource( 1 )
 text = "[insert]"
 
-[node name="RightGap" type="MarginContainer" parent="VBoxContainer/BluePoolCont"]
+[node name="RightGap" type="MarginContainer" parent="TextGrid/BluePoolCont"]
 margin_left = 180.0
 margin_right = 205.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 25, 0 )
 
-[node name="PostPools" type="MarginContainer" parent="VBoxContainer"]
+[node name="PostPools" type="MarginContainer" parent="TextGrid"]
 margin_top = 159.0
 margin_right = 205.0
 margin_bottom = 184.0
 rect_min_size = Vector2( 0, 25 )
 
-[node name="DescCont" type="HBoxContainer" parent="VBoxContainer"]
+[node name="DescCont" type="HBoxContainer" parent="TextGrid"]
 margin_top = 188.0
 margin_right = 205.0
 margin_bottom = 236.0
 rect_min_size = Vector2( 25, 0 )
 size_flags_vertical = 3
 
-[node name="LeftGap" type="MarginContainer" parent="VBoxContainer/DescCont"]
+[node name="LeftGap" type="MarginContainer" parent="TextGrid/DescCont"]
 margin_right = 25.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 25, 0 )
 
-[node name="DescContainer" type="MarginContainer" parent="VBoxContainer/DescCont"]
+[node name="DescContainer" type="MarginContainer" parent="TextGrid/DescCont"]
 margin_left = 29.0
 margin_right = 176.0
 margin_bottom = 48.0
 size_flags_horizontal = 3
 
-[node name="NinePatchRect" type="NinePatchRect" parent="VBoxContainer/DescCont/DescContainer"]
+[node name="NinePatchRect" type="NinePatchRect" parent="TextGrid/DescCont/DescContainer"]
 margin_right = 147.0
 margin_bottom = 48.0
 texture = ExtResource( 3 )
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/DescCont/DescContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="TextGrid/DescCont/DescContainer"]
 margin_right = 147.0
 margin_bottom = 48.0
 
-[node name="Desc" type="Label" parent="VBoxContainer/DescCont/DescContainer/CenterContainer"]
+[node name="Desc" type="Label" parent="TextGrid/DescCont/DescContainer/CenterContainer"]
 margin_left = 42.0
 margin_top = 14.0
 margin_right = 104.0
@@ -240,14 +240,17 @@ margin_bottom = 34.0
 custom_fonts/font = SubResource( 2 )
 text = "[insert]"
 
-[node name="RightGap" type="MarginContainer" parent="VBoxContainer/DescCont"]
+[node name="RightGap" type="MarginContainer" parent="TextGrid/DescCont"]
 margin_left = 180.0
 margin_right = 205.0
 margin_bottom = 48.0
 rect_min_size = Vector2( 25, 0 )
 
-[node name="BottomGap" type="MarginContainer" parent="VBoxContainer"]
+[node name="BottomGap" type="MarginContainer" parent="TextGrid"]
 margin_top = 240.0
 margin_right = 205.0
 margin_bottom = 250.0
 rect_min_size = Vector2( 0, 10 )
+
+[node name="CardBack" type="Sprite" parent="."]
+centered = false

@@ -1,5 +1,6 @@
 enum life_pools {RED, BLUE, GREEN}
 enum target {SINGLE, RANDOM, ALL, SELF}
+enum card_state {InHand, InPlay, InGrab, InFocus, MoveDrawnCardToHand, ReorganizeHand}
 
 enum {card1,card2,card3,card4,card5,card6,card7,card8,card9,card10,card11,card12}
 
@@ -18,7 +19,7 @@ var card_data = {
 		"Card1", "Card1 description", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		# "res://Assets/cards/images/card1.png", #card front
-		"", # card back
+		"res://Assets/cards/images/card-back.png", # card back
 		#[], #pre player phase
 		[ # player phase
 			set_action(life_pools.RED, target.SELF, 2, 0, 0, 1),
@@ -34,7 +35,7 @@ var card_data = {
 		"Card2", "Card2 description", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		# "res://Assets/cards/images/card2.png", #card front
-		"", # card back
+		"res://Assets/cards/images/card-back.png", # card back
 		#[], #pre player phase
 		[ # player phase
 			set_action(life_pools.GREEN, target.SELF, 2, 0, 0, 1),
@@ -50,7 +51,7 @@ var card_data = {
 		"Card3", "Card3 description", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		# "res://Assets/cards/images/card3.png", #card front
-		"", # card back
+		"res://Assets/cards/images/card-back.png", # card back
 		#[], #pre player phase
 		[ # player phase
 			set_action(life_pools.BLUE, target.SELF, 2, 0, 0, 1),
@@ -66,7 +67,7 @@ var card_data = {
 		"Card4", "Card4 description", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		# "res://Assets/cards/images/card4.png", #card front
-		"", # card back
+		"res://Assets/cards/images/card-back.png", # card back
 		#[], #pre player phase
 		[ # player phase
 			set_action(life_pools.GREEN, target.SELF, 1, 0, 0, 1),
@@ -82,7 +83,7 @@ var card_data = {
 		"Card5", "Card5 description", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		# "res://Assets/cards/images/card5.png", #card front
-		"", # card back
+		"res://Assets/cards/images/card-back.png", # card back
 		#[], #pre player phase
 		[ # player phase
 			set_action(life_pools.GREEN, target.SELF, 2, 0, 0, 1),
@@ -98,7 +99,7 @@ var card_data = {
 		"Card6", "Card6 description", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		# "res://Assets/cards/images/card6.png", #card front
-		"", # card back
+		"res://Assets/cards/images/card-back.png", # card back
 		#[], #pre player phase
 		[ # player phase
 			set_action(life_pools.RED, target.SELF, -3, 0, 0, 1),
@@ -113,7 +114,7 @@ var card_data = {
 		"Card7", "Card7 description", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		# "res://Assets/cards/images/card7.png", #card front
-		"", # card back
+		"res://Assets/cards/images/card-back.png", # card back
 		#[], #pre player phase
 		[ # player phase
 			set_action(life_pools.RED, target.SELF, -2, 0, 0, 1),
@@ -132,7 +133,7 @@ var card_data = {
 		"Card8", "Card8 description", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		# "res://Assets/cards/images/card8.png", #card front
-		"", # card back
+		"res://Assets/cards/images/card-back.png", # card back
 		#[], #pre player phase
 		[ # player phase
 			set_action(life_pools.RED, target.SELF, 8, 0, 0, 1),
@@ -147,7 +148,7 @@ var card_data = {
 		"Card9", "Card9 description", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		# "res://Assets/cards/images/card9.png", #card front
-		"", # card back
+		"res://Assets/cards/images/card-back.png", # card back
 		#[], #pre player phase
 		[ # player phase
 			set_action(life_pools.RED, target.SELF, 4, 0, 0, 1),
@@ -165,7 +166,7 @@ var card_data = {
 		"Card10 ", "Card10  description", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		# "res://Assets/cards/images/card10.png", #card front
-		"", # card back
+		"res://Assets/cards/images/card-back.png", # card back
 		#[], #pre player phase
 		[ # player phase
 			set_action(life_pools.RED, target.SELF, 1, 0, 0, 1),
@@ -181,7 +182,7 @@ var card_data = {
 		"Card11", "Card11 description", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		# "res://Assets/cards/images/card11.png", #card front
-		"", # card back
+		"res://Assets/cards/images/card-back.png", # card back
 		#[], #pre player phase
 		[ # player phase
 			set_action(life_pools.BLUE, target.SELF, 8, 0, 0, 1),
@@ -198,7 +199,7 @@ var card_data = {
 		"Card12", "Card12 description", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		# "res://Assets/cards/images/card12.png", #card front
-		"", # card back
+		"res://Assets/cards/images/card-back.png", # card back
 		#[], #pre player phase
 		[ # player phase
 			set_action(life_pools.RED, target.SELF, 4, 0, 0, 1),
@@ -263,6 +264,8 @@ func get_target_enum():
 func get_pool_enum():
 	return life_pools
 	
+func get_card_state_enum():
+	return card_state
 	
 func preparePoolStrings(lines):
 	var redLine = []
