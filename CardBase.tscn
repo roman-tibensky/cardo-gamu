@@ -254,3 +254,10 @@ rect_min_size = Vector2( 0, 10 )
 
 [node name="CardBack" type="Sprite" parent="."]
 centered = false
+
+[node name="FocusButton" type="TextureButton" parent="."]
+margin_right = 205.0
+margin_bottom = 250.0
+
+[connection signal="mouse_entered" from="FocusButton" to="." method="_on_FocusButton_mouse_entered"]
+[connection signal="mouse_exited" from="FocusButton" to="." method="_on_FocusButton_mouse_exited"]

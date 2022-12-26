@@ -6,7 +6,7 @@ var DeckCardSize = Vector2(205, 250)
 const CardBase = preload("res://CardBase.tscn")
 const PlayerHand = preload("res://Player_Hand.gd")
 var cardSelected
-onready var deckSize = PlayerHand.HandCards.size()
+onready var deckSize = PlayerHand.DeckCards.size()
 onready var CardStateEnum = preload("res://Assets/cards/card_management.gd").new().get_card_state_enum()
 
 # some horrifying oval math thing
@@ -31,33 +31,35 @@ func draw_card():
 	var new_card = CardBase.instance()
 	cardSelected = randi() % deckSize
 	
-	new_card.cardName = PlayerHand.HandCards[cardSelected]
+	new_card.cardName = PlayerHand.DeckCards[cardSelected]
 
 	# continue horrifying oval math thing
 	ovalAngleVector = Vector2(horRad * cos(angle), -verRad * sin(angle))
 	new_card.startPos= $Deck.position
 	new_card.targetPos= centerCardOval + ovalAngleVector - CardSize/2
+	new_card.cardPos = new_card.targetPos
 	
 	#TODO: pixelated and ugly; research why later -check anti-aliasing maybe?
 	new_card.startRot= 0
 	#new_card.targetrot = (90 - rad2deg(angle)) / 4
 	
 	new_card.rect_scale *= CardSize/new_card.rect_size
-	
-	
+	new_card.cardNumber = $CardsInHand.get_children().size()	
 	
 	new_card.state = CardStateEnum.MoveDrawnCardToHand
 	
 	#reorganize cards when pushing new card
 	var cardNum = 0
-	for Card in $Cards.get_children():
+	for Card in $CardsInHand.get_children():
 		var handCardAngle = PI/2 + cardSpread*(float(handSize)/2 - cardNum)
 		var handCardOvalAngleVector = Vector2(horRad * cos(handCardAngle), -verRad * sin(handCardAngle))
 		
 		Card.targetPos= centerCardOval + handCardOvalAngleVector - CardSize/2
+		Card.cardPos = Card.targetPos #card default position
 		#TODO: pixelated and ugly; research why later -check anti-aliasing maybe?
 		#Card.startRot= Card.rect_rotation
 		#Card.targetrot = (90 - rad2deg(handCardAngle)) / 4
+
 		
 		cardNum += 1
 		
@@ -70,11 +72,11 @@ func draw_card():
 			Card.startPos = Card.targetPos - ((Card.targetPos - Card.rect_position )/(1 - Card.t))
 			pass
 		
-	$Cards.add_child(new_card)
-	PlayerHand.HandCards.remove(cardSelected)
+	$CardsInHand.add_child(new_card)
+	PlayerHand.DeckCards.remove(cardSelected)
 	
 	angle += cardSpread
-	deckSize = PlayerHand.HandCards.size()
+	deckSize = PlayerHand.DeckCards.size()
 	
 	handSize += 1
 	#cardNumber += 1

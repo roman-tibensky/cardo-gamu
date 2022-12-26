@@ -1,4 +1,4 @@
-const HandCards = [
+const DeckCards = [
 	"card1",
 	"card5",
 	"card2",
