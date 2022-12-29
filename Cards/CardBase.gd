@@ -8,6 +8,7 @@ var cardList
 var cardName = 'card1'
 var cardNumber
 var state
+var oldState
 var startPos = 0
 var startRot = 0
 var startScale = Vector2()
@@ -15,20 +16,24 @@ var cardPos = Vector2()
 var cardSize = Vector2()
 var targetPos = 0
 var targetRot = 0
+var targetScale = Vector2()
 
 
 
 
 var setup = true
+var movingIntoPlay = false
 var reorganizeNeighbours = true
 var moveNeighbourgCardCheck = false
 var t = 0
 var drawSpeed = 2
 var organizeSpeed = 4
-
+var grabSpeed = 5
 var zoomInSize = 1.5
 var zoomSpeed = 4
 var handSize = 0
+
+var canSelect = true
 
 onready var origScale = rect_scale
 
@@ -55,13 +60,104 @@ func _ready():
 	$TextGrid/DescCont/DescContainer/CenterContainer/Desc.text = card.description
 
 
+func _input(event):
+	match state:
+		CardStateEnum.InFocus, CardStateEnum.InGrab, CardStateEnum.InPlay:
+			if event.is_action_pressed("left_click") && canSelect:
+				oldState = state
+				state = CardStateEnum.InGrab
+				setup = true
+				canSelect = false
+			if event.is_action_released("left_click") && !canSelect:
+				if oldState == CardStateEnum.InFocus:
+					var cardSlots = $'../../CardSlots'
+					var cardSlotsEmpty = $'../../'.cardSlotEmpty
+					for i in range(cardSlots.get_child_count()):
+						if cardSlotsEmpty[i]:
+							var cardSlotPos = cardSlots.get_child(i).rect_position
+							var cardSlotSize = cardSlots.get_child(i).rect_size
+							var mousepos = get_global_mouse_position()
+							if mousepos < cardSlotPos + cardSlotSize && mousepos > cardSlotPos:
+								setup = true
+								movingIntoPlay = true
+								#targetPos = cardSlotPos - $'../../'.CardSize/2
+								targetPos = cardSlotPos - cardSlotSize/2 + Vector2(15,15)
+								targetScale = cardSlotSize/rect_size
+								state = CardStateEnum.InPlay
+								canSelect = true
+								break
+					
+					if state != CardStateEnum.InPlay:
+						setup = true
+						targetPos = cardPos
+						state = CardStateEnum.ReorganizeHand
+						canSelect = true
+						
+				else: #handle if card was successfully played?
+					var enemies = $'../../Enemies'
+					for i in range(enemies.get_child_count()):
+						var enemytPos = enemies.get_child(i).rect_position
+						var enemySize = enemies.get_child(i).rect_size
+						var mousepos = get_global_mouse_position()
+						if mousepos < enemytPos + enemySize && mousepos > enemytPos:
+							#deal with effects
+							setup = true
+							movingIntoPlay = true
+							#targetPos = enemytPos - $'../../'.CardSize/2
+							state = CardStateEnum.InPlay
+							canSelect = true
+							break
+					
+					if !canSelect:
+						setup = true
+						movingIntoPlay = true
+						state = CardStateEnum.InPlay
+						canSelect = true
+	
+
 func _physics_process(delta):
 	match state:
 		CardStateEnum.InHand:
 			pass
 		CardStateEnum.InPlay:
+			if movingIntoPlay:
+				if setup:
+					setup_card()
+					
+				if t <= 1:
+					#TODO: use Tween instead - tutorial 3B
+					rect_position = startPos.linear_interpolate(targetPos,t)
+					rect_scale = startScale.linear_interpolate(targetScale,t)
+					#rect_rotation = startRot * (1-t) + targetRot*t
+
+
+					#to control the speed of process
+					t += delta * float(grabSpeed)
+				else:
+					rect_position = targetPos
+					rect_scale = targetScale
+					#rect_rotation = 0
+					movingIntoPlay = false
 			pass
 		CardStateEnum.InGrab:
+			var middleOfCardHold = get_global_mouse_position() - ($'../../'.CardSize)
+			if setup:
+				setup_card()
+				
+			if t <= 1:
+				#TODO: use Tween instead - tutorial 3B
+				rect_position = startPos.linear_interpolate(middleOfCardHold,t)
+				rect_scale = startScale.linear_interpolate(origScale,t)
+				#rect_rotation = startRot * (1-t) + targetRot*t
+
+
+				#to control the speed of process
+				t += delta * float(grabSpeed)
+			else:
+				rect_position = middleOfCardHold
+				#rect_scale = startScale
+				#rect_rotation = 0
+				
 			pass
 		CardStateEnum.InFocus:
 			if setup:
@@ -94,8 +190,12 @@ func _physics_process(delta):
 				rect_position = targetPos
 				rect_scale = origScale*zoomInSize
 				#rect_rotation = targetrot
+			pass
 		CardStateEnum.MoveDrawnCardToHand:
 			if t <= 1:
+				if setup:
+					setup_card()
+				
 				#TODO: use Tween instead - tutorial 3B
 				rect_position = startPos.linear_interpolate(targetPos,t)
 				#rect_rotation = startRot * (1-t) + targetRot*t
@@ -158,7 +258,7 @@ func _on_FocusButton_mouse_entered():
 		CardStateEnum.InHand, CardStateEnum.ReorganizeHand:
 			setup = true
 			targetPos = cardPos
-			targetPos.y = get_viewport().size.y - $'../../'.CardSize.y*zoomInSize
+			targetPos.y = get_viewport().size.y - $'../../'.CardSize.y*zoomInSize*1.05
 			targetRot = 0
 			
 			state = CardStateEnum.InFocus
