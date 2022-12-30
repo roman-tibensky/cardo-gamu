@@ -1,6 +1,6 @@
 enum life_pools {RED, BLUE, GREEN}
 enum target {SINGLE, RANDOM, ALL, SELF}
-enum card_state {InHand, InPlay, InGrab, InFocus, MoveDrawnCardToHand, ReorganizeHand}
+enum card_state {InHand, InPlay, InGrab, InFocus, MoveDrawnCardToHand, MoveToDiscardPile, ReorganizeHand}
 
 enum {card1,card2,card3,card4,card5,card6,card7,card8,card9,card10,card11,card12}
 
@@ -225,7 +225,7 @@ func set_body(
 	new_name, new_description, new_source_front, new_source_back,
 	#new_pre_player_phase, 
 	# new_player_phase
-	new_action 
+	new_actions 
 	#new_post_player_phase,
 	#new_pre_enemy_phase, new_enemy_phase, new_post_enemy_phase
 ):
@@ -236,7 +236,7 @@ func set_body(
 		source_back= new_source_back,
 		#pre_player_phase= new_pre_player_phase,
 		#player_phase= new_player_phase,
-		action= new_action,
+		actions= new_actions,
 		#post_player_phase= new_post_player_phase,
 		#pre_enemy_phase= new_pre_enemy_phase,
 		#enemy_phase= new_enemy_phase,

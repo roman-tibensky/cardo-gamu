@@ -4,9 +4,12 @@ extends MarginContainer
 var CardList = preload("res://Assets/cards/card_management.gd")
 onready var CardStateEnum = CardList.new().get_card_state_enum()
 
+
 var cardList
 var cardName = 'card1'
 var cardNumber
+var card
+
 var state
 var oldState
 var startPos = 0
@@ -17,6 +20,9 @@ var cardSize = Vector2()
 var targetPos = 0
 var targetRot = 0
 var targetScale = Vector2()
+
+
+var discardPile = Vector2()
 
 
 
@@ -34,6 +40,8 @@ var zoomSpeed = 4
 var handSize = 0
 
 var canSelect = true
+var movingToDiscard = false
+
 
 onready var origScale = rect_scale
 
@@ -42,8 +50,8 @@ onready var origScale = rect_scale
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	cardList = CardList.new()
-	var card = cardList.get_card_data()[cardName]
-	var poolsText = cardList.preparePoolStrings(card.action)
+	card = cardList.get_card_data()[cardName]
+	var poolsText = cardList.preparePoolStrings(card.actions)
 	cardSize = rect_size
 	
 	$CardFront.texture = load(card.source_front)
@@ -101,10 +109,15 @@ func _input(event):
 						var mousepos = get_global_mouse_position()
 						if mousepos < enemytPos + enemySize && mousepos > enemytPos:
 							#deal with effects
+							$'../../'.calculate_card_effects(card.actions, enemies.get_child(i))
+							
+							#discard card upon playing it
+							movingToDiscard = true
+							
 							setup = true
 							movingIntoPlay = true
 							#targetPos = enemytPos - $'../../'.CardSize/2
-							state = CardStateEnum.InPlay
+							state = CardStateEnum.MoveToDiscardPile
 							canSelect = true
 							break
 					
@@ -191,6 +204,28 @@ func _physics_process(delta):
 				rect_scale = origScale*zoomInSize
 				#rect_rotation = targetrot
 			pass
+		CardStateEnum.MoveToDiscardPile:
+			if movingToDiscard:
+				if setup:
+					setup_card()
+					targetPos = discardPile
+					
+				if t <= 1:
+					#TODO: use Tween instead - tutorial 3B
+					rect_position = startPos.linear_interpolate(targetPos,t)
+					rect_scale = startScale.linear_interpolate(origScale,t)
+					#rect_rotation = startRot * (1-t) + targetRot*t
+
+					#to control the speed of process
+					t += delta * float(drawSpeed)
+				else:
+					rect_position = targetPos
+					
+					movingToDiscard = false
+					#rect_scale = startScale
+					#rect_rotation = 0
+					
+				pass
 		CardStateEnum.MoveDrawnCardToHand:
 			if t <= 1:
 				if setup:
@@ -211,7 +246,6 @@ func _physics_process(delta):
 				rect_position = targetPos
 				#rect_rotation = targetrot
 				state = CardStateEnum.InHand
-				t = 0
 			pass
 		CardStateEnum.ReorganizeHand:
 			if setup:

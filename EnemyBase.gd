@@ -49,7 +49,18 @@ func _ready():
 	
 	pass # Replace with function body.
 
-
+func manageHealth():
+	
+	rCurrent -= 5 
+	gCurrent -= 5 
+	bCurrent -= 5 
+	$VBoxContainer/RBarWGaps/RBar/TextureProgress.value = rCurrent
+	$VBoxContainer/GBarWGaps/GBar/TextureProgress.value = gCurrent
+	$VBoxContainer/BBarWGaps/BBar/TextureProgress.value = bCurrent
+	
+	$VBoxContainer/RBarWGaps/RBar/Count/Background/Number.text = str(rCurrent)
+	$VBoxContainer/GBarWGaps/GBar/Count/Background/Number.text = str(gCurrent)
+	$VBoxContainer/BBarWGaps/BBar/Count/Background/Number.text = str(bCurrent)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
