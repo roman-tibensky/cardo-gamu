@@ -2,26 +2,30 @@ extends Node2D
 
 #var CardSize = Vector2(281, 338)
 var CardSize = Vector2(117, 142)
+var EnemySizeRegular = Vector2(400, 200)
+var EnemySizeMid = Vector2(300, 200)
+var EnemySizeBoss = Vector2(300, 200)
 #var CardSize = Vector2(168, 203)
 var DeckCardSize = Vector2(117, 142)
 #var DeckCardSize = Vector2(205, 250)
 const CardBase = preload("res://Cards/CardBase.tscn")
 const PlayerHand = preload("res://Cards/Player_Hand.gd")
 const CardSlot = preload("res://Cards/CardSlot.tscn")
+
 var cardSelected
 onready var deckSize = PlayerHand.DeckCards.size()
 onready var CardStateEnum = preload("res://Assets/cards/card_management.gd").new().get_card_state_enum()
 
-onready var deckPosition = $Deck.position - CardSize/2  + Vector2(15,15)
-onready var discardPosition = $DiscardPile.position - CardSize/2  + Vector2(15,15)
+onready var deckPosition = $Deck.position
+onready var discardPosition = $DiscardPile.position
 
 # some horrifying oval math thing
-onready var centerCardOval = get_viewport().size * Vector2(0.5, 1.25)
+onready var centerCardOval = get_viewport().size * Vector2(0.5, 1.45)
 onready var horRad = get_viewport().size.x * 0.45
 onready var verRad = get_viewport().size.y * 0.45
 
 var angle = deg2rad(90) - 0.6
-var cardSpread = 0.2
+var cardSpread = 0.2 * CardSize.x/117
 var ovalAngleVector = Vector2()
 
 var playerRed = 20
@@ -29,6 +33,8 @@ var playerGreen = 20
 var playerBlue = 20
 
 var handSize = -1
+
+var arrowStartPosition
 #var cardNumber = 1
 
 var cardSlotEmpty = []
@@ -39,14 +45,15 @@ func _ready():
 	randomize()
 	$Enemies/EnemyBase.visible = true
 	$Enemies/EnemyBase.rect_position = get_viewport().size  * 0.4 + Vector2(200, 0)
-	$Enemies/EnemyBase.rect_scale *= CardSize/$Enemies/EnemyBase.rect_size
+	$Enemies/EnemyBase.rect_scale *= EnemySizeRegular/$Enemies/EnemyBase.rect_size
 	
-	var newSlot = CardSlot.instance()
-	newSlot.rect_position = get_viewport().size * 0.4
-	newSlot.rect_size = CardSize
-	#newSlot.rect_scale *= CardSize/newSlot.rect_size
-	$CardSlots.add_child(newSlot)
-	cardSlotEmpty.append(true)
+	#TODO: try withuot card slots
+	#var newSlot = CardSlot.instance()
+	#newSlot.rect_position = get_viewport().size * 0.4
+	#newSlot.rect_size = CardSize
+	#$CardSlots.add_child(newSlot)
+	#cardSlotEmpty.append(true)
+	
 
 
 func draw_card():
@@ -95,13 +102,20 @@ func calculate_card_effects(actions, enemy):
 	#TODO: after the tutorial, the actual damage and stuff
 	pass
 	
+func ReParentCard(CardNo):
+	var Card = $CardsInHand.get_child(CardNo)
+	$CardsInHand.remove_child(Card)
+	$CardsInPlay.add_child(Card)
+	handSize -= 1
+	organizeHand()
+	
 func organizeHand():
 	var cardNum = 0
 	for Card in $CardsInHand.get_children():
 		var handCardAngle = PI/2 + cardSpread*(float(handSize)/2 - cardNum)
 		var handCardOvalAngleVector = Vector2(horRad * cos(handCardAngle), -verRad * sin(handCardAngle))
 		
-		Card.targetPos= centerCardOval + handCardOvalAngleVector - CardSize/2
+		Card.targetPos= centerCardOval + handCardOvalAngleVector - Vector2(0, CardSize.y)
 		Card.cardPos = Card.targetPos #card default position
 		#TODO: pixelated and ugly; research why later -check anti-aliasing maybe?
 		#Card.startRot= Card.rect_rotation
@@ -117,5 +131,6 @@ func organizeHand():
 			#Card.startPos= Card.rect_position
 			pass
 		elif Card.state == CardStateEnum.MoveDrawnCardToHand:
+			Card.t -= 0.1
 			Card.startPos = Card.targetPos - ((Card.targetPos - Card.rect_position )/(1 - Card.t))
 			pass

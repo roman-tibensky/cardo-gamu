@@ -82,6 +82,7 @@ func _input(event):
 					var cardSlotsEmpty = $'../../'.cardSlotEmpty
 					for i in range(cardSlots.get_child_count()):
 						if cardSlotsEmpty[i]:
+							cardSlotsEmpty[i] = false
 							var cardSlotPos = cardSlots.get_child(i).rect_position
 							var cardSlotSize = cardSlots.get_child(i).rect_size
 							var mousepos = get_global_mouse_position()
@@ -89,7 +90,7 @@ func _input(event):
 								setup = true
 								movingIntoPlay = true
 								#targetPos = cardSlotPos - $'../../'.CardSize/2
-								targetPos = cardSlotPos - cardSlotSize/2 + Vector2(15,15)
+								targetPos = cardSlotPos # - cardSlotSize/2 + Vector2(15,15)
 								targetScale = cardSlotSize/rect_size
 								state = CardStateEnum.InPlay
 								canSelect = true
@@ -151,9 +152,10 @@ func _physics_process(delta):
 					rect_scale = targetScale
 					#rect_rotation = 0
 					movingIntoPlay = false
+					$'../../'.ReParentCard(cardNumber)
 			pass
 		CardStateEnum.InGrab:
-			var middleOfCardHold = get_global_mouse_position() - ($'../../'.CardSize)
+			var middleOfCardHold = get_global_mouse_position() - ($'../../'.CardSize)/2
 			if setup:
 				setup_card()
 				
@@ -291,7 +293,7 @@ func _on_FocusButton_mouse_entered():
 	match state:
 		CardStateEnum.InHand, CardStateEnum.ReorganizeHand:
 			setup = true
-			targetPos = cardPos
+			targetPos.x = cardPos.x - $'../../'.CardSize.x/2
 			targetPos.y = get_viewport().size.y - $'../../'.CardSize.y*zoomInSize*1.05
 			targetRot = 0
 			

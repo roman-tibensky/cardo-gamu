@@ -14,7 +14,6 @@ font_data = ExtResource( 2 )
 [node name="CardBase" type="MarginContainer"]
 margin_right = 205.0
 margin_bottom = 250.0
-rect_pivot_offset = Vector2( 102.5, 125 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
