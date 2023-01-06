@@ -12,11 +12,11 @@ const multipleChar = "x"
 const countDownChar = "T"
 
 
-var card_data = {
-	card1 = set_body(
-		"Enemy 1", "Is definitely something you wnat to kill let me tell you", #Name, Description
-		"res://Assets/enemies/images/enemy1.png", #card front
-		20,20,20, #RED, GREEN, BLUE health
+var enemy_data = {
+	enemy1 = set_body(
+		"Enemy 1", "Is definitely something you want to kill let me tell you", #Name, Description
+		"res://Assets/enemies/images/enemy1.png", #enemy background
+		15,15,15, #RED, GREEN, BLUE health
 
 		#[], #pre player phase
 		[ #actions to be cycled through
@@ -37,10 +37,13 @@ var card_data = {
 	)
 }
 
+func get_enemy_data():
+	return enemy_data
+
 
 func set_body(
 	new_name, new_description, new_source_front,
-	maxRedPool, maxGreenPool, maxBluePool,
+	new_maxRedPool, new_maxGreenPool, new_maxBluePool,
 	#new_pre_player_phase, 
 	# new_player_phase
 	new_cycle_of_actions 
@@ -48,9 +51,12 @@ func set_body(
 	#new_pre_enemy_phase, new_enemy_phase, new_post_enemy_phase
 ):
 	return {
-		enemy_name= new_name,
+		name= new_name,
 		description= new_description,
 		source_front= new_source_front,
+		maxRedPool= new_maxRedPool,
+		maxGreenPool= new_maxGreenPool,
+		maxBluePool= new_maxBluePool,
 		#pre_player_phase= new_pre_player_phase,
 		#player_phase= new_player_phase,
 		actions= new_cycle_of_actions,

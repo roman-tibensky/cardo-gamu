@@ -16,17 +16,20 @@ var bMax
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	rCurrent = 20
-	rMax = 20
-	gCurrent = 20
-	gMax = 20
-	bCurrent = 20
-	bMax = 20
+func setup_enemy(enemy):
+	rCurrent = enemy.maxRedPool
+	rMax = enemy.maxRedPool
+	gCurrent = enemy.maxGreenPool
+	gMax = enemy.maxGreenPool
+	bCurrent = enemy.maxBluePool
+	bMax = enemy.maxBluePool
+	
+	$VBoxContainer/DescWGaps/DescContainer/CenterContainer/Description.text = enemy.description
+	$VBoxContainer/NameWGaps/NameContainer/CenterContainer/Name.text = enemy.name  
 	
 		
-	$CardFront.texture = load("res://Assets/enemies/images/enemy1.png")
-	$CardFront.scale *= rect_size/$CardFront.texture.get_size()
+	$EnemyBackround.texture = load("res://Assets/enemies/images/enemy1.png")
+	$EnemyBackround.scale *= rect_size/$EnemyBackround.texture.get_size()
 	
 	$VBoxContainer/StatsContainer/LifeContainer/RBarWGaps/RBar/TextureProgress.max_value = rMax
 	$VBoxContainer/StatsContainer/LifeContainer/RBarWGaps/RBar/TextureProgress.value = rCurrent

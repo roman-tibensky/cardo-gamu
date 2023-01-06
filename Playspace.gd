@@ -2,15 +2,17 @@ extends Node2D
 
 #var CardSize = Vector2(281, 338)
 var CardSize = Vector2(117, 142)
-var EnemySizeRegular = Vector2(400, 200)
-var EnemySizeMid = Vector2(300, 200)
-var EnemySizeBoss = Vector2(300, 200)
+var EnemySizeRegular = Vector2(400, 264)
+var EnemySizeMid = Vector2(400, 264)
+var EnemySizeBoss = Vector2(400, 264)
 #var CardSize = Vector2(168, 203)
 var DeckCardSize = Vector2(117, 142)
 #var DeckCardSize = Vector2(205, 250)
 const CardBase = preload("res://Cards/CardBase.tscn")
 const PlayerHand = preload("res://Cards/Player_Hand.gd")
 const CardSlot = preload("res://Cards/CardSlot.tscn")
+onready var EnemiesData = preload("res://Assets/enemies/enemy_management.gd")
+var enemy
 
 var cardSelected
 onready var deckSize = PlayerHand.DeckCards.size()
@@ -43,6 +45,9 @@ var cardSlotEmpty = []
 func _ready():
 	#$Deck/DeckDraw.rect_scale *= DeckCardSize/$Deck/DeckDraw.rect_size
 	randomize()
+	var enemyData = EnemiesData.new()
+	enemy = $Enemies/EnemyBase
+	enemy.setup_enemy(enemyData.get_enemy_data()['enemy1'])
 	$Enemies/EnemyBase.visible = true
 	$Enemies/EnemyBase.rect_position = get_viewport().size  * 0.4 + Vector2(200, 0)
 	$Enemies/EnemyBase.rect_scale *= EnemySizeRegular/$Enemies/EnemyBase.rect_size
