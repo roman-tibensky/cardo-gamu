@@ -102,8 +102,8 @@ func draw_card():
 	return deckSize
 		
 		
-func calculate_card_effects(actions, enemy):
-	enemy.manageHealth()
+func calculate_card_effects(actions, target):
+	target.manageHealth()
 	#TODO: after the tutorial, the actual damage and stuff
 	pass
 	

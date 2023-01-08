@@ -1,5 +1,8 @@
 extends MarginContainer
 
+onready var EnemiesData = preload("res://Assets/enemies/enemy_management.gd")
+var enemyData
+var enemy
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -14,9 +17,16 @@ var gMax
 var bCurrent
 var bMax
 
+var actionStage = 0
+
+func _ready():
+	enemyData = EnemiesData.new()
+	pass
+
 
 # Called when the node enters the scene tree for the first time.
-func setup_enemy(enemy):
+func setup_enemy(enemySetup):
+	enemy = enemySetup
 	rCurrent = enemy.maxRedPool
 	rMax = enemy.maxRedPool
 	gCurrent = enemy.maxGreenPool
@@ -49,8 +59,19 @@ func setup_enemy(enemy):
 	$VBoxContainer/StatsContainer/LifeContainer/BBarWGaps/BBar/Count/Background/Number.text = str(bCurrent)
 	$VBoxContainer/StatsContainer/LifeContainer/BBarWGaps/BBar/TextureProgress.set_tint_progress(Color(0.16,0.32,0.68,1))
 	
+	generateActions()
+	pass
 	
-	pass # Replace with function body.
+	
+func switchToNextAction():
+	actionStage += 1
+	generateActions()
+	
+func generateActions():
+	var poolsText = enemyData.preparePoolStrings(enemy.actions[actionStage])
+	$VBoxContainer/StatsContainer/ActionContainer/RedActionWGap/RedActionContainer/CenterContainer/RedAction.text = poolsText.red
+	$VBoxContainer/StatsContainer/ActionContainer/GreenActionWGap/GreenActionContainer/CenterContainer/GreenAction.text = poolsText.green
+	$VBoxContainer/StatsContainer/ActionContainer/BlueActionWGap/BlueActionContainer/CenterContainer/BlueAction.text = poolsText.blue
 
 func manageHealth():
 	
@@ -69,9 +90,9 @@ func manageHealth():
 #	pass
 
 func _on_FocusButton_mouse_entered():
-	$CardFront.material.set_shader_param("onoff",1)
-	$CardFront.material.set_shader_param("color",Color(0,255, 255, 255))
+	$EnemyBackround.material.set_shader_param("onoff",1)
+	$EnemyBackround.material.set_shader_param("color",Color(0,255, 255, 255))
 
 
 func _on_FocusButton_mouse_exited():
-	$CardFront.material.set_shader_param("onoff",0)
+	$EnemyBackround.material.set_shader_param("onoff",0)

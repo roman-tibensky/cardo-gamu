@@ -12,7 +12,7 @@ func _ready():
 	rect_scale *= $"../..".CardSize/rect_size
 
 
-func _gui_input(event):
+func _gui_input(_event):
 	if Input.is_action_just_released("left_click"):
 	#if Input.is_action_just_pressed("left_click"):
 		if deckSize > 0:
