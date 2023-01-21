@@ -2,8 +2,9 @@ extends MarginContainer
 #enum CardStateEnum {InHand, InPlay, InGrab, InFocus, MoveDrawnCardToHand, ReorganizeHand}
 
 var CardList = preload("res://Assets/cards/card_management.gd")
-onready var CardStateEnum = CardList.new().get_card_state_enum()
+#const CardStateEnum = CardList.new().get_card_state_enum()
 
+enum card_state {InHand, InPlay, InGrab, InFocus, MoveDrawnCardToHand, MoveToDiscardPile, ReorganizeHand}
 
 var cardList
 var cardName = 'card1'
@@ -12,17 +13,17 @@ var card
 
 var state
 var oldState
-var startPos = 0
+var startPos = Vector2()
 var startRot = 0
-var startScale = Vector2()
-var cardPos = Vector2()
-var cardSize = Vector2()
-var targetPos = 0
+var startScale = Vector2i()
+var cardPos = Vector2i()
+var cardSize = Vector2i()
+var targetPos = Vector2()
 var targetRot = 0
-var targetScale = Vector2()
+var targetScale = Vector2i()
 
 
-var discardPile = Vector2()
+var discardPile = Vector2i()
 
 
 
@@ -43,7 +44,7 @@ var canSelect = true
 var movingToDiscard = false
 
 
-onready var origScale = rect_scale
+@onready var origScale = scale
 
 #onready var card_info = card_list.get_card_data()[card_name]
 
@@ -52,7 +53,7 @@ func _ready():
 	cardList = CardList.new()
 	card = cardList.get_card_data()[cardName]
 	var poolsText = cardList.preparePoolStrings(card.actions)
-	cardSize = rect_size
+	cardSize = size
 	
 	$CardFront.texture = load(card.source_front)
 	$CardFront.scale *= cardSize/$CardFront.texture.get_size()
@@ -69,44 +70,45 @@ func _ready():
 
 
 func _input(event):
+	#const cardEnum = CardList.new().get_card_state_enum()
 	match state:
-		CardStateEnum.InFocus, CardStateEnum.InGrab, CardStateEnum.InPlay:
+		card_state.InFocus, card_state.InGrab, card_state.InPlay:
 			if event.is_action_pressed("left_click") && canSelect:
 				oldState = state
-				state = CardStateEnum.InGrab
+				state = card_state.InGrab
 				setup = true
 				canSelect = false
 			if event.is_action_released("left_click") && !canSelect:
-				if oldState == CardStateEnum.InFocus:
+				if oldState == card_state.InFocus:
 					var cardSlots = $'../../CardSlots'
 					var cardSlotsEmpty = $'../../'.cardSlotEmpty
 					for i in range(cardSlots.get_child_count()):
 						if cardSlotsEmpty[i]:
 							cardSlotsEmpty[i] = false
-							var cardSlotPos = cardSlots.get_child(i).rect_position
-							var cardSlotSize = cardSlots.get_child(i).rect_size
+							var cardSlotPos = cardSlots.get_child(i).position
+							var cardSlotSize = cardSlots.get_child(i).size
 							var mousepos = get_global_mouse_position()
 							if mousepos < cardSlotPos + cardSlotSize && mousepos > cardSlotPos:
 								setup = true
 								movingIntoPlay = true
 								#targetPos = cardSlotPos - $'../../'.CardSize/2
-								targetPos = cardSlotPos # - cardSlotSize/2 + Vector2(15,15)
-								targetScale = cardSlotSize/rect_size
-								state = CardStateEnum.InPlay
+								targetPos = cardSlotPos # - cardSlotSize/2 + Vector2i(15,15)
+								targetScale = cardSlotSize/size
+								state = card_state.InPlay
 								canSelect = true
 								break
 					
-					if state != CardStateEnum.InPlay:
+					if state != card_state.InPlay:
 						setup = true
 						targetPos = cardPos
-						state = CardStateEnum.ReorganizeHand
+						state = card_state.ReorganizeHand
 						canSelect = true
 						
 				else: #handle if card was successfully played?
 					var enemies = $'../../Enemies'
 					for i in range(enemies.get_child_count()):
-						var enemytPos = enemies.get_child(i).rect_position
-						var enemySize = enemies.get_child(i).rect_size
+						var enemytPos = enemies.get_child(i).position
+						var enemySize = enemies.get_child(i).size
 						var mousepos = get_global_mouse_position()
 						if mousepos < enemytPos + enemySize && mousepos > enemytPos:
 							#deal with effects
@@ -118,71 +120,71 @@ func _input(event):
 							setup = true
 							movingIntoPlay = true
 							#targetPos = enemytPos - $'../../'.CardSize/2
-							state = CardStateEnum.MoveToDiscardPile
+							state = card_state.MoveToDiscardPile
 							canSelect = true
 							break
 					
 					if !canSelect:
 						setup = true
 						movingIntoPlay = true
-						state = CardStateEnum.InPlay
+						state = card_state.InPlay
 						canSelect = true
 	
 
 func _physics_process(delta):
 	match state:
-		CardStateEnum.InHand:
+		card_state.InHand:
 			pass
-		CardStateEnum.InPlay:
+		card_state.InPlay:
 			if movingIntoPlay:
 				if setup:
 					setup_card()
 					
 				if t <= 1:
 					#TODO: use Tween instead - tutorial 3B
-					rect_position = startPos.linear_interpolate(targetPos,t)
-					rect_scale = startScale.linear_interpolate(targetScale,t)
-					#rect_rotation = startRot * (1-t) + targetRot*t
+					position = startPos.lerp(targetPos,t)
+					scale = startScale.lerp(targetScale,t)
+					#rotation = startRot * (1-t) + targetRot*t
 
 
 					#to control the speed of process
 					t += delta * float(grabSpeed)
 				else:
-					rect_position = targetPos
-					rect_scale = targetScale
-					#rect_rotation = 0
+					position = targetPos
+					scale = targetScale
+					#rotation = 0
 					movingIntoPlay = false
 					$'../../'.ReParentCard(cardNumber)
 			pass
-		CardStateEnum.InGrab:
+		card_state.InGrab:
 			var middleOfCardHold = get_global_mouse_position() - ($'../../'.CardSize)/2
 			if setup:
 				setup_card()
 				
 			if t <= 1:
 				#TODO: use Tween instead - tutorial 3B
-				rect_position = startPos.linear_interpolate(middleOfCardHold,t)
-				rect_scale = startScale.linear_interpolate(origScale,t)
-				#rect_rotation = startRot * (1-t) + targetRot*t
+				position = startPos.lerp(middleOfCardHold,t)
+				scale = startScale.lerp(origScale,t)
+				#rotation = startRot * (1-t) + targetRot*t
 
 
 				#to control the speed of process
 				t += delta * float(grabSpeed)
 			else:
-				rect_position = middleOfCardHold
-				#rect_scale = startScale
-				#rect_rotation = 0
+				position = middleOfCardHold
+				#scale = startScale
+				#rotation = 0
 				
 			pass
-		CardStateEnum.InFocus:
+		card_state.InFocus:
 			if setup:
 				setup_card()
 				
 			if t <= 1:
 				#TODO: use Tween instead - tutorial 3B
-				rect_position = startPos.linear_interpolate(targetPos,t)
-				#rect_rotation = startRot * (1-t) + targetRot*t
-				rect_scale = startScale.linear_interpolate(origScale*zoomInSize,t)
+				position = startPos.lerp(targetPos,t)
+				#rotation = startRot * (1-t) + targetRot*t
+				scale = startScale.lerp(origScale*zoomInSize,t)
 
 				#to control the speed of process
 				t += delta * float(zoomSpeed)
@@ -202,11 +204,11 @@ func _physics_process(delta):
 						moveNeighbourCard(cardNumber +2, false, 0.5)
 				
 			else:
-				rect_position = targetPos
-				rect_scale = origScale*zoomInSize
-				#rect_rotation = targetrot
+				position = targetPos
+				scale = origScale*zoomInSize
+				#rotation = targetrot
 			pass
-		CardStateEnum.MoveToDiscardPile:
+		card_state.MoveToDiscardPile:
 			if movingToDiscard:
 				if setup:
 					setup_card()
@@ -214,50 +216,50 @@ func _physics_process(delta):
 					
 				if t <= 1:
 					#TODO: use Tween instead - tutorial 3B
-					rect_position = startPos.linear_interpolate(targetPos,t)
-					rect_scale = startScale.linear_interpolate(origScale,t)
-					#rect_rotation = startRot * (1-t) + targetRot*t
+					position = startPos.lerp(targetPos,t)
+					scale = startScale.lerp(origScale,t)
+					#rotation = startRot * (1-t) + targetRot*t
 
 					#to control the speed of process
 					t += delta * float(drawSpeed)
 				else:
-					rect_position = targetPos
+					position = targetPos
 					
 					movingToDiscard = false
-					#rect_scale = startScale
-					#rect_rotation = 0
+					#scale = startScale
+					#rotation = 0
 					
 				pass
-		CardStateEnum.MoveDrawnCardToHand:
+		card_state.MoveDrawnCardToHand:
 			if t <= 1:
 				if setup:
 					setup_card()
 				
 				#TODO: use Tween instead - tutorial 3B
-				rect_position = startPos.linear_interpolate(targetPos,t)
-				#rect_rotation = startRot * (1-t) + targetRot*t
+				position = startPos.lerp(targetPos,t)
+				#rotation = startRot * (1-t) + targetRot*t
 
 				#flip ze card
-				rect_scale.x = origScale.x * ( 2*t - 1)
+				scale.x = origScale.x * ( 2*t - 1)
 				if $CardBack.visible && t >= 0.5:
 					$CardBack.visible = false
 
 				#to control the speed of process
 				t += delta * float(drawSpeed)
 			else:
-				rect_position = targetPos
-				#rect_rotation = targetrot
-				state = CardStateEnum.InHand
+				position = targetPos
+				#rotation = targetrot
+				state = card_state.InHand
 			pass
-		CardStateEnum.ReorganizeHand:
+		card_state.ReorganizeHand:
 			if setup:
 				setup_card()
 				
 			if t <= 1:
 				#TODO: use Tween instead - tutorial 3B
-				rect_position = startPos.linear_interpolate(targetPos,t)
-				#rect_rotation = startRot * (1-t) + targetRot*t
-				rect_scale = startScale.linear_interpolate(origScale,t)
+				position = startPos.lerp(targetPos,t)
+				#rotation = startRot * (1-t) + targetRot*t
+				scale = startScale.lerp(origScale,t)
 				if moveNeighbourgCardCheck:
 					moveNeighbourgCardCheck = false
 
@@ -280,10 +282,10 @@ func _physics_process(delta):
 						resetNeighbourCard(cardNumber +2)
 				
 			else:
-				rect_position = targetPos
-				rect_scale = origScale
-				#rect_rotation = targetrot
-				state = CardStateEnum.InHand
+				position = targetPos
+				scale = origScale
+				#rotation = targetrot
+				state = card_state.InHand
 				t = 0
 			pass
 		_:
@@ -291,26 +293,26 @@ func _physics_process(delta):
 
 func _on_FocusButton_mouse_entered():
 	match state:
-		CardStateEnum.InHand, CardStateEnum.ReorganizeHand:
+		card_state.InHand, card_state.ReorganizeHand:
 			setup = true
 			targetPos.x = cardPos.x - $'../../'.CardSize.x/2
 			targetPos.y = get_viewport().size.y - $'../../'.CardSize.y*zoomInSize*1.05
 			targetRot = 0
 			
-			state = CardStateEnum.InFocus
+			state = card_state.InFocus
 			
 
 func _on_FocusButton_mouse_exited():
 	match state:
-		CardStateEnum.InFocus:
+		card_state.InFocus:
 			setup = true
 			targetPos = cardPos
-			state = CardStateEnum.ReorganizeHand
+			state = card_state.ReorganizeHand
 
 func setup_card():
-	startPos = rect_position
-	startRot = rect_rotation
-	startScale = rect_scale
+	startPos = position
+	startRot = rotation
+	startScale = scale
 	t = 0
 	setup = false
 
@@ -325,16 +327,17 @@ func moveNeighbourCard(cardIndex, goesLeft, spreadFactor):
 		neighbourCard.targetPos = neighbourCard.cardPos + spreadFactor*Vector2(baseOfSpread, 0)
 		
 	neighbourCard.setup = true
-	neighbourCard.state = CardStateEnum.ReorganizeHand
+	neighbourCard.state = card_state.ReorganizeHand
 	neighbourCard.moveNeighbourgCardCheck = true
 
 func resetNeighbourCard(cardIndex):
 	var neighbourCard = $'../'.get_child(cardIndex)
 	
 	
-	if neighbourCard.state != CardStateEnum.InFocus && !moveNeighbourgCardCheck:
+	if neighbourCard.state != card_state.InFocus && !moveNeighbourgCardCheck:
 		neighbourCard.targetPos = neighbourCard.cardPos
 		neighbourCard.setup = true
-		neighbourCard.state = CardStateEnum.ReorganizeHand
+		neighbourCard.state = card_state.ReorganizeHand
 
-
+func get_card_state_enum():
+	return card_state

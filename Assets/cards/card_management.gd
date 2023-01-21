@@ -1,6 +1,5 @@
 enum life_pools {RED, BLUE, GREEN}
 enum target {SINGLE, RANDOM, ALL, SELF}
-enum card_state {InHand, InPlay, InGrab, InFocus, MoveDrawnCardToHand, MoveToDiscardPile, ReorganizeHand}
 
 enum {card1,card2,card3,card4,card5,card6,card7,card8,card9,card10,card11,card12}
 
@@ -264,8 +263,6 @@ func get_target_enum():
 func get_pool_enum():
 	return life_pools
 	
-func get_card_state_enum():
-	return card_state
 	
 func preparePoolStrings(lines):
 	var redLine = []
@@ -313,6 +310,6 @@ func preparePoolStrings(lines):
 			life_pools.BLUE:
 				blueLine.append(currentString)
 			
-	return {red= PoolStringArray(redLine).join(" "), green= PoolStringArray(greenLine).join(" "), blue= PoolStringArray(blueLine).join(" ")}
+	return {red= " ".join(PackedStringArray(redLine)), green= " ".join(PackedStringArray(greenLine)), blue= " ".join(PackedStringArray(blueLine))}
 	
 

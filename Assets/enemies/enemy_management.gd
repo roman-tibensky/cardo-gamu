@@ -130,5 +130,5 @@ func preparePoolStrings(lines):
 			life_pools.BLUE:
 				blueLine.append(currentString)
 			
-	return {red= PoolStringArray(redLine).join(" "), green= PoolStringArray(greenLine).join(" "), blue= PoolStringArray(blueLine).join(" ")}
+	return {red= " ".join(PackedStringArray(redLine)), green= " ".join(PackedStringArray(greenLine)), blue= " ".join(PackedStringArray(blueLine))}
 	
