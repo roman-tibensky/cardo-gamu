@@ -49,7 +49,7 @@ layout_mode = 2
 [node name="Name" type="Label" parent="VBoxContainer/NameWGaps/NameContainer/CenterContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3")
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 22
 text = "[insert]"
 
 [node name="RightGap" type="MarginContainer" parent="VBoxContainer/NameWGaps"]
@@ -77,6 +77,7 @@ layout_mode = 2
 
 [node name="Description" type="Label" parent="VBoxContainer/DescWGaps/DescContainer/CenterContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3")
 text = "[insert]"
 
 [node name="RightGap" type="MarginContainer" parent="VBoxContainer/DescWGaps"]
@@ -110,6 +111,7 @@ layout_mode = 2
 
 [node name="Life" type="Label" parent="VBoxContainer/StatsContainer/LifeContainer/LifeLabel/NameContainer/CenterContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3")
 text = "Life"
 
 [node name="RightGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/LifeContainer/LifeLabel"]
@@ -173,6 +175,7 @@ layout_mode = 2
 
 [node name="Next action" type="Label" parent="VBoxContainer/StatsContainer/ActionContainer/NextActionLabel/NameContainer/CenterContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3")
 text = "Next action"
 
 [node name="RightGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/ActionContainer/NextActionLabel"]
@@ -197,6 +200,7 @@ layout_mode = 2
 
 [node name="RedAction" type="Label" parent="VBoxContainer/StatsContainer/ActionContainer/RedActionWGap/RedActionContainer/CenterContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3")
 text = "[insert]"
 
 [node name="RightGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/ActionContainer/RedActionWGap"]
@@ -221,6 +225,7 @@ layout_mode = 2
 
 [node name="GreenAction" type="Label" parent="VBoxContainer/StatsContainer/ActionContainer/GreenActionWGap/GreenActionContainer/CenterContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3")
 text = "[insert]"
 
 [node name="RightGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/ActionContainer/GreenActionWGap"]
@@ -245,6 +250,7 @@ layout_mode = 2
 
 [node name="BlueAction" type="Label" parent="VBoxContainer/StatsContainer/ActionContainer/BlueActionWGap/BlueActionContainer/CenterContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3")
 text = "[insert]"
 
 [node name="RightGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/ActionContainer/BlueActionWGap"]
