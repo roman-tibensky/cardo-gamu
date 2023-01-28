@@ -1,15 +1,31 @@
-[gd_scene load_steps=7 format=3 uid="uid://c1jk1yqn6h0fb"]
+[gd_scene load_steps=8 format=3 uid="uid://c1jk1yqn6h0fb"]
 
-[ext_resource type="PackedScene" path="res://Bar.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://byu2duk3fe248" path="res://Bar.tscn" id="1"]
 [ext_resource type="Script" path="res://EnemyBase.gd" id="2"]
 [ext_resource type="FontFile" uid="uid://dfdbbw8l6wpii" path="res://Assets/fonts/Xolonium-Regular.ttf" id="3"]
 [ext_resource type="Texture2D" uid="uid://d2ujeq2bgoiui" path="res://Assets/cardParts/background shade.png" id="4"]
 [ext_resource type="Shader" path="res://Cards/Inline.gdshader" id="5"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l5fn1"]
+shader = ExtResource("5")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/width = null
+shader_parameter/pattern = null
+shader_parameter/inside = null
+shader_parameter/add_margins = null
+shader_parameter/onoff = null
+
 [sub_resource type="ShaderMaterial" id="4"]
 shader = ExtResource("5")
+shader_parameter/color = null
+shader_parameter/width = null
+shader_parameter/pattern = null
+shader_parameter/inside = null
+shader_parameter/add_margins = null
+shader_parameter/onoff = null
 
 [node name="EnemyBase" type="MarginContainer"]
+material = SubResource("ShaderMaterial_l5fn1")
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("2")
@@ -22,6 +38,7 @@ centered = false
 layout_mode = 2
 
 [node name="TopGap" type="MarginContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 
 [node name="ImageContainer" type="MarginContainer" parent="VBoxContainer"]
@@ -33,6 +50,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="LeftGap" type="MarginContainer" parent="VBoxContainer/NameWGaps"]
+custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 
 [node name="NameContainer" type="MarginContainer" parent="VBoxContainer/NameWGaps"]
@@ -53,6 +71,7 @@ theme_override_font_sizes/font_size = 22
 text = "[insert]"
 
 [node name="RightGap" type="MarginContainer" parent="VBoxContainer/NameWGaps"]
+custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
 [node name="PostName" type="MarginContainer" parent="VBoxContainer"]
@@ -62,6 +81,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="LeftGap" type="MarginContainer" parent="VBoxContainer/DescWGaps"]
+custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 
 [node name="DescContainer" type="MarginContainer" parent="VBoxContainer/DescWGaps"]
@@ -78,9 +98,11 @@ layout_mode = 2
 [node name="Description" type="Label" parent="VBoxContainer/DescWGaps/DescContainer/CenterContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 22
 text = "[insert]"
 
 [node name="RightGap" type="MarginContainer" parent="VBoxContainer/DescWGaps"]
+custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
 [node name="PostDescription" type="MarginContainer" parent="VBoxContainer"]
@@ -96,6 +118,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="LeftGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/LifeContainer/LifeLabel"]
+custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 
 [node name="NameContainer" type="MarginContainer" parent="VBoxContainer/StatsContainer/LifeContainer/LifeLabel"]
@@ -112,6 +135,7 @@ layout_mode = 2
 [node name="Life" type="Label" parent="VBoxContainer/StatsContainer/LifeContainer/LifeLabel/NameContainer/CenterContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 18
 text = "Life"
 
 [node name="RightGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/LifeContainer/LifeLabel"]
@@ -121,10 +145,12 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="LeftGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/LifeContainer/RBarWGaps"]
+custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 
 [node name="RBar" parent="VBoxContainer/StatsContainer/LifeContainer/RBarWGaps" instance=ExtResource("1")]
 layout_mode = 2
+size_flags_horizontal = 12
 
 [node name="RightGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/LifeContainer/RBarWGaps"]
 layout_mode = 2
@@ -133,6 +159,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="LeftGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/LifeContainer/GBarWGaps"]
+custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 
 [node name="GBar" parent="VBoxContainer/StatsContainer/LifeContainer/GBarWGaps" instance=ExtResource("1")]
@@ -145,6 +172,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="LeftGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/LifeContainer/BBarWGaps"]
+custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 
 [node name="BBar" parent="VBoxContainer/StatsContainer/LifeContainer/BBarWGaps" instance=ExtResource("1")]
@@ -154,6 +182,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="ActionContainer" type="VBoxContainer" parent="VBoxContainer/StatsContainer"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
 [node name="NextActionLabel" type="HBoxContainer" parent="VBoxContainer/StatsContainer/ActionContainer"]
@@ -176,12 +205,15 @@ layout_mode = 2
 [node name="Next action" type="Label" parent="VBoxContainer/StatsContainer/ActionContainer/NextActionLabel/NameContainer/CenterContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 18
 text = "Next action"
 
 [node name="RightGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/ActionContainer/NextActionLabel"]
+custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
 [node name="RedActionWGap" type="HBoxContainer" parent="VBoxContainer/StatsContainer/ActionContainer"]
+custom_minimum_size = Vector2(0, 53)
 layout_mode = 2
 
 [node name="LeftGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/ActionContainer/RedActionWGap"]
@@ -200,13 +232,17 @@ layout_mode = 2
 
 [node name="RedAction" type="Label" parent="VBoxContainer/StatsContainer/ActionContainer/RedActionWGap/RedActionContainer/CenterContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.490196, 0.490196, 1)
 theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 20
 text = "[insert]"
 
 [node name="RightGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/ActionContainer/RedActionWGap"]
+custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
 [node name="GreenActionWGap" type="HBoxContainer" parent="VBoxContainer/StatsContainer/ActionContainer"]
+custom_minimum_size = Vector2(0, 53)
 layout_mode = 2
 
 [node name="LeftGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/ActionContainer/GreenActionWGap"]
@@ -225,13 +261,17 @@ layout_mode = 2
 
 [node name="GreenAction" type="Label" parent="VBoxContainer/StatsContainer/ActionContainer/GreenActionWGap/GreenActionContainer/CenterContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.490196, 1, 0.490196, 1)
 theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 20
 text = "[insert]"
 
 [node name="RightGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/ActionContainer/GreenActionWGap"]
+custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
 [node name="BlueActionWGap" type="HBoxContainer" parent="VBoxContainer/StatsContainer/ActionContainer"]
+custom_minimum_size = Vector2(0, 53)
 layout_mode = 2
 
 [node name="LeftGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/ActionContainer/BlueActionWGap"]
@@ -250,10 +290,13 @@ layout_mode = 2
 
 [node name="BlueAction" type="Label" parent="VBoxContainer/StatsContainer/ActionContainer/BlueActionWGap/BlueActionContainer/CenterContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.490196, 0.490196, 1, 1)
 theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 20
 text = "[insert]"
 
 [node name="RightGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/ActionContainer/BlueActionWGap"]
+custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
 [node name="PostStats" type="MarginContainer" parent="VBoxContainer"]

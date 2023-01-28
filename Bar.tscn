@@ -1,15 +1,16 @@
 [gd_scene load_steps=5 format=3 uid="uid://byu2duk3fe248"]
 
-[ext_resource type="Texture2D" uid="uid://bxddurjqfysec" path="res://assets/GUI/label_HP_bg.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://bxddurjqfysec" path="res://Assets/GUI/label_HP_bg.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://b5x80186kpb6j" path="res://Assets/GUI/lifebar_fill.png" id="2"]
 [ext_resource type="FontFile" uid="uid://dfdbbw8l6wpii" path="res://Assets/fonts/Xolonium-Regular.ttf" id="2_qim5r"]
-[ext_resource type="Texture2D" uid="uid://clo7wpeot8mpd" path="res://assets/GUI/lifebar_bg.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://clo7wpeot8mpd" path="res://Assets/GUI/lifebar_bg.png" id="4"]
 
 [node name="Bar" type="HBoxContainer"]
 offset_right = 500.0
 offset_bottom = 53.0
 
 [node name="Count" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
 [node name="Background" type="NinePatchRect" parent="Count"]
@@ -27,6 +28,7 @@ offset_top = -21.0
 offset_right = -54.0
 offset_bottom = 19.0
 theme_override_fonts/font = ExtResource("2_qim5r")
+theme_override_font_sizes/font_size = 26
 text = "HP"
 
 [node name="Number" type="Label" parent="Count/Background"]
@@ -40,6 +42,7 @@ offset_top = -20.5
 offset_right = -9.0
 offset_bottom = 19.5
 theme_override_fonts/font = ExtResource("2_qim5r")
+theme_override_font_sizes/font_size = 26
 text = "10"
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]

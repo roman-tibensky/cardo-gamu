@@ -1,4 +1,6 @@
-res://EnemyBase.tscn
-res://Assets/fonts/EnemyDescription.tres
 res://Playspace.tscn
+res://Cards/Inline.gdshader
+res://EnemyBase.tscn
 res://Bar.tscn
+res://Cards/CardBase.tscn
+res://Playspace.gd

@@ -91,7 +91,7 @@ func manageHealth():
 
 func _on_FocusButton_mouse_entered():
 	$EnemyBackround.material.set_shader_parameter("onoff",1)
-	$EnemyBackround.material.set_shader_parameter("color",Color(0,255, 255, 255))
+	$EnemyBackround.material.set_shader_parameter("color",Color(1, 0.39, 0.39, 255))
 
 
 func _on_FocusButton_mouse_exited():

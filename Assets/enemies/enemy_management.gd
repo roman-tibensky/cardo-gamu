@@ -1,8 +1,8 @@
 enum life_pools {RED, BLUE, GREEN}
 enum target {SINGLE, SELF}
 
-const lifeChar = "\u2764"
-const costChar = "\u2620⚔⚔⚔"
+const lifeChar = "+" #"\u2764"
+const costChar = "\u2620"
 const attackSingleChar = "\u2316"
 const attackRandomChar = "\u26A1"
 const attackAllChar = "\u2748" #bomb alternative \u1F4A3

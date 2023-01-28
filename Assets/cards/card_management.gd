@@ -3,8 +3,8 @@ enum target {SINGLE, RANDOM, ALL, SELF}
 
 enum {card1,card2,card3,card4,card5,card6,card7,card8,card9,card10,card11,card12}
 
-const lifeChar = "\u2764"
-const costChar = "\u2620⚔⚔⚔"
+const lifeChar ="+"  #"\u2764"
+const costChar = "\u2620"
 const attackSingleChar = "\u2316"
 const attackRandomChar = "\u26A1"
 const attackAllChar = "\u2748" #bomb alternative \u1F4A3

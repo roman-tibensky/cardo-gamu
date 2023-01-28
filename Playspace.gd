@@ -10,12 +10,13 @@ var DeckCardSize = Vector2i(117, 142)
 #var DeckCardSize = Vector2i(205, 250)
 const CardBase = preload("res://Cards/CardBase.tscn")
 const PlayerHand = preload("res://Cards/Player_Hand.gd")
+var playerHand = PlayerHand.new()
 const CardSlot = preload("res://Cards/CardSlot.tscn")
 @onready var EnemiesData = preload("res://Assets/enemies/enemy_management.gd")
 var enemy
 
 var cardSelected
-@onready var deckSize = PlayerHand.DeckCards.size()
+@onready var deckSize = playerHand.get_size()
 
 @onready var deckPosition = $Deck.position
 @onready var discardPosition = $DiscardPile.position
@@ -48,8 +49,12 @@ func _ready():
 	enemy = $Enemies/EnemyBase
 	enemy.setup_enemy(enemyData.get_enemy_data()['enemy1'])
 	$Enemies/EnemyBase.visible = true
-	$Enemies/EnemyBase.position = get_viewport().size  * 0.4 + Vector2(200, 0)
+	
 	$Enemies/EnemyBase.scale *= (EnemySizeRegular / $Enemies/EnemyBase.size)
+	var enSX = $Enemies/EnemyBase.size.x
+	var vPX = get_viewport().size.x
+	var enemy_x_pos = (get_viewport().size.x / 2) - (EnemySizeRegular.x / 2)
+	$Enemies/EnemyBase.position = Vector2(enemy_x_pos, 50)
 	
 	#TODO: try withuot card slots
 	#var newSlot = CardSlot.instantiate()
@@ -65,7 +70,7 @@ func draw_card():
 	var new_card = CardBase.instantiate()
 	cardSelected = randi() % deckSize
 	
-	new_card.cardName = PlayerHand.DeckCards[cardSelected]
+	new_card.cardName = playerHand.get_card(cardSelected)
 
 	# continue horrifying oval math thing
 	#ovalAngleVector = Vector2i(horRad * cos(angle), -verRad * sin(angle))
@@ -88,10 +93,10 @@ func draw_card():
 
 		
 	$CardsInHand.add_child(new_card)
-	PlayerHand.DeckCards.remove_at(cardSelected)
+	playerHand.remove_card(cardSelected)
 	
 	angle += cardSpread
-	deckSize = PlayerHand.DeckCards.size()
+	deckSize = playerHand.get_size()
 	
 	handSize += 1
 	#cardNumber += 1
