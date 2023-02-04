@@ -18,6 +18,8 @@ var bCurrent
 var bMax
 
 var actionStage = 0
+var onoff = 0
+var highlightColor
 
 func _ready():
 	enemyData = EnemiesData.new()
@@ -67,6 +69,17 @@ func switchToNextAction():
 	actionStage += 1
 	generateActions()
 	
+func highlightMangement(isHighlighted):
+	if isHighlighted:
+		onoff = 1
+		highlightColor = Color(1, 0.39, 0.39, 255)
+		$EnemyBackround.material.set_shader_parameter("onoff",onoff)
+		$EnemyBackround.material.set_shader_parameter("color",highlightColor)
+	else:
+		onoff = 0
+		$EnemyBackround.material.set_shader_parameter("onoff",onoff)
+	
+	
 func generateActions():
 	var poolsText = enemyData.preparePoolStrings(enemy.actions[actionStage])
 	$VBoxContainer/StatsContainer/ActionContainer/RedActionWGap/RedActionContainer/CenterContainer/RedAction.text = poolsText.red
@@ -90,9 +103,10 @@ func manageHealth():
 #	pass
 
 func _on_FocusButton_mouse_entered():
-	$EnemyBackround.material.set_shader_parameter("onoff",1)
-	$EnemyBackround.material.set_shader_parameter("color",Color(1, 0.39, 0.39, 255))
+	$EnemyBackround.material.set_shader_parameter("onoff",onoff)
+	$EnemyBackround.material.set_shader_parameter("color",Color(1, 0, 0, 255))
 
 
 func _on_FocusButton_mouse_exited():
-	$EnemyBackround.material.set_shader_parameter("onoff",0)
+	$EnemyBackround.material.set_shader_parameter("onoff",onoff)
+	$EnemyBackround.material.set_shader_parameter("color",highlightColor)

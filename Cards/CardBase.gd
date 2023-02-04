@@ -4,7 +4,7 @@ extends MarginContainer
 var CardList = preload("res://Assets/cards/card_management.gd")
 #const CardStateEnum = CardList.new().get_card_state_enum()
 
-enum card_state {InHand, InPlay, InGrab, InFocus, MoveDrawnCardToHand, MoveToDiscardPile, ReorganizeHand}
+enum card_state {InHand, InPlay, InGrab, IsSelected, InFocus, MoveDrawnCardToHand, MoveToDiscardPile, ReorganizeHand}
 
 var cardList
 var cardName = 'card1'
@@ -61,6 +61,7 @@ func _ready():
 	$CardBack.texture = load(card.source_back)
 	$CardBack.scale *= cardSize/$CardBack.texture.get_size()
 	
+	$CardFront.set_material($CardFront.get_material().duplicate(true))
 	
 	$TextGrid/NameCont/NameContainer/CenterContainer/Name.text = card.card_name
 	$TextGrid/RedPoolCont/RedPoolContainer/CenterContainer/RedPool.text = poolsText.red
@@ -71,65 +72,40 @@ func _ready():
 
 func _input(event):
 	#const cardEnum = CardList.new().get_card_state_enum()
-	match state:
-		card_state.InFocus, card_state.InGrab, card_state.InPlay:
-			if event.is_action_pressed("left_click") && canSelect:
-				oldState = state
-				state = card_state.InGrab
-				setup = true
-				canSelect = false
-			if event.is_action_released("left_click") && !canSelect:
-				if oldState == card_state.InFocus:
-					var cardSlots = $'../../CardSlots'
-					var cardSlotsEmpty = $'../../'.cardSlotEmpty
-					for i in range(cardSlots.get_child_count()):
-						if cardSlotsEmpty[i]:
-							cardSlotsEmpty[i] = false
-							var cardSlotPos = cardSlots.get_child(i).position
-							var cardSlotSize = cardSlots.get_child(i).size
-							var mousepos = get_global_mouse_position()
-							if mousepos < cardSlotPos + cardSlotSize && mousepos > cardSlotPos:
-								setup = true
-								movingIntoPlay = true
-								#targetPos = cardSlotPos - $'../../'.CardSize/2
-								targetPos = cardSlotPos # - cardSlotSize/2 + Vector2i(15,15)
-								targetScale = cardSlotSize/size
-								state = card_state.InPlay
-								canSelect = true
-								break
-					
-					if state != card_state.InPlay:
-						setup = true
-						targetPos = cardPos
-						state = card_state.ReorganizeHand
-						canSelect = true
-						
-				else: #handle if card was successfully played?
-					var enemies = $'../../Enemies'
-					for i in range(enemies.get_child_count()):
-						var enemytPos = enemies.get_child(i).position
-						var enemySize = enemies.get_child(i).size
-						var mousepos = get_global_mouse_position()
-						if mousepos < enemytPos + enemySize && mousepos > enemytPos:
-							#deal with effects
-							$'../../'.calculate_card_effects(card.actions, enemies.get_child(i))
-							
-							#discard card upon playing it
-							movingToDiscard = true
-							
-							setup = true
-							movingIntoPlay = true
-							#targetPos = enemytPos - $'../../'.CardSize/2
-							state = card_state.MoveToDiscardPile
-							canSelect = true
-							break
-					
-					if !canSelect:
-						setup = true
-						movingIntoPlay = true
-						state = card_state.InPlay
-						canSelect = true
 	
+		match state:
+			card_state.InFocus, card_state.InGrab, card_state.InPlay:
+				if event.is_action_pressed("left_click"): 
+					if card_state.IsSelected && canSelect:
+						oldState = state
+						state = card_state.IsSelected
+						$'../../'.setHasCardSelected(cardNumber)
+						$CardFront.material.set_shader_parameter("onoff",1)
+						$CardFront.material.set_shader_parameter("color",Color(0.15, 0.15, 1, 255))
+					else:
+						resetFromFocus()
+					pass
+
+
+func cardPlayed(toDiscard):
+	#discard card upon playing it
+	movingToDiscard = toDiscard
+	
+	setup = true
+	movingIntoPlay = true
+	#targetPos = enemytPos - $'../../'.CardSize/2
+	if toDiscard:
+		state = card_state.MoveToDiscardPile
+	else:
+		state = card_state.ReorganizeHand
+		targetPos = cardPos
+	canSelect = true
+	$CardFront.material.set_shader_parameter("onoff",0)
+
+func resetFromFocus():
+	state = oldState
+	$CardFront.material.set_shader_parameter("onoff",0)
+	$'../../'.setHasCardSelected(null)	
 
 func _physics_process(delta):
 	match state:

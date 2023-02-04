@@ -41,6 +41,31 @@ var arrowStartPosition
 
 var cardSlotEmpty = []
 
+var selectedCard = null
+var clickReadyAfterSelect = false
+
+func getHasCardSelected():
+	return selectedCard
+
+
+#proces card selection and determine how and which cards to highlight
+#TODO: expand according to card effect target
+func setHasCardSelected(val):
+	selectedCard = val
+	manageHighlights(true)
+	#await setClickReady(true).create_timer(500).timeout
+	await get_tree().create_timer(0.5).timeout
+	clickReadyAfterSelect = true
+
+func setClickReady(isReady):
+	clickReadyAfterSelect = isReady
+
+#TODO: expand according to card effect target
+func manageHighlights(active):
+	for i in range($Enemies.get_child_count()):
+		$Enemies.get_child(i).highlightMangement(active)
+		
+		
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#$Deck/DeckDraw.scale *= DeckCardSize/$Deck/DeckDraw.size
@@ -87,10 +112,6 @@ func draw_card():
 	#new_card.cardNumber = $CardsInHand.get_children().size()
 	
 	new_card.state = new_card.card_state.MoveDrawnCardToHand
-	
-	
-	
-
 		
 	$CardsInHand.add_child(new_card)
 	playerHand.remove_card(cardSelected)
@@ -105,6 +126,33 @@ func draw_card():
 	organizeHand()
 	return deckSize
 		
+		
+func _input(event):
+	if clickReadyAfterSelect && event.is_action_pressed("left_click"):
+		for i in range($Enemies.get_child_count()):
+			var enemy = $Enemies.get_child(i)
+			var enemytPos = $Enemies.get_child(i).position
+			var enemySize = $Enemies.get_child(i).size
+			var enemyScale = $Enemies.get_child(i).scale
+			var mousepos = get_global_mouse_position() 
+			var enemyLive = enemySize * enemyScale
+			var enemyReach = enemytPos + (enemySize * enemyScale)
+			if mousepos.x < enemyReach.x && mousepos.y < enemyReach.y && mousepos.x > enemytPos.x && mousepos.x > enemytPos.x:
+				var cardContainer = $CardsInHand.get_child(selectedCard)
+				#deal with effects
+				calculate_card_effects(cardContainer.card.actions, $Enemies.get_child(i))
+				$CardsInHand.get_child(selectedCard).cardPlayed(true)
+				ReParentCard(selectedCard)
+				selectedCard = null
+				clickReadyAfterSelect = false
+				break
+				
+		if selectedCard != null:
+			$CardsInHand.get_child(selectedCard).cardPlayed(false)
+			selectedCard = null
+			clickReadyAfterSelect = false
+			
+		manageHighlights(false)
 		
 func calculate_card_effects(actions, target):
 	target.manageHealth()

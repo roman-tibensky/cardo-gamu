@@ -1,6 +1,7 @@
 res://Playspace.tscn
-res://Cards/Inline.gdshader
+res://Cards/CardBase.gd
+res://Playspace.gd
+res://EnemyBase.gd
 res://EnemyBase.tscn
 res://Bar.tscn
 res://Cards/CardBase.tscn
-res://Playspace.gd
