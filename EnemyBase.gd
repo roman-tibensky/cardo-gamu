@@ -8,14 +8,9 @@ var enemy
 # var a = 2
 # var b = "text"
 
-var rCurrent
-var rMax
-
-var gCurrent
-var gMax
-
-var bCurrent
-var bMax
+var poolCurrent = {}
+var poolMax = {}
+var poolModCurrent = {}
 
 var actionStage = 0
 var onoff = 0
@@ -29,12 +24,12 @@ func _ready():
 # Called when the node enters the scene tree for the first time.
 func setup_enemy(enemySetup):
 	enemy = enemySetup
-	rCurrent = enemy.maxRedPool
-	rMax = enemy.maxRedPool
-	gCurrent = enemy.maxGreenPool
-	gMax = enemy.maxGreenPool
-	bCurrent = enemy.maxBluePool
-	bMax = enemy.maxBluePool
+	poolCurrent["RED"] = enemy.maxRedPool
+	poolMax["RED"] = enemy.maxRedPool
+	poolCurrent["GREEN"] = enemy.maxGreenPool
+	poolMax["GREEN"] = enemy.maxGreenPool
+	poolCurrent["BLUE"] = enemy.maxBluePool
+	poolMax["BLUE"] = enemy.maxBluePool
 	
 	$VBoxContainer/DescWGaps/DescContainer/CenterContainer/Description.text = enemy.description
 	$VBoxContainer/NameWGaps/NameContainer/CenterContainer/Name.text = enemy.name  
@@ -43,22 +38,22 @@ func setup_enemy(enemySetup):
 	$EnemyBackround.texture = load("res://Assets/enemies/images/enemy1.png")
 	$EnemyBackround.scale *= size/$EnemyBackround.texture.get_size()
 	
-	$VBoxContainer/StatsContainer/LifeContainer/RBarWGaps/RBar/TextureProgressBar.max_value = rMax
-	$VBoxContainer/StatsContainer/LifeContainer/RBarWGaps/RBar/TextureProgressBar.value = rCurrent
+	$VBoxContainer/StatsContainer/LifeContainer/RBarWGaps/RBar/TextureProgressBar.max_value = poolMax["RED"]
+	$VBoxContainer/StatsContainer/LifeContainer/RBarWGaps/RBar/TextureProgressBar.value = poolCurrent["RED"]
 	$VBoxContainer/StatsContainer/LifeContainer/RBarWGaps/RBar/Count/Background/Title.text = "HP"
-	$VBoxContainer/StatsContainer/LifeContainer/RBarWGaps/RBar/Count/Background/Number.text = str(rCurrent)
+	$VBoxContainer/StatsContainer/LifeContainer/RBarWGaps/RBar/Count/Background/Number.text = str(poolCurrent["RED"])
 	$VBoxContainer/StatsContainer/LifeContainer/RBarWGaps/RBar/TextureProgressBar.set_tint_progress(Color(0.68,0.16,0.16,1))
 		
-	$VBoxContainer/StatsContainer/LifeContainer/GBarWGaps/GBar/TextureProgressBar.max_value = gMax
-	$VBoxContainer/StatsContainer/LifeContainer/GBarWGaps/GBar/TextureProgressBar.value = gCurrent
+	$VBoxContainer/StatsContainer/LifeContainer/GBarWGaps/GBar/TextureProgressBar.max_value = poolMax["GREEN"]
+	$VBoxContainer/StatsContainer/LifeContainer/GBarWGaps/GBar/TextureProgressBar.value = poolCurrent["GREEN"]
 	$VBoxContainer/StatsContainer/LifeContainer/GBarWGaps/GBar/Count/Background/Title.text = "SP"
-	$VBoxContainer/StatsContainer/LifeContainer/GBarWGaps/GBar/Count/Background/Number.text = str(gCurrent)
+	$VBoxContainer/StatsContainer/LifeContainer/GBarWGaps/GBar/Count/Background/Number.text = str(poolCurrent["GREEN"])
 	$VBoxContainer/StatsContainer/LifeContainer/GBarWGaps/GBar/TextureProgressBar.set_tint_progress(Color(0.16,0.68,0.16,1))
 	
-	$VBoxContainer/StatsContainer/LifeContainer/BBarWGaps/BBar/TextureProgressBar.max_value = bMax
-	$VBoxContainer/StatsContainer/LifeContainer/BBarWGaps/BBar/TextureProgressBar.value = bCurrent
+	$VBoxContainer/StatsContainer/LifeContainer/BBarWGaps/BBar/TextureProgressBar.max_value = poolMax["BLUE"]
+	$VBoxContainer/StatsContainer/LifeContainer/BBarWGaps/BBar/TextureProgressBar.value = poolCurrent["BLUE"]
 	$VBoxContainer/StatsContainer/LifeContainer/BBarWGaps/BBar/Count/Background/Title.text = "MP"
-	$VBoxContainer/StatsContainer/LifeContainer/BBarWGaps/BBar/Count/Background/Number.text = str(bCurrent)
+	$VBoxContainer/StatsContainer/LifeContainer/BBarWGaps/BBar/Count/Background/Number.text = str(poolCurrent["BLUE"])
 	$VBoxContainer/StatsContainer/LifeContainer/BBarWGaps/BBar/TextureProgressBar.set_tint_progress(Color(0.16,0.32,0.68,1))
 	
 	generateActions()
@@ -86,18 +81,16 @@ func generateActions():
 	$VBoxContainer/StatsContainer/ActionContainer/GreenActionWGap/GreenActionContainer/CenterContainer/GreenAction.text = poolsText.green
 	$VBoxContainer/StatsContainer/ActionContainer/BlueActionWGap/BlueActionContainer/CenterContainer/BlueAction.text = poolsText.blue
 
-func manageHealth():
+func manageHealth(pool, alteration):
+	alterHealthWLimitCheck(pool, alteration)
 	
-	rCurrent -= 5 
-	gCurrent -= 5 
-	bCurrent -= 5 
-	$VBoxContainer/StatsContainer/LifeContainer/RBarWGaps/RBar/TextureProgressBar.value = rCurrent
-	$VBoxContainer/StatsContainer/LifeContainer/GBarWGaps/GBar/TextureProgressBar.value = gCurrent
-	$VBoxContainer/StatsContainer/LifeContainer/BBarWGaps/BBar/TextureProgressBar.value = bCurrent
+	$VBoxContainer/StatsContainer/LifeContainer/RBarWGaps/RBar/TextureProgressBar.value = poolCurrent["RED"]
+	$VBoxContainer/StatsContainer/LifeContainer/GBarWGaps/GBar/TextureProgressBar.value = poolCurrent["GREEN"]
+	$VBoxContainer/StatsContainer/LifeContainer/BBarWGaps/BBar/TextureProgressBar.value = poolCurrent["BLUE"]
 	
-	$VBoxContainer/StatsContainer/LifeContainer/RBarWGaps/RBar/Count/Background/Number.text = str(rCurrent)
-	$VBoxContainer/StatsContainer/LifeContainer/GBarWGaps/GBar/Count/Background/Number.text = str(gCurrent)
-	$VBoxContainer/StatsContainer/LifeContainer/BBarWGaps/BBar/Count/Background/Number.text = str(bCurrent)
+	$VBoxContainer/StatsContainer/LifeContainer/RBarWGaps/RBar/Count/Background/Number.text = str(poolCurrent["RED"])
+	$VBoxContainer/StatsContainer/LifeContainer/GBarWGaps/GBar/Count/Background/Number.text = str(poolCurrent["GREEN"])
+	$VBoxContainer/StatsContainer/LifeContainer/BBarWGaps/BBar/Count/Background/Number.text = str(poolCurrent["BLUE"])
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
@@ -110,3 +103,12 @@ func _on_FocusButton_mouse_entered():
 func _on_FocusButton_mouse_exited():
 	$EnemyBackround.material.set_shader_parameter("onoff",onoff)
 	$EnemyBackround.material.set_shader_parameter("color",highlightColor)
+	
+func alterHealthWLimitCheck(pool, alteration):
+	if(poolCurrent[pool] + alteration <=0):
+		#TODO: desu-troy
+		pass
+	elif((poolCurrent[pool] + alteration > poolMax[pool])):
+		poolCurrent[pool] = poolMax[pool]
+	else:
+		poolCurrent[pool] += alteration

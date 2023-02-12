@@ -1,18 +1,19 @@
 0b7126e0c6e86d3ec295a72f5aa6e0bd
-::res://::1675510980
+::res://::1676104553
 Arrow.tscn::PackedScene::-1::1674293108::0::1::::<><>::res://Assets/GUI/1020845.png
 Bar2.tscn::PackedScene::-1::1674293108::0::1::::<><>::res://assets/GUI/label_HP_bg.png<>res://assets/GUI/label_HP.png<>res://assets/font/Comfortaa-Bold.ttf<>res://assets/GUI/lifebar_bg.png
-Bar.tscn::PackedScene::4113886269467593047::1675192397::0::1::::<><>::uid://bxddurjqfysec<>uid://b5x80186kpb6j<>uid://dfdbbw8l6wpii<>uid://clo7wpeot8mpd
+Bar.tscn::PackedScene::4113886269467593047::1675706125::0::1::::<><>::uid://bxddurjqfysec<>uid://b5x80186kpb6j<>uid://dfdbbw8l6wpii<>uid://clo7wpeot8mpd
 default_env.tres::Environment::-1::1674293108::0::1::::<><>::
-EnemyBase.gd::GDScript::-1::1674912297::0::1::::<>MarginContainer<>::
-EnemyBase.tscn::PackedScene::6616985588240439255::1675192397::0::1::::<><>::uid://byu2duk3fe248<>res://EnemyBase.gd<>uid://dfdbbw8l6wpii<>uid://d2ujeq2bgoiui<>res://Cards/Inline.gdshader
+EnemyBase.gd::GDScript::-1::1675512150::0::1::::<>MarginContainer<>::
+EnemyBase.tscn::PackedScene::6616985588240439255::1675706125::0::1::::<><>::uid://byu2duk3fe248<>res://EnemyBase.gd<>uid://dfdbbw8l6wpii<>uid://d2ujeq2bgoiui<>res://Cards/Inline.gdshader
 icon.png::CompressedTexture2D::9206695600081520567::1672050761::1674293108::1::::<><>::
 Konachan.com - 280157 blue forest heriki_(trkj) original polychromatic scenic tree.jpg::CompressedTexture2D::3015645289773670694::1672050761::1674293108::1::::<><>::
-Playspace.gd::GDScript::-1::1675193898::0::1::::<>Node2D<>::
-Playspace.tscn::PackedScene::6153159933740812467::1675193898::0::1::::<><>::res://Playspace.gd<>uid://bi72icmcln0kw<>res://Cards/DeckDraw.gd<>uid://u836uvtorbef<>uid://dcmhnhw1lslef<>uid://c1jk1yqn6h0fb<>res://Cards/DiscardButton.gd
+PlayerInfo.tscn::PackedScene::2266577582683475085::1675708246::0::1::::<><>::res://Cards/Inline.gdshader<>res://EnemyBase.gd<>uid://boriyr080fonn<>uid://d2ujeq2bgoiui<>uid://dfdbbw8l6wpii<>uid://byu2duk3fe248<>uid://u836uvtorbef
+Playspace.gd::GDScript::-1::1675520771::0::1::::<>Node2D<>::
+Playspace.tscn::PackedScene::6153159933740812467::1675706125::0::1::::<><>::res://Playspace.gd<>uid://bi72icmcln0kw<>res://Cards/DeckDraw.gd<>uid://u836uvtorbef<>uid://dcmhnhw1lslef<>uid://c1jk1yqn6h0fb<>res://Cards/DiscardButton.gd
 README.md::TextFile::-1::1672050761::0::1::::<><>::
 VERSION.md::TextFile::-1::1672050761::0::1::::<><>::
-::res://Assets/::1672765232
+::res://Assets/::1676105677
 ::res://Assets/cardParts/::1674293108
 background shade.png::CompressedTexture2D::9096202862635225984::1672050761::1674293108::1::::<><>::
 ::res://Assets/cards/::1674298629
@@ -41,9 +42,11 @@ lifebar_bg.png::CompressedTexture2D::5575802961888097321::1554351680::1674293108
 lifebar_black.png::CompressedTexture2D::206561866837025024::1672271276::1674293108::1::::<><>::
 lifebar_fill.png::CompressedTexture2D::4541616404794465891::1672270674::1674293108::1::::<><>::
 lifebar_fill_temp.png::CompressedTexture2D::8656964621461389813::1554351680::1674293108::1::::<><>::
-::res://Cards/::1675193898
-CardBase.gd::GDScript::-1::1675192396::0::1::::<>MarginContainer<>::
-CardBase.tscn::PackedScene::3527045221423286264::1675192397::0::1::::<><>::res://Cards/CardBase.gd<>res://Cards/Inline.gdshader<>uid://dfdbbw8l6wpii<>uid://d2ujeq2bgoiui
+::res://Assets/players/::1676105677
+player_management.gd::GDScript::-1::1676105702::0::1::::<>Node<>::
+::res://Cards/::1675706125
+CardBase.gd::GDScript::-1::1675520609::0::1::::<>MarginContainer<>::
+CardBase.tscn::PackedScene::3527045221423286264::1675706125::0::1::::<><>::res://Cards/CardBase.gd<>res://Cards/Inline.gdshader<>uid://dfdbbw8l6wpii<>uid://d2ujeq2bgoiui
 CardSlot.gd::GDScript::-1::1674293108::0::1::::<>MarginContainer<>::
 CardSlot.tscn::PackedScene::-1::1674293108::0::1::::<><>::res://Assets/GUI/CardBase1.png<>res://Cards/CardSlot.gd
 DeckDraw.gd::GDScript::-1::1674293108::0::1::::<>TextureButton<>::

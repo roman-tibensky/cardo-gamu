@@ -1,7 +1,9 @@
-res://Playspace.tscn
-res://Cards/CardBase.gd
-res://Playspace.gd
+res://PlayerInfo.tscn
 res://EnemyBase.gd
+res://Assets/player/player_management.gd
+res://PlayerInfo.gd
+res://Playspace.tscn
 res://EnemyBase.tscn
 res://Bar.tscn
 res://Cards/CardBase.tscn
+res://Playspace.gd

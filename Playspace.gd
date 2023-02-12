@@ -1,6 +1,7 @@
 extends Node2D
 
 #var CardSize = Vector2i(281, 338)
+var PlayerSize = Vector2(320, 170)
 var CardSize = Vector2(117, 142)
 var EnemySizeRegular = Vector2(400, 264)
 var EnemySizeMid = Vector2i(400, 264)
@@ -14,6 +15,8 @@ var playerHand = PlayerHand.new()
 const CardSlot = preload("res://Cards/CardSlot.tscn")
 @onready var EnemiesData = preload("res://Assets/enemies/enemy_management.gd")
 var enemy
+
+var player
 
 var cardSelected
 @onready var deckSize = playerHand.get_size()
@@ -81,13 +84,8 @@ func _ready():
 	var enemy_x_pos = (get_viewport().size.x / 2) - (EnemySizeRegular.x / 2)
 	$Enemies/EnemyBase.position = Vector2(enemy_x_pos, 50)
 	
-	#TODO: try withuot card slots
-	#var newSlot = CardSlot.instantiate()
-	#newSlot.position = get_viewport().size * 0.4
-	#newSlot.size = CardSize
-	#$CardSlots.add_child(newSlot)
-	#cardSlotEmpty.append(true)
-	
+	player = $Player/PlayerBase
+	player.scale *= (PlayerSize / player.size)
 
 
 func draw_card():
