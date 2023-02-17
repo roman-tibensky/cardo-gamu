@@ -7,3 +7,7 @@ res://EnemyBase.tscn
 res://Bar.tscn
 res://Cards/CardBase.tscn
 res://Playspace.gd
+res://Assets/enemies/enemy_management.gd
+res://Assets/cards/card_management.gd
+res://constants.gd
+res://Cards/CardBase.gd

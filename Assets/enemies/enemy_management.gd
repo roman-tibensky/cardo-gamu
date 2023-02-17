@@ -1,5 +1,8 @@
-enum life_pools {RED, BLUE, GREEN}
-enum target {SINGLE, SELF}
+
+const constants = preload("res://constants.gd")
+const life_pools = constants.new().life_pools
+
+const targetEnum =  constants.new().targetEnum
 
 const lifeChar = "+" #"\u2764"
 const costChar = "\u2620"
@@ -21,13 +24,13 @@ var enemy_data = {
 		#[], #pre player phase
 		[ #actions to be cycled through
 			[ # player phase
-				set_action(life_pools.RED, target.SINGLE, 6, 0, 0, 1),
-				set_action(life_pools.GREEN, target.SELF, -1, 0, 0, 1),
-				set_action(life_pools.BLUE, target.SELF, -2, 0, 0, 1)
+				set_action(life_pools.RED, targetEnum.SINGLE, 6, 0, 0, 1),
+				set_action(life_pools.GREEN, targetEnum.SELF, -1, 0, 0, 1),
+				set_action(life_pools.BLUE, targetEnum.SELF, -2, 0, 0, 1)
 			],
 			[ # player phase
-				set_action(life_pools.GREEN, target.SELF, 2, 0, 0, 1),
-				set_action(life_pools.BLUE, target.SELF, 1, 0, 0, 1)
+				set_action(life_pools.GREEN, targetEnum.SELF, 2, 0, 0, 1),
+				set_action(life_pools.BLUE, targetEnum.SELF, 1, 0, 0, 1)
 			]
 		]
 		#[], # post player phase
@@ -67,8 +70,8 @@ func set_body(
 	}
 
 func set_action(
-	new_pool:int, new_target:int, new_adjust:int, new_periodical_adjust:int,
-	new_number_of_rounds_adjust:int, new_execute_times:int= 1, new_timer:int = 0, new_timer_adjust:int = 0
+	new_pool, new_target, new_adjust, new_periodical_adjust,
+	new_number_of_rounds_adjust, new_execute_times= 1, new_timer = 0, new_timer_adjust = 0
 ):
 	return {
 		pool= new_pool,
@@ -81,13 +84,7 @@ func set_action(
 		timer_adjust= new_timer_adjust
 	}
 
-func get_target_enum():
-	return target
-	
-func get_pool_enum():
-	return life_pools
-	
-	
+
 func preparePoolStrings(lines):
 	var redLine = []
 	var greenLine = []
@@ -105,12 +102,12 @@ func preparePoolStrings(lines):
 			current_adjust = line.timer_adjust
 
 		match (line.target):
-			target.SELF:
+			targetEnum.SELF:
 				if (line.adjust> 0):
 					currentString = str(currentString, lifeChar, current_adjust)
 				else:
 					currentString = str(currentString, costChar, abs(current_adjust))
-			target.SINGLE:
+			targetEnum.SINGLE:
 				currentString = str(currentString, attackSingleChar, abs(current_adjust))
 				
 		if (line.number_of_rounds_adjust > 0):

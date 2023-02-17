@@ -141,44 +141,44 @@ text = "Life"
 [node name="RightGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/LifeContainer/LifeLabel"]
 layout_mode = 2
 
-[node name="RBarWGaps" type="HBoxContainer" parent="VBoxContainer/StatsContainer/LifeContainer"]
+[node name="RedBarWGaps" type="HBoxContainer" parent="VBoxContainer/StatsContainer/LifeContainer"]
 layout_mode = 2
 
-[node name="LeftGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/LifeContainer/RBarWGaps"]
+[node name="LeftGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/LifeContainer/RedBarWGaps"]
 custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 
-[node name="RBar" parent="VBoxContainer/StatsContainer/LifeContainer/RBarWGaps" instance=ExtResource("1")]
+[node name="Bar" parent="VBoxContainer/StatsContainer/LifeContainer/RedBarWGaps" instance=ExtResource("1")]
 layout_mode = 2
 size_flags_horizontal = 12
 
-[node name="RightGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/LifeContainer/RBarWGaps"]
+[node name="RightGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/LifeContainer/RedBarWGaps"]
 layout_mode = 2
 
-[node name="GBarWGaps" type="HBoxContainer" parent="VBoxContainer/StatsContainer/LifeContainer"]
+[node name="GreenBarWGaps" type="HBoxContainer" parent="VBoxContainer/StatsContainer/LifeContainer"]
 layout_mode = 2
 
-[node name="LeftGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/LifeContainer/GBarWGaps"]
+[node name="LeftGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/LifeContainer/GreenBarWGaps"]
 custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 
-[node name="GBar" parent="VBoxContainer/StatsContainer/LifeContainer/GBarWGaps" instance=ExtResource("1")]
+[node name="Bar" parent="VBoxContainer/StatsContainer/LifeContainer/GreenBarWGaps" instance=ExtResource("1")]
 layout_mode = 2
 
-[node name="RightGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/LifeContainer/GBarWGaps"]
+[node name="RightGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/LifeContainer/GreenBarWGaps"]
 layout_mode = 2
 
-[node name="BBarWGaps" type="HBoxContainer" parent="VBoxContainer/StatsContainer/LifeContainer"]
+[node name="BlueBarWGaps" type="HBoxContainer" parent="VBoxContainer/StatsContainer/LifeContainer"]
 layout_mode = 2
 
-[node name="LeftGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/LifeContainer/BBarWGaps"]
+[node name="LeftGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/LifeContainer/BlueBarWGaps"]
 custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 
-[node name="BBar" parent="VBoxContainer/StatsContainer/LifeContainer/BBarWGaps" instance=ExtResource("1")]
+[node name="Bar" parent="VBoxContainer/StatsContainer/LifeContainer/BlueBarWGaps" instance=ExtResource("1")]
 layout_mode = 2
 
-[node name="RightGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/LifeContainer/BBarWGaps"]
+[node name="RightGap" type="MarginContainer" parent="VBoxContainer/StatsContainer/LifeContainer/BlueBarWGaps"]
 layout_mode = 2
 
 [node name="ActionContainer" type="VBoxContainer" parent="VBoxContainer/StatsContainer"]
@@ -230,7 +230,7 @@ texture = ExtResource("4")
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/StatsContainer/ActionContainer/RedActionWGap/RedActionContainer"]
 layout_mode = 2
 
-[node name="RedAction" type="Label" parent="VBoxContainer/StatsContainer/ActionContainer/RedActionWGap/RedActionContainer/CenterContainer"]
+[node name="Action" type="Label" parent="VBoxContainer/StatsContainer/ActionContainer/RedActionWGap/RedActionContainer/CenterContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.490196, 0.490196, 1)
 theme_override_fonts/font = ExtResource("3")
@@ -259,7 +259,7 @@ texture = ExtResource("4")
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/StatsContainer/ActionContainer/GreenActionWGap/GreenActionContainer"]
 layout_mode = 2
 
-[node name="GreenAction" type="Label" parent="VBoxContainer/StatsContainer/ActionContainer/GreenActionWGap/GreenActionContainer/CenterContainer"]
+[node name="Action" type="Label" parent="VBoxContainer/StatsContainer/ActionContainer/GreenActionWGap/GreenActionContainer/CenterContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.490196, 1, 0.490196, 1)
 theme_override_fonts/font = ExtResource("3")
@@ -288,7 +288,7 @@ texture = ExtResource("4")
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/StatsContainer/ActionContainer/BlueActionWGap/BlueActionContainer"]
 layout_mode = 2
 
-[node name="BlueAction" type="Label" parent="VBoxContainer/StatsContainer/ActionContainer/BlueActionWGap/BlueActionContainer/CenterContainer"]
+[node name="Action" type="Label" parent="VBoxContainer/StatsContainer/ActionContainer/BlueActionWGap/BlueActionContainer/CenterContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.490196, 0.490196, 1, 1)
 theme_override_fonts/font = ExtResource("3")

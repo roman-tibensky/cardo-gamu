@@ -1,5 +1,8 @@
 extends MarginContainer
 
+const constants = preload("res://constants.gd")
+var life_pools = constants.new().life_pools
+
 @onready var EnemiesData = preload("res://Assets/enemies/enemy_management.gd")
 var enemyData
 var enemy
@@ -24,12 +27,12 @@ func _ready():
 # Called when the node enters the scene tree for the first time.
 func setup_enemy(enemySetup):
 	enemy = enemySetup
-	poolCurrent["RED"] = enemy.maxRedPool
-	poolMax["RED"] = enemy.maxRedPool
-	poolCurrent["GREEN"] = enemy.maxGreenPool
-	poolMax["GREEN"] = enemy.maxGreenPool
-	poolCurrent["BLUE"] = enemy.maxBluePool
-	poolMax["BLUE"] = enemy.maxBluePool
+	poolCurrent[life_pools.RED] = enemy.maxRedPool
+	poolMax[life_pools.RED] = enemy.maxRedPool
+	poolCurrent[life_pools.GREEN] = enemy.maxGreenPool
+	poolMax[life_pools.GREEN] = enemy.maxGreenPool
+	poolCurrent[life_pools.BLUE] = enemy.maxBluePool
+	poolMax[life_pools.BLUE] = enemy.maxBluePool
 	
 	$VBoxContainer/DescWGaps/DescContainer/CenterContainer/Description.text = enemy.description
 	$VBoxContainer/NameWGaps/NameContainer/CenterContainer/Name.text = enemy.name  
@@ -38,23 +41,23 @@ func setup_enemy(enemySetup):
 	$EnemyBackround.texture = load("res://Assets/enemies/images/enemy1.png")
 	$EnemyBackround.scale *= size/$EnemyBackround.texture.get_size()
 	
-	$VBoxContainer/StatsContainer/LifeContainer/RBarWGaps/RBar/TextureProgressBar.max_value = poolMax["RED"]
-	$VBoxContainer/StatsContainer/LifeContainer/RBarWGaps/RBar/TextureProgressBar.value = poolCurrent["RED"]
-	$VBoxContainer/StatsContainer/LifeContainer/RBarWGaps/RBar/Count/Background/Title.text = "HP"
-	$VBoxContainer/StatsContainer/LifeContainer/RBarWGaps/RBar/Count/Background/Number.text = str(poolCurrent["RED"])
-	$VBoxContainer/StatsContainer/LifeContainer/RBarWGaps/RBar/TextureProgressBar.set_tint_progress(Color(0.68,0.16,0.16,1))
+	$VBoxContainer/StatsContainer/LifeContainer/RedBarWGaps/Bar/TextureProgressBar.max_value = poolMax[life_pools.RED]
+	$VBoxContainer/StatsContainer/LifeContainer/RedBarWGaps/Bar/TextureProgressBar.value = poolCurrent[life_pools.RED]
+	$VBoxContainer/StatsContainer/LifeContainer/RedBarWGaps/Bar/Count/Background/Title.text = "HP"
+	$VBoxContainer/StatsContainer/LifeContainer/RedBarWGaps/Bar/Count/Background/Number.text = str(poolCurrent[life_pools.RED])
+	$VBoxContainer/StatsContainer/LifeContainer/RedBarWGaps/Bar/TextureProgressBar.set_tint_progress(Color(0.68,0.16,0.16,1))
 		
-	$VBoxContainer/StatsContainer/LifeContainer/GBarWGaps/GBar/TextureProgressBar.max_value = poolMax["GREEN"]
-	$VBoxContainer/StatsContainer/LifeContainer/GBarWGaps/GBar/TextureProgressBar.value = poolCurrent["GREEN"]
-	$VBoxContainer/StatsContainer/LifeContainer/GBarWGaps/GBar/Count/Background/Title.text = "SP"
-	$VBoxContainer/StatsContainer/LifeContainer/GBarWGaps/GBar/Count/Background/Number.text = str(poolCurrent["GREEN"])
-	$VBoxContainer/StatsContainer/LifeContainer/GBarWGaps/GBar/TextureProgressBar.set_tint_progress(Color(0.16,0.68,0.16,1))
+	$VBoxContainer/StatsContainer/LifeContainer/GreenBarWGaps/Bar/TextureProgressBar.max_value = poolMax[life_pools.GREEN]
+	$VBoxContainer/StatsContainer/LifeContainer/GreenBarWGaps/Bar/TextureProgressBar.value = poolCurrent[life_pools.GREEN]
+	$VBoxContainer/StatsContainer/LifeContainer/GreenBarWGaps/Bar/Count/Background/Title.text = "SP"
+	$VBoxContainer/StatsContainer/LifeContainer/GreenBarWGaps/Bar/Count/Background/Number.text = str(poolCurrent[life_pools.GREEN])
+	$VBoxContainer/StatsContainer/LifeContainer/GreenBarWGaps/Bar/TextureProgressBar.set_tint_progress(Color(0.16,0.68,0.16,1))
 	
-	$VBoxContainer/StatsContainer/LifeContainer/BBarWGaps/BBar/TextureProgressBar.max_value = poolMax["BLUE"]
-	$VBoxContainer/StatsContainer/LifeContainer/BBarWGaps/BBar/TextureProgressBar.value = poolCurrent["BLUE"]
-	$VBoxContainer/StatsContainer/LifeContainer/BBarWGaps/BBar/Count/Background/Title.text = "MP"
-	$VBoxContainer/StatsContainer/LifeContainer/BBarWGaps/BBar/Count/Background/Number.text = str(poolCurrent["BLUE"])
-	$VBoxContainer/StatsContainer/LifeContainer/BBarWGaps/BBar/TextureProgressBar.set_tint_progress(Color(0.16,0.32,0.68,1))
+	$VBoxContainer/StatsContainer/LifeContainer/BlueBarWGaps/Bar/TextureProgressBar.max_value = poolMax[life_pools.BLUE]
+	$VBoxContainer/StatsContainer/LifeContainer/BlueBarWGaps/Bar/TextureProgressBar.value = poolCurrent[life_pools.BLUE]
+	$VBoxContainer/StatsContainer/LifeContainer/BlueBarWGaps/Bar/Count/Background/Title.text = "MP"
+	$VBoxContainer/StatsContainer/LifeContainer/BlueBarWGaps/Bar/Count/Background/Number.text = str(poolCurrent[life_pools.BLUE])
+	$VBoxContainer/StatsContainer/LifeContainer/BlueBarWGaps/Bar/TextureProgressBar.set_tint_progress(Color(0.16,0.32,0.68,1))
 	
 	generateActions()
 	pass
@@ -77,20 +80,15 @@ func highlightMangement(isHighlighted):
 	
 func generateActions():
 	var poolsText = enemyData.preparePoolStrings(enemy.actions[actionStage])
-	$VBoxContainer/StatsContainer/ActionContainer/RedActionWGap/RedActionContainer/CenterContainer/RedAction.text = poolsText.red
-	$VBoxContainer/StatsContainer/ActionContainer/GreenActionWGap/GreenActionContainer/CenterContainer/GreenAction.text = poolsText.green
-	$VBoxContainer/StatsContainer/ActionContainer/BlueActionWGap/BlueActionContainer/CenterContainer/BlueAction.text = poolsText.blue
+	$VBoxContainer/StatsContainer/ActionContainer/RedActionWGap/RedActionContainer/CenterContainer/Action.text = poolsText.red
+	$VBoxContainer/StatsContainer/ActionContainer/GreenActionWGap/GreenActionContainer/CenterContainer/Action.text = poolsText.green
+	$VBoxContainer/StatsContainer/ActionContainer/BlueActionWGap/BlueActionContainer/CenterContainer/Action.text = poolsText.blue
 
 func manageHealth(pool, alteration):
 	alterHealthWLimitCheck(pool, alteration)
 	
-	$VBoxContainer/StatsContainer/LifeContainer/RBarWGaps/RBar/TextureProgressBar.value = poolCurrent["RED"]
-	$VBoxContainer/StatsContainer/LifeContainer/GBarWGaps/GBar/TextureProgressBar.value = poolCurrent["GREEN"]
-	$VBoxContainer/StatsContainer/LifeContainer/BBarWGaps/BBar/TextureProgressBar.value = poolCurrent["BLUE"]
-	
-	$VBoxContainer/StatsContainer/LifeContainer/RBarWGaps/RBar/Count/Background/Number.text = str(poolCurrent["RED"])
-	$VBoxContainer/StatsContainer/LifeContainer/GBarWGaps/GBar/Count/Background/Number.text = str(poolCurrent["GREEN"])
-	$VBoxContainer/StatsContainer/LifeContainer/BBarWGaps/BBar/Count/Background/Number.text = str(poolCurrent["BLUE"])
+	$VBoxContainer/StatsContainer/LifeContainer.get_node(pool + "BarWGaps/Bar/TextureProgressBar").value = poolCurrent[pool]
+	$VBoxContainer/StatsContainer/LifeContainer.get_node(pool + "BarWGaps/Bar/Count/Background/Number").text = str(poolCurrent[pool])
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

@@ -1,5 +1,10 @@
 extends Node2D
 
+enum targetEnum {SINGLE, RANDOM, ALL, SELF}
+
+const constants = preload("res://constants.gd")
+var life_pools = constants.new().life_pools
+
 #var CardSize = Vector2i(281, 338)
 var PlayerSize = Vector2(320, 170)
 var CardSize = Vector2(117, 142)
@@ -138,7 +143,7 @@ func _input(event):
 			if mousepos.x < enemyReach.x && mousepos.y < enemyReach.y && mousepos.x > enemytPos.x && mousepos.x > enemytPos.x:
 				var cardContainer = $CardsInHand.get_child(selectedCard)
 				#deal with effects
-				calculate_card_effects(cardContainer.card.actions, $Enemies.get_child(i))
+				calculate_action_effects(cardContainer.card.actions, player, $Enemies.get_child(i))
 				$CardsInHand.get_child(selectedCard).cardPlayed(true)
 				ReParentCard(selectedCard)
 				selectedCard = null
@@ -152,8 +157,17 @@ func _input(event):
 			
 		manageHighlights(false)
 		
-func calculate_card_effects(actions, target):
-	target.manageHealth()
+func calculate_action_effects(actions, owner, target):
+	for action in actions:
+		match action.target:
+			targetEnum.SINGLE:
+				target.manageHealth(action.pool, action.adjust)
+				pass
+				
+			targetEnum.SELF:
+				owner.manageHealth(action.pool, action.adjust)
+				pass
+	
 	#TODO: after the tutorial, the actual damage and stuff
 	pass
 	

@@ -1,5 +1,12 @@
-enum life_pools {RED, BLUE, GREEN}
-enum target {SINGLE, RANDOM, ALL, SELF}
+#const life_pools = {
+#	RED = "Red",
+#	BLUE = "Blue",
+#	GREEN = "Green"
+#}
+
+const constants = preload("res://constants.gd")
+const life_pools = constants.new().life_pools
+const targetEnum = constants.new().targetEnum
 
 enum {card1,card2,card3,card4,card5,card6,card7,card8,card9,card10,card11,card12}
 
@@ -21,9 +28,9 @@ var card_data = {
 		"res://Assets/cards/images/card-back.png", # card back
 		#[], #pre player phase
 		[ # player phase
-			set_action(life_pools.RED, target.SELF, 2, 0, 0, 1),
-			set_action(life_pools.GREEN, target.SELF, -1, 0, 0, 1),
-			set_action(life_pools.GREEN, target.SINGLE, -3, 0, 0, 1)
+			set_action(life_pools.RED, targetEnum.SELF, 2, 0, 0, 1),
+			set_action(life_pools.GREEN, targetEnum.SELF, -1, 0, 0, 1),
+			set_action(life_pools.GREEN, targetEnum.SINGLE, -3, 0, 0, 1)
 		]
 		#[], # post player phase
 		#[], # pre enemy phase
@@ -37,9 +44,9 @@ var card_data = {
 		"res://Assets/cards/images/card-back.png", # card back
 		#[], #pre player phase
 		[ # player phase
-			set_action(life_pools.GREEN, target.SELF, 2, 0, 0, 1),
-			set_action(life_pools.BLUE, target.SELF, -1, 0, 0, 1),
-			set_action(life_pools.BLUE, target.SINGLE, -3, 0, 0, 1)
+			set_action(life_pools.GREEN, targetEnum.SELF, 2, 0, 0, 1),
+			set_action(life_pools.BLUE, targetEnum.SELF, -1, 0, 0, 1),
+			set_action(life_pools.BLUE, targetEnum.SINGLE, -3, 0, 0, 1)
 		]
 		#[], # post player phase
 		#[], # pre enemy phase
@@ -53,9 +60,9 @@ var card_data = {
 		"res://Assets/cards/images/card-back.png", # card back
 		#[], #pre player phase
 		[ # player phase
-			set_action(life_pools.BLUE, target.SELF, 2, 0, 0, 1),
-			set_action(life_pools.RED, target.SELF, -1, 0, 0, 1),
-			set_action(life_pools.RED, target.SINGLE, -3, 0, 0, 1)
+			set_action(life_pools.BLUE, targetEnum.SELF, 2, 0, 0, 1),
+			set_action(life_pools.RED, targetEnum.SELF, -1, 0, 0, 1),
+			set_action(life_pools.RED, targetEnum.SINGLE, -3, 0, 0, 1)
 		] 
 		#[], # post player phase
 		#[], # pre enemy phase
@@ -69,9 +76,9 @@ var card_data = {
 		"res://Assets/cards/images/card-back.png", # card back
 		#[], #pre player phase
 		[ # player phase
-			set_action(life_pools.GREEN, target.SELF, 1, 0, 0, 1),
-			set_action(life_pools.BLUE, target.SELF, 4, 0, 0, 1),
-			set_action(life_pools.RED, target.SELF, -3, 0, 0, 1)
+			set_action(life_pools.GREEN, targetEnum.SELF, 1, 0, 0, 1),
+			set_action(life_pools.BLUE, targetEnum.SELF, 4, 0, 0, 1),
+			set_action(life_pools.RED, targetEnum.SELF, -3, 0, 0, 1)
 		]
 		#[], # post player phase
 		#[], # pre enemy phase
@@ -85,9 +92,9 @@ var card_data = {
 		"res://Assets/cards/images/card-back.png", # card back
 		#[], #pre player phase
 		[ # player phase
-			set_action(life_pools.GREEN, target.SELF, 2, 0, 0, 1),
-			set_action(life_pools.BLUE, target.SELF, 2, 0, 0, 1),
-			set_action(life_pools.RED, target.SELF, 2, 0, 0, 1)
+			set_action(life_pools.GREEN, targetEnum.SELF, 2, 0, 0, 1),
+			set_action(life_pools.BLUE, targetEnum.SELF, 2, 0, 0, 1),
+			set_action(life_pools.RED, targetEnum.SELF, 2, 0, 0, 1)
 		] 
 		#[], # post player phase
 		#[], # pre enemy phase
@@ -101,8 +108,8 @@ var card_data = {
 		"res://Assets/cards/images/card-back.png", # card back
 		#[], #pre player phase
 		[ # player phase
-			set_action(life_pools.RED, target.SELF, -3, 0, 0, 1),
-			set_action(life_pools.RED, target.SINGLE, -6, 0, 0, 1)
+			set_action(life_pools.RED, targetEnum.SELF, -3, 0, 0, 1),
+			set_action(life_pools.RED, targetEnum.SINGLE, -6, 0, 0, 1)
 		]
 		#[], # post player phase
 		#[], # pre enemy phase
@@ -116,11 +123,11 @@ var card_data = {
 		"res://Assets/cards/images/card-back.png", # card back
 		#[], #pre player phase
 		[ # player phase
-			set_action(life_pools.RED, target.SELF, -2, 0, 0, 1),
-			set_action(life_pools.GREEN, target.SELF, -2, 0, 0, 1),
-			set_action(life_pools.RED, target.SINGLE, -4, 0, 0, 1),
-			set_action(life_pools.GREEN, target.SINGLE, -2, 0, 0, 1),
-			set_action(life_pools.BLUE, target.SINGLE, -2, 0, 0, 1)
+			set_action(life_pools.RED, targetEnum.SELF, -2, 0, 0, 1),
+			set_action(life_pools.GREEN, targetEnum.SELF, -2, 0, 0, 1),
+			set_action(life_pools.RED, targetEnum.SINGLE, -4, 0, 0, 1),
+			set_action(life_pools.GREEN, targetEnum.SINGLE, -2, 0, 0, 1),
+			set_action(life_pools.BLUE, targetEnum.SINGLE, -2, 0, 0, 1)
 		] 
 		#[], # post player phase
 		#[], # pre enemy phase
@@ -135,8 +142,8 @@ var card_data = {
 		"res://Assets/cards/images/card-back.png", # card back
 		#[], #pre player phase
 		[ # player phase
-			set_action(life_pools.RED, target.SELF, 8, 0, 0, 1),
-			set_action(life_pools.BLUE, target.SELF, -4, 0, 0, 1)
+			set_action(life_pools.RED, targetEnum.SELF, 8, 0, 0, 1),
+			set_action(life_pools.BLUE, targetEnum.SELF, -4, 0, 0, 1)
 		] 
 		#[], # post player phase
 		#[], # pre enemy phase
@@ -150,11 +157,11 @@ var card_data = {
 		"res://Assets/cards/images/card-back.png", # card back
 		#[], #pre player phase
 		[ # player phase
-			set_action(life_pools.RED, target.SELF, 4, 0, 0, 1),
-			set_action(life_pools.GREEN, target.SELF, -2, 0, 0, 1),
-			set_action(life_pools.BLUE, target.SELF, -3, 0, 0, 1),
-			set_action(life_pools.RED, target.SINGLE, -3, 0, 0, 1),
-			set_action(life_pools.BLUE, target.SINGLE, -5, 0, 0, 1)
+			set_action(life_pools.RED, targetEnum.SELF, 4, 0, 0, 1),
+			set_action(life_pools.GREEN, targetEnum.SELF, -2, 0, 0, 1),
+			set_action(life_pools.BLUE, targetEnum.SELF, -3, 0, 0, 1),
+			set_action(life_pools.RED, targetEnum.SINGLE, -3, 0, 0, 1),
+			set_action(life_pools.BLUE, targetEnum.SINGLE, -5, 0, 0, 1)
 		]
 		#[], # post player phase
 		#[], # pre enemy phase
@@ -168,9 +175,9 @@ var card_data = {
 		"res://Assets/cards/images/card-back.png", # card back
 		#[], #pre player phase
 		[ # player phase
-			set_action(life_pools.RED, target.SELF, 1, 0, 0, 1),
-			set_action(life_pools.GREEN, target.SELF, 4, 0, 0, 1),
-			set_action(life_pools.BLUE, target.SELF, -3, 0, 0, 1)
+			set_action(life_pools.RED, targetEnum.SELF, 1, 0, 0, 1),
+			set_action(life_pools.GREEN, targetEnum.SELF, 4, 0, 0, 1),
+			set_action(life_pools.BLUE, targetEnum.SELF, -3, 0, 0, 1)
 		]
 		#[], # post player phase
 		#[], # pre enemy phase
@@ -184,10 +191,10 @@ var card_data = {
 		"res://Assets/cards/images/card-back.png", # card back
 		#[], #pre player phase
 		[ # player phase
-			set_action(life_pools.BLUE, target.SELF, 8, 0, 0, 1),
-			set_action(life_pools.RED, target.SELF, -3, 0, 0, 1),
-			set_action(life_pools.GREEN, target.SELF, -3, 0, 0, 1),
-			set_action(life_pools.BLUE, target.SINGLE, -3, 0, 0, 1)
+			set_action(life_pools.BLUE, targetEnum.SELF, 8, 0, 0, 1),
+			set_action(life_pools.RED, targetEnum.SELF, -3, 0, 0, 1),
+			set_action(life_pools.GREEN, targetEnum.SELF, -3, 0, 0, 1),
+			set_action(life_pools.BLUE, targetEnum.SINGLE, -3, 0, 0, 1)
 		]
 		#[], # post player phase
 		#[], # pre enemy phase
@@ -201,10 +208,10 @@ var card_data = {
 		"res://Assets/cards/images/card-back.png", # card back
 		#[], #pre player phase
 		[ # player phase
-			set_action(life_pools.RED, target.SELF, 4, 0, 0, 1),
-			set_action(life_pools.GREEN, target.SELF, -3, 0, 0, 1),
-			set_action(life_pools.BLUE, target.SELF, -3, 0, 0, 1),
-			set_action(life_pools.BLUE, target.SINGLE, -6, 0, 0, 1)
+			set_action(life_pools.RED, targetEnum.SELF, 4, 0, 0, 1),
+			set_action(life_pools.GREEN, targetEnum.SELF, -3, 0, 0, 1),
+			set_action(life_pools.BLUE, targetEnum.SELF, -3, 0, 0, 1),
+			set_action(life_pools.BLUE, targetEnum.SINGLE, -6, 0, 0, 1)
 		]
 		#[], # post player phase
 		#[], # pre enemy phase
@@ -243,8 +250,8 @@ func set_body(
 	}
 
 func set_action(
-	new_pool:int, new_target:int, new_adjust:int, new_periodical_adjust:int,
-	new_number_of_rounds_adjust:int, new_execute_times:int= 1, new_timer:int = 0, new_timer_adjust:int = 0
+	new_pool, new_target, new_adjust, new_periodical_adjust,
+	new_number_of_rounds_adjust, new_execute_times= 1, new_timer = 0, new_timer_adjust = 0
 ):
 	return {
 		pool= new_pool,
@@ -257,12 +264,6 @@ func set_action(
 		timer_adjust= new_timer_adjust
 	}
 
-func get_target_enum():
-	return target
-	
-func get_pool_enum():
-	return life_pools
-	
 	
 func preparePoolStrings(lines):
 	var redLine = []
@@ -281,16 +282,16 @@ func preparePoolStrings(lines):
 			current_adjust = line.timer_adjust
 
 		match (line.target):
-			target.SELF:
+			targetEnum.SELF:
 				if (line.adjust> 0):
 					currentString = str(currentString, lifeChar, current_adjust)
 				else:
 					currentString = str(currentString, costChar, abs(current_adjust))
-			target.SINGLE:
+			targetEnum.SINGLE:
 				currentString = str(currentString, attackSingleChar, abs(current_adjust))
-			target.RANDOM:
+			targetEnum.RANDOM:
 				currentString = str(currentString, attackRandomChar, abs(current_adjust))
-			target.ALL:
+			targetEnum.ALL:
 				currentString = str(currentString, attackAllChar, abs(current_adjust))
 				
 		if (line.number_of_rounds_adjust > 0):

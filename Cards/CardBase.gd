@@ -1,6 +1,9 @@
 extends MarginContainer
 #enum CardStateEnum {InHand, InPlay, InGrab, InFocus, MoveDrawnCardToHand, ReorganizeHand}
 
+const constants = preload("res://constants.gd")
+var life_pools = constants.new().life_pools
+
 var CardList = preload("res://Assets/cards/card_management.gd")
 #const CardStateEnum = CardList.new().get_card_state_enum()
 
