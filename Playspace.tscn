@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ctwvv603e2pxr"]
+[gd_scene load_steps=10 format=3 uid="uid://ctwvv603e2pxr"]
 
 [ext_resource type="Script" path="res://Playspace.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://bi72icmcln0kw" path="res://Konachan.com - 280157 blue forest heriki_(trkj) original polychromatic scenic tree.jpg" id="2"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c1jk1yqn6h0fb" path="res://EnemyBase.tscn" id="6"]
 [ext_resource type="Script" path="res://Cards/DiscardButton.gd" id="7"]
 [ext_resource type="PackedScene" uid="uid://7j7g4ddab2ld" path="res://PlayerInfo.tscn" id="8_xxrio"]
+[ext_resource type="PackedScene" uid="uid://eriy2apy1gsd" path="res://RoundManagement.tscn" id="9_yjjxa"]
 
 [node name="Playspace" type="Node2D"]
 script = ExtResource("1")
@@ -52,5 +53,15 @@ script = ExtResource("7")
 [node name="PlayerBase" parent="Player" instance=ExtResource("8_xxrio")]
 offset_left = 20.0
 offset_top = 370.0
-offset_right = 737.0
+offset_right = 533.0
 offset_bottom = 609.0
+
+[node name="RoundManagement" type="Node" parent="."]
+
+[node name="RoundManagement" parent="RoundManagement" instance=ExtResource("9_yjjxa")]
+offset_left = 1121.0
+offset_top = 370.0
+offset_right = 1321.0
+offset_bottom = 611.0
+
+[connection signal="action_modification" from="RoundManagement/RoundManagement" to="." method="_on_round_management_action_modification"]

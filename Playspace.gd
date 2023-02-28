@@ -7,6 +7,7 @@ var life_pools = constants.new().life_pools
 
 #var CardSize = Vector2i(281, 338)
 var PlayerSize = Vector2(320, 170)
+var RoundManagementSize = Vector2(140, 170)
 var CardSize = Vector2(117, 142)
 var EnemySizeRegular = Vector2(400, 264)
 var EnemySizeMid = Vector2i(400, 264)
@@ -22,6 +23,7 @@ const CardSlot = preload("res://Cards/CardSlot.tscn")
 var enemy
 
 var player
+var roundManagementNode
 
 var cardSelected
 @onready var deckSize = playerHand.get_size()
@@ -91,6 +93,9 @@ func _ready():
 	
 	player = $Player/PlayerBase
 	player.scale *= (PlayerSize / player.size)
+	
+	roundManagementNode = $RoundManagement/RoundManagement
+	roundManagementNode.scale *= (RoundManagementSize / roundManagementNode.size)
 
 
 func draw_card():
@@ -148,6 +153,7 @@ func _input(event):
 				ReParentCard(selectedCard)
 				selectedCard = null
 				clickReadyAfterSelect = false
+				roundManagementNode.actionUpdate()
 				break
 				
 		if selectedCard != null:
@@ -203,3 +209,7 @@ func organizeHand():
 			Card.t -= 0.1
 			Card.startPos = Card.targetPos - ((Card.targetPos - Card.position )/(1 - Card.t))
 			pass
+
+
+func _on_round_management_action_modification(pool, mod):
+	player.manageHealth(pool, mod)

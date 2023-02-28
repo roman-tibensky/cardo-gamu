@@ -1,0 +1,262 @@
+[gd_scene load_steps=6 format=3 uid="uid://eriy2apy1gsd"]
+
+[ext_resource type="Script" path="res://RoundManagement.gd" id="1_f31wg"]
+[ext_resource type="Texture2D" uid="uid://d2ujeq2bgoiui" path="res://Assets/cardParts/background shade.png" id="1_m7s4y"]
+[ext_resource type="Texture2D" uid="uid://boriyr080fonn" path="res://Assets/enemies/images/enemy0.png" id="2_bmnjj"]
+[ext_resource type="FontFile" uid="uid://dfdbbw8l6wpii" path="res://Assets/fonts/Xolonium-Regular.ttf" id="2_ngpjy"]
+[ext_resource type="Texture2D" uid="uid://u836uvtorbef" path="res://Assets/cards/images/card-back.png" id="3_i8cya"]
+
+[node name="RoundManagement" type="MarginContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_f31wg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.8, 1.07)
+texture = ExtResource("2_bmnjj")
+centered = false
+
+[node name="RoundInfoContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="TopGap" type="MarginContainer" parent="RoundInfoContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="LifeModLabel" type="HBoxContainer" parent="RoundInfoContainer"]
+layout_mode = 2
+
+[node name="LeftGap" type="MarginContainer" parent="RoundInfoContainer/LifeModLabel"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="LifeModContainer" type="MarginContainer" parent="RoundInfoContainer/LifeModLabel"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="RoundInfoContainer/LifeModLabel/LifeModContainer"]
+layout_mode = 2
+texture = ExtResource("1_m7s4y")
+
+[node name="CenterContainer" type="CenterContainer" parent="RoundInfoContainer/LifeModLabel/LifeModContainer"]
+layout_mode = 2
+
+[node name="LifeModifier" type="Label" parent="RoundInfoContainer/LifeModLabel/LifeModContainer/CenterContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ngpjy")
+theme_override_font_sizes/font_size = 23
+text = "Modifiers"
+
+[node name="RightGap" type="MarginContainer" parent="RoundInfoContainer/LifeModLabel"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="PoolsWGap" type="HBoxContainer" parent="RoundInfoContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="LeftGap" type="MarginContainer" parent="RoundInfoContainer/PoolsWGap"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="RedActionContainer" type="MarginContainer" parent="RoundInfoContainer/PoolsWGap"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="RoundInfoContainer/PoolsWGap/RedActionContainer"]
+layout_mode = 2
+texture = ExtResource("1_m7s4y")
+
+[node name="CenterContainer" type="CenterContainer" parent="RoundInfoContainer/PoolsWGap/RedActionContainer"]
+layout_mode = 2
+
+[node name="PoolMod" type="Label" parent="RoundInfoContainer/PoolsWGap/RedActionContainer/CenterContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.490196, 0.490196, 1)
+theme_override_fonts/font = ExtResource("2_ngpjy")
+theme_override_font_sizes/font_size = 20
+text = "+100"
+
+[node name="GreenActionContainer" type="MarginContainer" parent="RoundInfoContainer/PoolsWGap"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="RoundInfoContainer/PoolsWGap/GreenActionContainer"]
+layout_mode = 2
+texture = ExtResource("1_m7s4y")
+
+[node name="CenterContainer" type="CenterContainer" parent="RoundInfoContainer/PoolsWGap/GreenActionContainer"]
+layout_mode = 2
+
+[node name="PoolMod" type="Label" parent="RoundInfoContainer/PoolsWGap/GreenActionContainer/CenterContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.490196, 1, 0.490196, 1)
+theme_override_fonts/font = ExtResource("2_ngpjy")
+theme_override_font_sizes/font_size = 20
+text = "-100"
+
+[node name="BlueActionContainer" type="MarginContainer" parent="RoundInfoContainer/PoolsWGap"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="RoundInfoContainer/PoolsWGap/BlueActionContainer"]
+layout_mode = 2
+texture = ExtResource("1_m7s4y")
+
+[node name="CenterContainer" type="CenterContainer" parent="RoundInfoContainer/PoolsWGap/BlueActionContainer"]
+layout_mode = 2
+
+[node name="PoolMod" type="Label" parent="RoundInfoContainer/PoolsWGap/BlueActionContainer/CenterContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.490196, 0.490196, 1, 1)
+theme_override_fonts/font = ExtResource("2_ngpjy")
+theme_override_font_sizes/font_size = 20
+text = "-100"
+
+[node name="RightGap" type="MarginContainer" parent="RoundInfoContainer/PoolsWGap"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="ActionModifiersLabel" type="HBoxContainer" parent="RoundInfoContainer"]
+layout_mode = 2
+
+[node name="LeftGap" type="MarginContainer" parent="RoundInfoContainer/ActionModifiersLabel"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="LifeModContainer" type="MarginContainer" parent="RoundInfoContainer/ActionModifiersLabel"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="RoundInfoContainer/ActionModifiersLabel/LifeModContainer"]
+layout_mode = 2
+texture = ExtResource("1_m7s4y")
+
+[node name="CenterContainer" type="CenterContainer" parent="RoundInfoContainer/ActionModifiersLabel/LifeModContainer"]
+layout_mode = 2
+
+[node name="ActionModifier" type="Label" parent="RoundInfoContainer/ActionModifiersLabel/LifeModContainer/CenterContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ngpjy")
+theme_override_font_sizes/font_size = 23
+text = "Per Action"
+
+[node name="RightGap" type="MarginContainer" parent="RoundInfoContainer/ActionModifiersLabel"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="ActionModifiersPoolsWGap" type="HBoxContainer" parent="RoundInfoContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="LeftGap" type="MarginContainer" parent="RoundInfoContainer/ActionModifiersPoolsWGap"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="RedActionContainer" type="MarginContainer" parent="RoundInfoContainer/ActionModifiersPoolsWGap"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="RoundInfoContainer/ActionModifiersPoolsWGap/RedActionContainer"]
+layout_mode = 2
+texture = ExtResource("1_m7s4y")
+
+[node name="CenterContainer" type="CenterContainer" parent="RoundInfoContainer/ActionModifiersPoolsWGap/RedActionContainer"]
+layout_mode = 2
+
+[node name="PoolMod" type="Label" parent="RoundInfoContainer/ActionModifiersPoolsWGap/RedActionContainer/CenterContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.490196, 0.490196, 1)
+theme_override_fonts/font = ExtResource("2_ngpjy")
+theme_override_font_sizes/font_size = 20
+text = "+100"
+
+[node name="GreenActionContainer" type="MarginContainer" parent="RoundInfoContainer/ActionModifiersPoolsWGap"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="RoundInfoContainer/ActionModifiersPoolsWGap/GreenActionContainer"]
+layout_mode = 2
+texture = ExtResource("1_m7s4y")
+
+[node name="CenterContainer" type="CenterContainer" parent="RoundInfoContainer/ActionModifiersPoolsWGap/GreenActionContainer"]
+layout_mode = 2
+
+[node name="PoolMod" type="Label" parent="RoundInfoContainer/ActionModifiersPoolsWGap/GreenActionContainer/CenterContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.490196, 1, 0.490196, 1)
+theme_override_fonts/font = ExtResource("2_ngpjy")
+theme_override_font_sizes/font_size = 20
+text = "-100"
+
+[node name="BlueActionContainer" type="MarginContainer" parent="RoundInfoContainer/ActionModifiersPoolsWGap"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="RoundInfoContainer/ActionModifiersPoolsWGap/BlueActionContainer"]
+layout_mode = 2
+texture = ExtResource("1_m7s4y")
+
+[node name="CenterContainer" type="CenterContainer" parent="RoundInfoContainer/ActionModifiersPoolsWGap/BlueActionContainer"]
+layout_mode = 2
+
+[node name="PoolMod" type="Label" parent="RoundInfoContainer/ActionModifiersPoolsWGap/BlueActionContainer/CenterContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.490196, 0.490196, 1, 1)
+theme_override_fonts/font = ExtResource("2_ngpjy")
+theme_override_font_sizes/font_size = 20
+text = "-100"
+
+[node name="RightGap" type="MarginContainer" parent="RoundInfoContainer/ActionModifiersPoolsWGap"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="EndRoundButtonWGap" type="HBoxContainer" parent="RoundInfoContainer"]
+custom_minimum_size = Vector2(0, 53)
+layout_mode = 2
+
+[node name="LeftGap" type="MarginContainer" parent="RoundInfoContainer/EndRoundButtonWGap"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RoundInfoContainer/EndRoundButtonWGap"]
+layout_mode = 2
+
+[node name="TopGap" type="MarginContainer" parent="RoundInfoContainer/EndRoundButtonWGap/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="EndRoundButton" type="TextureButton" parent="RoundInfoContainer/EndRoundButtonWGap/VBoxContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+texture_normal = ExtResource("3_i8cya")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="RoundInfoContainer/EndRoundButtonWGap/VBoxContainer/EndRoundButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -25.0
+offset_right = 75.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EndRoundLabel" type="Label" parent="RoundInfoContainer/EndRoundButtonWGap/VBoxContainer/EndRoundButton/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 23
+text = "End Round"
+
+[node name="RightGap" type="MarginContainer" parent="RoundInfoContainer/EndRoundButtonWGap"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="BottomGap" type="MarginContainer" parent="RoundInfoContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
