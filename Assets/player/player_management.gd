@@ -10,12 +10,12 @@ var playerData = {
 		redModifierAction = -1,
 		
 		greenStarting = 12,
-		greenMaxPool = 22,
+		greenMaxPool = 23,
 		greenModifierStarting = 2,
 		greenModifierAction = -2,
 		
 		blueStarting = 13,
-		blueMaxPool = 23,
+		blueMaxPool = 25,
 		blueModifierStarting = 3,
 		blueModifierAction = -3,
 		

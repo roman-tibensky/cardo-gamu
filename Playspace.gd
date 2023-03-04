@@ -40,9 +40,6 @@ var angle = deg_to_rad(90) - 0.6
 var cardSpread = 0.2 * CardSize.x/117
 var ovalAngleVector = Vector2i()
 
-var playerRed = 20
-var playerGreen = 20
-var playerBlue = 20
 
 var handSize = -1
 
@@ -210,6 +207,23 @@ func organizeHand():
 			Card.startPos = Card.targetPos - ((Card.targetPos - Card.position )/(1 - Card.t))
 			pass
 
+func discardAllCards():
+	for Card in $CardsInHand.get_children():
+		Card.cardPlayed(true)
+		$CardsInHand.remove_child(Card)
+		$CardsInPlay.add_child(Card)
+		handSize -= 1
+		organizeHand()
 
 func _on_round_management_action_modification(pool, mod):
 	player.manageHealth(pool, mod)
+
+
+func _on_round_management_round_end():
+	for i in range($Enemies.get_child_count()):
+		var enemyNode = $Enemies.get_child(i)
+		calculate_action_effects(enemyNode.enemy.actions[enemyNode.actionStage], enemyNode, player)
+		enemyNode.switchToNextAction()
+	
+	discardAllCards()
+	

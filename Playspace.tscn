@@ -65,3 +65,4 @@ offset_right = 1321.0
 offset_bottom = 611.0
 
 [connection signal="action_modification" from="RoundManagement/RoundManagement" to="." method="_on_round_management_action_modification"]
+[connection signal="round_end" from="RoundManagement/RoundManagement" to="." method="_on_round_management_round_end"]

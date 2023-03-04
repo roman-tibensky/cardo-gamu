@@ -1,9 +1,11 @@
-res://PlayerInfo.gd
-res://RoundManagement.tscn
 res://RoundManagement.gd
+res://RoundManagement.tscn
 res://Playspace.tscn
-res://Playspace.gd
 res://EnemyBase.tscn
 res://Bar.tscn
 res://Cards/CardBase.tscn
 res://PlayerInfo.tscn
+res://Playspace.gd
+res://Assets/player/player_management.gd
+res://Assets/enemies/enemy_management.gd
+res://EnemyBase.gd

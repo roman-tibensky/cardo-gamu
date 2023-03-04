@@ -6,6 +6,7 @@ const life_pools = constants.new().life_pools
 const targetEnum = constants.new().targetEnum
 
 signal action_modification(pool, mod)
+signal round_end
 
 @onready var PlayerManagement = preload("res://Assets/player/player_management.gd")
 var playerManagement
@@ -16,6 +17,7 @@ var poolMod = {}
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	playerManagement = PlayerManagement.new()
+	player = playerManagement.playerData.player1
 	setup_player_modifiers()
 	pass # Replace with function body.
 
@@ -23,7 +25,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func setup_player_modifiers():
 	
-	player = playerManagement.playerData.player1
+	
 	poolModCurrent[life_pools.RED] = player.redModifierStarting
 	poolModCurrent[life_pools.GREEN] = player.greenModifierStarting
 	poolModCurrent[life_pools.BLUE] = player.blueModifierStarting
@@ -50,3 +52,12 @@ func actionUpdate():
 		$RoundInfoContainer/PoolsWGap.get_node(life_pools[pool] + "ActionContainer/CenterContainer/PoolMod").text = str(poolModCurrent[life_pools[pool]])
 
 
+
+
+func _on_end_round_button_button_down():
+	for pool in life_pools:
+		if poolModCurrent[life_pools[pool]] > 0:
+			action_modification.emit(life_pools[pool], poolModCurrent[life_pools[pool]])
+
+	setup_player_modifiers()
+	round_end.emit()	

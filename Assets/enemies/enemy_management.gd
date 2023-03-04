@@ -24,9 +24,16 @@ var enemy_data = {
 		#[], #pre player phase
 		[ #actions to be cycled through
 			[ # player phase
-				set_action(life_pools.RED, targetEnum.SINGLE, 6, 0, 0, 1),
+				set_action(life_pools.RED, targetEnum.SINGLE, -6, 0, 0, 1),
+				set_action(life_pools.GREEN, targetEnum.SINGLE, -6, 0, 0, 1),
+				set_action(life_pools.BLUE, targetEnum.SINGLE, -6, 0, 0, 1),
 				set_action(life_pools.GREEN, targetEnum.SELF, -1, 0, 0, 1),
 				set_action(life_pools.BLUE, targetEnum.SELF, -2, 0, 0, 1)
+			],
+			[ # player phase
+				set_action(life_pools.RED, targetEnum.SINGLE, -1, 0, 0, 1),
+				set_action(life_pools.GREEN, targetEnum.SELF, 1, 0, 0, 1),
+				set_action(life_pools.BLUE, targetEnum.SELF, 1, 0, 0, 1)
 			],
 			[ # player phase
 				set_action(life_pools.GREEN, targetEnum.SELF, 2, 0, 0, 1),
@@ -108,7 +115,11 @@ func preparePoolStrings(lines):
 				else:
 					currentString = str(currentString, costChar, abs(current_adjust))
 			targetEnum.SINGLE:
-				currentString = str(currentString, attackSingleChar, abs(current_adjust))
+				if (line.adjust> 0):
+					#TODO: shouldn't happen?
+					currentString = str(currentString, "!!", current_adjust)
+				else:
+					currentString = str(currentString, attackSingleChar, abs(current_adjust))
 				
 		if (line.number_of_rounds_adjust > 0):
 			currentString =+ (" " + roundsChar + line.number_of_rounds_adjust)
