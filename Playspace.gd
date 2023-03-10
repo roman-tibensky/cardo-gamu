@@ -16,8 +16,8 @@ var EnemySizeBoss = Vector2i(400, 264)
 var DeckCardSize = Vector2i(117, 142)
 #var DeckCardSize = Vector2i(205, 250)
 const CardBase = preload("res://Cards/CardBase.tscn")
-const PlayerHand = preload("res://Cards/Player_Hand.gd")
-var playerHand = PlayerHand.new()
+const PlayerDeck = preload("res://Cards/Player_Deck.gd")
+var playerDeck = PlayerDeck.new()
 const CardSlot = preload("res://Cards/CardSlot.tscn")
 @onready var EnemiesData = preload("res://Assets/enemies/enemy_management.gd")
 var enemy
@@ -26,7 +26,7 @@ var player
 var roundManagementNode
 
 var cardSelected
-@onready var deckSize = playerHand.get_size()
+#@onready var deckSize = playerDeck.get_size()
 
 @onready var deckPosition = $Deck.position
 @onready var discardPosition = $DiscardPile.position
@@ -93,14 +93,27 @@ func _ready():
 	
 	roundManagementNode = $RoundManagement/RoundManagement
 	roundManagementNode.scale *= (RoundManagementSize / roundManagementNode.size)
-
+	initDraw()
+	
+func initDraw():
+	var waitTime = 0
+	var cardsToDraw = player.playerData.handSizeDefault - $CardsInHand.get_child_count() #player.playerData.handSizeDefault - handSize - 1
+	for i in range(cardsToDraw):
+		if (waitTime == 0):
+			waitTime = 0.5
+		else:
+			await get_tree().create_timer(0.1).timeout
+		draw_card()
 
 func draw_card():
 	angle = PI/2 + cardSpread*(float(handSize)/2 - handSize)
 	var new_card = CardBase.instantiate()
-	cardSelected = randi() % deckSize
+	if(playerDeck.get_size() < 1):
+		moveDiscardToDeck()
+		
+	cardSelected = randi() % playerDeck.get_size()
 	
-	new_card.cardName = playerHand.get_card(cardSelected)
+	new_card.cardName = playerDeck.get_card(cardSelected)
 
 	# continue horrifying oval math thing
 	#ovalAngleVector = Vector2i(horRad * cos(angle), -verRad * sin(angle))
@@ -119,17 +132,17 @@ func draw_card():
 	new_card.state = new_card.card_state.MoveDrawnCardToHand
 		
 	$CardsInHand.add_child(new_card)
-	playerHand.remove_card(cardSelected)
+	playerDeck.remove_card(cardSelected)
 	
 	angle += cardSpread
-	deckSize = playerHand.get_size()
+	#deckSize = playerDeck.get_size()
 	
 	handSize += 1
 	#cardNumber += 1
 	
 	#reorganize cards when pushing new card
 	organizeHand()
-	return deckSize
+	return playerDeck.get_size()
 		
 		
 func _input(event):
@@ -226,4 +239,17 @@ func _on_round_management_round_end():
 		enemyNode.switchToNextAction()
 	
 	discardAllCards()
+	initDraw()
 	
+func moveDiscardToDeck():
+	print("CARDS IN PLAY " + str($CardsInPlay.get_child_count()))
+	for Card in $CardsInPlay.get_children():
+		print(Card.cardName)
+		playerDeck.add_card(Card.cardName)
+		Card.queue_free()
+		var a = is_instance_valid(Card)
+		print("IS INSTANCE VALID " + str(a))
+	print("CARDS IN PLAY " + str($CardsInPlay.get_child_count()))
+	print(playerDeck)
+	pass
+	#TODO

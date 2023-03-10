@@ -3,6 +3,9 @@
 var playerData = {
 	player1 = {
 		name = "no one cares",
+		startingHandType = "to do",
+		handSizeDefault = 4,
+		handSizeMax = 6,
 		
 		redStarting = 11,
 		redMaxPool = 21,

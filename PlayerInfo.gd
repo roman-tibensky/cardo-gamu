@@ -6,7 +6,7 @@ const targetEnum = constants.new().targetEnum
 
 @onready var PlayerManagement = preload("res://Assets/player/player_management.gd")
 var playerManagement
-var player
+var playerData
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -26,18 +26,18 @@ func _ready():
 
 # Called when the node enters the scene tree for the first time.
 func setup_player():
-	player = playerManagement.playerData.player1
-	poolCurrent[life_pools.RED] = player.redStarting
-	poolMax[life_pools.RED] = player.redMaxPool
-	poolModCurrent[life_pools.RED] = player.redModifierStarting
+	playerData = playerManagement.playerData.player1
+	poolCurrent[life_pools.RED] = playerData.redStarting
+	poolMax[life_pools.RED] = playerData.redMaxPool
+	poolModCurrent[life_pools.RED] = playerData.redModifierStarting
 	
-	poolCurrent[life_pools.GREEN] = player.greenStarting
-	poolMax[life_pools.GREEN] = player.greenMaxPool
-	poolModCurrent[life_pools.GREEN] = player.greenModifierStarting
+	poolCurrent[life_pools.GREEN] = playerData.greenStarting
+	poolMax[life_pools.GREEN] = playerData.greenMaxPool
+	poolModCurrent[life_pools.GREEN] = playerData.greenModifierStarting
 	
-	poolCurrent[life_pools.BLUE] = player.blueStarting
-	poolMax[life_pools.BLUE] = player.blueMaxPool
-	poolModCurrent[life_pools.BLUE] = player.blueModifierStarting
+	poolCurrent[life_pools.BLUE] = playerData.blueStarting
+	poolMax[life_pools.BLUE] = playerData.blueMaxPool
+	poolModCurrent[life_pools.BLUE] = playerData.blueModifierStarting
 	
 		
 	#$PlayerBackround.texture = load("res://Assets/enemies/images/player1.png")
@@ -73,19 +73,19 @@ func manageHealth(pool, alteration):
 	
 func takeAction():
 	if (poolCurrent[life_pools.RED] < 0):
-		alterHealthWLimitCheck(life_pools.RED, player.redModifierAction)
+		alterHealthWLimitCheck(life_pools.RED, playerData.redModifierAction)
 		
-	poolCurrent[life_pools.RED] += player.redModifierAction
+	poolCurrent[life_pools.RED] += playerData.redModifierAction
 	
 	if (poolCurrent[life_pools.GREEN] < 0):
-		alterHealthWLimitCheck(life_pools.GREEN, player.greenModifierAction)
+		alterHealthWLimitCheck(life_pools.GREEN, playerData.greenModifierAction)
 		
-	poolCurrent[life_pools.GREEN] += player.greenModifierAction
+	poolCurrent[life_pools.GREEN] += playerData.greenModifierAction
 	
 	if (poolCurrent[life_pools.BLUE] < 0):
-		alterHealthWLimitCheck(life_pools.BLUE, player.blueModifierAction)
+		alterHealthWLimitCheck(life_pools.BLUE, playerData.blueModifierAction)
 		
-	poolCurrent[life_pools.BLUE] += player.blueModifierAction
+	poolCurrent[life_pools.BLUE] += playerData.blueModifierAction
 
 func alterHealthWLimitCheck(pool, alteration):
 	if(poolCurrent[pool] + alteration <=0):

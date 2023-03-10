@@ -1,5 +1,8 @@
 var DeckCards = [
 	"card1",
+	"card1",
+	"card1",
+	"card5",
 	"card5",
 	"card2",
 	"card4",
