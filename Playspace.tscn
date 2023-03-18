@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3 uid="uid://ctwvv603e2pxr"]
+
+[ext_resource type="Script" path="res://Playspace.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://bi72icmcln0kw" path="res://Konachan.com - 280157 blue forest heriki_(trkj) original polychromatic scenic tree.jpg" id="2"]
+[ext_resource type="Script" path="res://Cards/DeckDraw.gd" id="3"]
+[ext_resource type="Texture2D" uid="uid://u836uvtorbef" path="res://Assets/cards/images/card-back.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://dcmhnhw1lslef" path="res://Assets/cards/images/card-deck-empty.png" id="5"]
+[ext_resource type="PackedScene" uid="uid://c1jk1yqn6h0fb" path="res://EnemyBase.tscn" id="6"]
+[ext_resource type="Script" path="res://Cards/DiscardButton.gd" id="7"]
+[ext_resource type="PackedScene" uid="uid://7j7g4ddab2ld" path="res://PlayerInfo.tscn" id="8_xxrio"]
+[ext_resource type="PackedScene" uid="uid://eriy2apy1gsd" path="res://RoundManagement.tscn" id="9_yjjxa"]
+
+[node name="Playspace" type="Node2D"]
+script = ExtResource("1")
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="EnemyBase" parent="Enemies" instance=ExtResource("6")]
+
+[node name="CardSlots" type="Node" parent="."]
+
+[node name="CardsInPlay" type="Node" parent="."]
+
+[node name="CardsInHand" type="Node" parent="."]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(988, 496)
+texture = ExtResource("2")
+
+[node name="Deck" type="Node2D" parent="."]
+position = Vector2(20, 550)
+
+[node name="DeckDraw" type="TextureButton" parent="Deck"]
+offset_right = 281.0
+offset_bottom = 338.0
+texture_normal = ExtResource("4")
+texture_pressed = ExtResource("4")
+texture_hover = ExtResource("4")
+texture_disabled = ExtResource("5")
+script = ExtResource("3")
+
+[node name="DiscardPile" type="Node2D" parent="."]
+position = Vector2(1140, 550)
+
+[node name="DiscardButton" type="TextureButton" parent="DiscardPile"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("5")
+script = ExtResource("7")
+
+[node name="Player" type="Node" parent="."]
+
+[node name="PlayerBase" parent="Player" instance=ExtResource("8_xxrio")]
+offset_left = 20.0
+offset_top = 370.0
+offset_right = 533.0
+offset_bottom = 609.0
+
+[node name="RoundManagement" type="Node" parent="."]
+
+[node name="RoundManagement" parent="RoundManagement" instance=ExtResource("9_yjjxa")]
+offset_left = 1121.0
+offset_top = 370.0
+offset_right = 1321.0
+offset_bottom = 611.0
+
+[connection signal="action_modification" from="RoundManagement/RoundManagement" to="." method="_on_round_management_action_modification"]
+[connection signal="round_end" from="RoundManagement/RoundManagement" to="." method="_on_round_management_round_end"]

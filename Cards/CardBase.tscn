@@ -1,0 +1,194 @@
+[gd_scene load_steps=6 format=3 uid="uid://bqir6i6ump5ls"]
+
+[ext_resource type="Script" path="res://Cards/CardBase.gd" id="1"]
+[ext_resource type="Shader" path="res://Cards/Inline.gdshader" id="1_gjuyr"]
+[ext_resource type="FontFile" uid="uid://dfdbbw8l6wpii" path="res://Assets/fonts/Xolonium-Regular.ttf" id="2"]
+[ext_resource type="Texture2D" uid="uid://d2ujeq2bgoiui" path="res://Assets/cardParts/background shade.png" id="3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uonnm"]
+shader = ExtResource("1_gjuyr")
+shader_parameter/color = null
+shader_parameter/width = null
+shader_parameter/pattern = null
+shader_parameter/inside = null
+shader_parameter/add_margins = null
+shader_parameter/onoff = null
+
+[node name="CardBase" type="MarginContainer"]
+offset_right = 205.0
+offset_bottom = 250.0
+script = ExtResource("1")
+
+[node name="CardFront" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_uonnm")
+centered = false
+
+[node name="Border" type="Sprite2D" parent="."]
+
+[node name="TextGrid" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TopGap" type="MarginContainer" parent="TextGrid"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="NameCont" type="HBoxContainer" parent="TextGrid"]
+layout_mode = 2
+
+[node name="LeftGap" type="MarginContainer" parent="TextGrid/NameCont"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="NameContainer" type="MarginContainer" parent="TextGrid/NameCont"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="TextGrid/NameCont/NameContainer"]
+layout_mode = 2
+texture = ExtResource("3")
+
+[node name="CenterContainer" type="CenterContainer" parent="TextGrid/NameCont/NameContainer"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="TextGrid/NameCont/NameContainer/CenterContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2")
+text = "[insert]"
+
+[node name="RightGap" type="MarginContainer" parent="TextGrid/NameCont"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="PostName" type="MarginContainer" parent="TextGrid"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="RedPoolCont" type="HBoxContainer" parent="TextGrid"]
+layout_mode = 2
+
+[node name="LeftGap" type="MarginContainer" parent="TextGrid/RedPoolCont"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="RedPoolContainer" type="MarginContainer" parent="TextGrid/RedPoolCont"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="TextGrid/RedPoolCont/RedPoolContainer"]
+layout_mode = 2
+texture = ExtResource("3")
+
+[node name="CenterContainer" type="CenterContainer" parent="TextGrid/RedPoolCont/RedPoolContainer"]
+layout_mode = 2
+
+[node name="RedPool" type="Label" parent="TextGrid/RedPoolCont/RedPoolContainer/CenterContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.490196, 0.490196, 1)
+theme_override_fonts/font = ExtResource("2")
+text = "[insert]"
+
+[node name="RightGap" type="MarginContainer" parent="TextGrid/RedPoolCont"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="GreenPoolCont" type="HBoxContainer" parent="TextGrid"]
+layout_mode = 2
+
+[node name="LeftGap" type="MarginContainer" parent="TextGrid/GreenPoolCont"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="GreenPoolContainer" type="MarginContainer" parent="TextGrid/GreenPoolCont"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="TextGrid/GreenPoolCont/GreenPoolContainer"]
+layout_mode = 2
+texture = ExtResource("3")
+
+[node name="CenterContainer" type="CenterContainer" parent="TextGrid/GreenPoolCont/GreenPoolContainer"]
+layout_mode = 2
+
+[node name="GreenPool" type="Label" parent="TextGrid/GreenPoolCont/GreenPoolContainer/CenterContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.490196, 1, 0.490196, 1)
+theme_override_fonts/font = ExtResource("2")
+text = "[insert]"
+
+[node name="RightGap" type="MarginContainer" parent="TextGrid/GreenPoolCont"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="BluePoolCont" type="HBoxContainer" parent="TextGrid"]
+layout_mode = 2
+
+[node name="LeftGap" type="MarginContainer" parent="TextGrid/BluePoolCont"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="BluePoolContainer" type="MarginContainer" parent="TextGrid/BluePoolCont"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="TextGrid/BluePoolCont/BluePoolContainer"]
+layout_mode = 2
+texture = ExtResource("3")
+
+[node name="CenterContainer" type="CenterContainer" parent="TextGrid/BluePoolCont/BluePoolContainer"]
+layout_mode = 2
+
+[node name="BluePool" type="Label" parent="TextGrid/BluePoolCont/BluePoolContainer/CenterContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.490196, 0.490196, 1, 1)
+theme_override_fonts/font = ExtResource("2")
+text = "[insert]"
+
+[node name="RightGap" type="MarginContainer" parent="TextGrid/BluePoolCont"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="PostPools" type="MarginContainer" parent="TextGrid"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="DescCont" type="HBoxContainer" parent="TextGrid"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LeftGap" type="MarginContainer" parent="TextGrid/DescCont"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="DescContainer" type="MarginContainer" parent="TextGrid/DescCont"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="TextGrid/DescCont/DescContainer"]
+layout_mode = 2
+texture = ExtResource("3")
+
+[node name="CenterContainer" type="CenterContainer" parent="TextGrid/DescCont/DescContainer"]
+layout_mode = 2
+
+[node name="Desc" type="Label" parent="TextGrid/DescCont/DescContainer/CenterContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2")
+text = "[insert]"
+
+[node name="RightGap" type="MarginContainer" parent="TextGrid/DescCont"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="BottomGap" type="MarginContainer" parent="TextGrid"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="CardBack" type="Sprite2D" parent="."]
+centered = false
+
+[node name="FocusButton" type="TextureButton" parent="."]
+layout_mode = 2
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="FocusButton" to="." method="_on_FocusButton_mouse_entered"]
+[connection signal="mouse_exited" from="FocusButton" to="." method="_on_FocusButton_mouse_exited"]

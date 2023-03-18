@@ -1,0 +1,7 @@
+res://Playspace.tscn
+res://Playspace.gd
+res://EnemyBase.tscn
+res://Bar.tscn
+res://Cards/CardBase.tscn
+res://PlayerInfo.tscn
+res://RoundManagement.tscn
