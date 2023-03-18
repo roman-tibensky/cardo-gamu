@@ -61,7 +61,7 @@ func setHasCardSelected(val):
 	selectedCard = val
 	manageHighlights(true)
 	#await setClickReady(true).create_timer(500).timeout
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.1).timeout
 	clickReadyAfterSelect = true
 
 func setClickReady(isReady):
@@ -79,14 +79,9 @@ func _ready():
 	randomize()
 	var enemyData = EnemiesData.new()
 	enemy = $Enemies/EnemyBase
-	enemy.setup_enemy(enemyData.get_enemy_data()['enemy1'])
+	enemy.setup_enemy(enemyData.get_enemy_data()['enemy1'], EnemySizeRegular)
 	$Enemies/EnemyBase.visible = true
 	
-	$Enemies/EnemyBase.scale *= (EnemySizeRegular / $Enemies/EnemyBase.size)
-	var enSX = $Enemies/EnemyBase.size.x
-	var vPX = get_viewport().size.x
-	var enemy_x_pos = (get_viewport().size.x / 2) - (EnemySizeRegular.x / 2)
-	$Enemies/EnemyBase.position = Vector2(enemy_x_pos, 50)
 	
 	player = $Player/PlayerBase
 	player.scale *= (PlayerSize / player.size)
@@ -100,9 +95,9 @@ func initDraw():
 	var cardsToDraw = player.playerData.handSizeDefault - $CardsInHand.get_child_count() #player.playerData.handSizeDefault - handSize - 1
 	for i in range(cardsToDraw):
 		if (waitTime == 0):
-			waitTime = 0.5
+			waitTime = 0.1
 		else:
-			await get_tree().create_timer(0.1).timeout
+			await get_tree().create_timer(waitTime).timeout
 		draw_card()
 
 func draw_card():
@@ -155,7 +150,10 @@ func _input(event):
 			var mousepos = get_global_mouse_position() 
 			var enemyLive = enemySize * enemyScale
 			var enemyReach = enemytPos + (enemySize * enemyScale)
-			if mousepos.x < enemyReach.x && mousepos.y < enemyReach.y && mousepos.x > enemytPos.x && mousepos.x > enemytPos.x:
+			if (mousepos.x < enemyReach.x && mousepos.y < enemyReach.y 
+				&& mousepos.x > enemytPos.x && mousepos.x > enemytPos.x
+				&& enemy.state == enemy.enemyState.InPlay
+			):
 				var cardContainer = $CardsInHand.get_child(selectedCard)
 				#deal with effects
 				calculate_action_effects(cardContainer.card.actions, player, $Enemies.get_child(i))
@@ -242,14 +240,15 @@ func _on_round_management_round_end():
 	initDraw()
 	
 func moveDiscardToDeck():
-	print("CARDS IN PLAY " + str($CardsInPlay.get_child_count()))
 	for Card in $CardsInPlay.get_children():
-		print(Card.cardName)
 		playerDeck.add_card(Card.cardName)
 		Card.queue_free()
 		var a = is_instance_valid(Card)
-		print("IS INSTANCE VALID " + str(a))
-	print("CARDS IN PLAY " + str($CardsInPlay.get_child_count()))
-	print(playerDeck)
 	pass
 	#TODO
+
+
+func _on_enemy_base_enemy_defeat():
+	var enemyData = EnemiesData.new()
+	enemy.setup_enemy(enemyData.get_enemy_data()['enemy1'], EnemySizeRegular)
+	pass # Replace with function body.

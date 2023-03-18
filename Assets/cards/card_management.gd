@@ -30,7 +30,7 @@ var card_data = {
 		[ # player phase
 			set_action(life_pools.RED, targetEnum.SELF, 2, 0, 0, 1),
 			set_action(life_pools.GREEN, targetEnum.SELF, -1, 0, 0, 1),
-			set_action(life_pools.GREEN, targetEnum.SINGLE, -3, 0, 0, 1)
+			set_action(life_pools.GREEN, targetEnum.SINGLE, -30, 0, 0, 1)
 		]
 		#[], # post player phase
 		#[], # pre enemy phase
