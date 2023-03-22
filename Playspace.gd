@@ -1,9 +1,9 @@
 extends Node2D
 
-enum targetEnum {SINGLE, RANDOM, ALL, SELF}
-
 const constants = preload("res://constants.gd")
-var life_pools = constants.new().life_pools
+const life_pools = constants.new().life_pools
+
+const targetEnum =  constants.new().targetEnum
 
 #var CardSize = Vector2i(281, 338)
 var PlayerSize = Vector2(320, 170)
@@ -59,10 +59,29 @@ func getHasCardSelected():
 #TODO: expand according to card effect target
 func setHasCardSelected(val):
 	selectedCard = val
-	manageHighlights(true)
-	#await setClickReady(true).create_timer(500).timeout
-	await get_tree().create_timer(0.1).timeout
-	clickReadyAfterSelect = true
+	
+	
+	#does card need targeting?
+	var cardContainer = $CardsInHand.get_child(selectedCard)
+	var targetsOtherThanSelf = false
+	for action in cardContainer.card.actions:
+		if action.target == targetEnum.SINGLE:
+			targetsOtherThanSelf = true
+			break
+				#deal with effects
+	if !targetsOtherThanSelf:
+		calculate_action_effects(cardContainer.card.actions, player, null)
+		cardContainer.cardPlayed(true)
+		ReParentCard(selectedCard)
+		selectedCard = null
+		clickReadyAfterSelect = false
+		roundManagementNode.actionUpdate()
+	else:
+		cardContainer.highlightCardWhenSelected()
+		manageHighlights(true)
+		#async, so thath other click events don't trigger
+		await get_tree().create_timer(0.1).timeout
+		clickReadyAfterSelect = true
 
 func setClickReady(isReady):
 	clickReadyAfterSelect = isReady

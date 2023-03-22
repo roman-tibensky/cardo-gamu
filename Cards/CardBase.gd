@@ -83,12 +83,15 @@ func _input(event):
 						oldState = state
 						state = card_state.IsSelected
 						$'../../'.setHasCardSelected(cardNumber)
-						$CardFront.material.set_shader_parameter("onoff",1)
-						$CardFront.material.set_shader_parameter("color",Color(0.15, 0.15, 1, 255))
 					else:
 						resetFromFocus()
 					pass
 
+
+#run only if pending target decision
+func highlightCardWhenSelected():
+	$CardFront.material.set_shader_parameter("onoff",1)
+	$CardFront.material.set_shader_parameter("color",Color(0.15, 0.15, 1, 255))
 
 func cardPlayed(toDiscard):
 	#discard card upon playing it
@@ -311,8 +314,6 @@ func moveNeighbourCard(cardIndex, goesLeft, spreadFactor):
 
 func resetNeighbourCard(cardIndex):
 	var neighbourCard = $'../'.get_child(cardIndex)
-	
-	
 	if neighbourCard.state != card_state.InFocus && !moveNeighbourgCardCheck:
 		neighbourCard.targetPos = neighbourCard.cardPos
 		neighbourCard.setup = true
