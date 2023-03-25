@@ -137,6 +137,7 @@ func _on_FocusButton_mouse_exited():
 	
 func alterHealthWLimitCheck(pool, alteration):
 	if(poolCurrent[pool] + alteration <=0):
+		#TODO: implement GOLEM, UNDEAD, SPIRIT states
 		poolCurrent[pool] = 0
 		state = enemyState.ExitPlay
 		startPos = position

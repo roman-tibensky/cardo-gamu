@@ -89,7 +89,9 @@ func takeAction():
 
 func alterHealthWLimitCheck(pool, alteration):
 	if(poolCurrent[pool] + alteration <=0):
+		#TODO: implement GOLEM, UNDEAD, SPIRIT states
 		#TODO: desu-troy
+		
 		pass
 	elif((poolCurrent[pool] + alteration > poolMax[pool])):
 		poolCurrent[pool] = poolMax[pool]
