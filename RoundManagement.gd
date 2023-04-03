@@ -55,9 +55,12 @@ func actionUpdate():
 
 
 func _on_end_round_button_button_down():
+	processModifiers()
+	round_end.emit()	
+
+func processModifiers():
 	for pool in life_pools:
 		if poolModCurrent[life_pools[pool]] > 0:
 			action_modification.emit(life_pools[pool], poolModCurrent[life_pools[pool]])
 
 	setup_player_modifiers()
-	round_end.emit()	

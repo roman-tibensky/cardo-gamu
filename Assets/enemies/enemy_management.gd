@@ -3,16 +3,8 @@ const constants = preload("res://constants.gd")
 const life_pools = constants.new().life_pools
 
 const targetEnum =  constants.new().targetEnum
+const statChars = constants.new().statChars
 
-const lifeChar = "+" #"\u2764"
-const costChar = "\u2620"
-const attackSingleChar = "\u2316"
-const attackRandomChar = "\u26A1"
-const attackAllChar = "\u2748" #bomb alternative \u1F4A3
-const roundsChar = "R"
-const specialChar = "*"
-const multipleChar = "x"
-const countDownChar = "T"
 
 
 var enemy_data = {
@@ -101,34 +93,34 @@ func preparePoolStrings(lines):
 		var currentString = ""
 		var current_adjust = line.adjust
 		if (line.periodical_adjust > 0):
-			currentString = str(currentString, specialChar)
+			currentString = str(currentString, statChars.specialChar)
 			current_adjust = line.periodical_adjust
 			
 		if (line.timer_adjust > 0):
-			currentString = str(currentString, specialChar)
+			currentString = str(currentString, statChars.specialChar)
 			current_adjust = line.timer_adjust
 
 		match (line.target):
 			targetEnum.SELF:
 				if (line.adjust> 0):
-					currentString = str(currentString, lifeChar, current_adjust)
+					currentString = str(currentString, statChars.lifeChar, current_adjust)
 				else:
-					currentString = str(currentString, costChar, abs(current_adjust))
+					currentString = str(currentString, statChars.costChar, abs(current_adjust))
 			targetEnum.SINGLE:
 				if (line.adjust> 0):
 					#TODO: shouldn't happen?
 					currentString = str(currentString, "!!", current_adjust)
 				else:
-					currentString = str(currentString, attackSingleChar, abs(current_adjust))
+					currentString = str(currentString, statChars.attackSingleChar, abs(current_adjust))
 				
 		if (line.number_of_rounds_adjust > 0):
-			currentString =+ (" " + roundsChar + line.number_of_rounds_adjust)
+			currentString =+ (" " + statChars.roundsChar + line.number_of_rounds_adjust)
 			
 		if (line.execute_times > 1):
-			currentString = str(currentString, " ", multipleChar, line.execute_times)
+			currentString = str(currentString, " ", statChars.multipleChar, line.execute_times)
 			
 		if (line.timer > 0):
-			currentString = str(currentString, " " + countDownChar, line.execute_times)
+			currentString = str(currentString, " " + statChars.countDownChar, line.execute_times)
 			
 		match (line.pool):
 			life_pools.RED:

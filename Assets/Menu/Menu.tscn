@@ -1,0 +1,372 @@
+[gd_scene load_steps=8 format=3 uid="uid://b1tjhhfxwbf0a"]
+
+[ext_resource type="Texture2D" uid="uid://dqn2i0m4kpss3" path="res://Assets/Menu/background.png" id="1_lfkj3"]
+[ext_resource type="Texture2D" uid="uid://bevlf6u7mgjph" path="res://Assets/Menu/button.png" id="2_n4bum"]
+[ext_resource type="Shader" path="res://Cards/Inline.gdshader" id="3_dknp0"]
+[ext_resource type="Texture2D" uid="uid://d2ujeq2bgoiui" path="res://Assets/cardParts/background shade.png" id="3_r0qoi"]
+[ext_resource type="FontFile" uid="uid://dfdbbw8l6wpii" path="res://Assets/fonts/Xolonium-Regular.ttf" id="4_5nbhv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y47q6"]
+shader = ExtResource("3_dknp0")
+shader_parameter/color = null
+shader_parameter/width = null
+shader_parameter/pattern = null
+shader_parameter/inside = null
+shader_parameter/add_margins = null
+shader_parameter/onoff = null
+
+[sub_resource type="Theme" id="Theme_a0ltp"]
+
+[node name="MarginContainer" type="MarginContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MenuBackground" type="Sprite2D" parent="."]
+texture = ExtResource("1_lfkj3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TopGap" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="LeftGap" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="VBaseBody" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="GameOver" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Text" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/GameOver"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Text that says the game is over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GapAfterGameOver" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="NewGame" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody"]
+layout_mode = 2
+
+[node name="LeftGap" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/NewGame"]
+layout_mode = 2
+
+[node name="Button" type="TextureButton" parent="VBoxContainer/HBoxContainer/VBaseBody/NewGame"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+texture_normal = ExtResource("2_n4bum")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/NewGame/Button"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.0
+offset_top = -20.0
+offset_right = 41.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/NewGame/Button/CenterContainer"]
+layout_mode = 2
+text = "New game"
+
+[node name="RightGap" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/NewGame"]
+layout_mode = 2
+
+[node name="GapAfterNewGame" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody"]
+layout_mode = 2
+
+[node name="SelectCharacter" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody"]
+layout_mode = 2
+
+[node name="Text" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/SelectCharacter"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Character Selection"
+horizontal_alignment = 1
+
+[node name="Characters" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBaseBody"]
+layout_mode = 2
+
+[node name="Char1" type="TextureButton" parent="VBoxContainer/HBoxContainer/VBaseBody/Characters"]
+material = SubResource("ShaderMaterial_y47q6")
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_a0ltp")
+action_mode = 0
+texture_normal = ExtResource("1_lfkj3")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Characters/Char1"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -42.0
+offset_top = -20.0
+offset_right = 42.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/Characters/Char1/CenterContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Broken Bill"
+horizontal_alignment = 1
+
+[node name="Char2" type="TextureButton" parent="VBoxContainer/HBoxContainer/VBaseBody/Characters"]
+material = SubResource("ShaderMaterial_y47q6")
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_a0ltp")
+action_mode = 0
+texture_normal = ExtResource("1_lfkj3")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Characters/Char2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -42.0
+offset_top = -20.0
+offset_right = 42.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/Characters/Char2/CenterContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Stable Steve"
+horizontal_alignment = 1
+
+[node name="CharacterDescription" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/CharacterDescription"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "I am a character very much"
+
+[node name="InitMax" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "Initial / Max"
+horizontal_alignment = 1
+
+[node name="Stats" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBaseBody"]
+layout_mode = 2
+
+[node name="InitStats" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HealthInfo" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/InitStats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/InitStats/HealthInfo"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "Energy"
+horizontal_alignment = 1
+
+[node name="RedLifeInfo" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/InitStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/InitStats/RedLifeInfo"]
+layout_mode = 2
+texture = ExtResource("3_r0qoi")
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/InitStats/RedLifeInfo"]
+layout_mode = 2
+
+[node name="InitVMax" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/InitStats/RedLifeInfo/CenterContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.490196, 0.490196, 1)
+theme_override_fonts/font = ExtResource("4_5nbhv")
+theme_override_font_sizes/font_size = 20
+text = "5 / 55"
+
+[node name="GreenLifeInfo" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/InitStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/InitStats/GreenLifeInfo"]
+layout_mode = 2
+texture = ExtResource("3_r0qoi")
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/InitStats/GreenLifeInfo"]
+layout_mode = 2
+
+[node name="InitVMax" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/InitStats/GreenLifeInfo/CenterContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.490196, 1, 0.490196, 1)
+theme_override_fonts/font = ExtResource("4_5nbhv")
+theme_override_font_sizes/font_size = 20
+text = "5 / 55"
+
+[node name="BlueLifeInfo" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/InitStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/InitStats/BlueLifeInfo"]
+layout_mode = 2
+texture = ExtResource("3_r0qoi")
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/InitStats/BlueLifeInfo"]
+layout_mode = 2
+
+[node name="InitVMax" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/InitStats/BlueLifeInfo/CenterContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.490196, 0.490196, 1, 1)
+theme_override_fonts/font = ExtResource("4_5nbhv")
+theme_override_font_sizes/font_size = 20
+text = "5 / 55"
+
+[node name="MModifierStats" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ModInfo" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/MModifierStats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/MModifierStats/ModInfo"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "Modifiers"
+horizontal_alignment = 1
+
+[node name="RedModInfo" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/MModifierStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/MModifierStats/RedModInfo"]
+layout_mode = 2
+texture = ExtResource("3_r0qoi")
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/MModifierStats/RedModInfo"]
+layout_mode = 2
+
+[node name="StartVMod" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/MModifierStats/RedModInfo/CenterContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.490196, 0.490196, 1)
+theme_override_fonts/font = ExtResource("4_5nbhv")
+theme_override_font_sizes/font_size = 20
+text = "5 / -5"
+
+[node name="GreenModInfo" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/MModifierStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/MModifierStats/GreenModInfo"]
+layout_mode = 2
+texture = ExtResource("3_r0qoi")
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/MModifierStats/GreenModInfo"]
+layout_mode = 2
+
+[node name="StartVMod" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/MModifierStats/GreenModInfo/CenterContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.490196, 1, 0.490196, 1)
+theme_override_fonts/font = ExtResource("4_5nbhv")
+theme_override_font_sizes/font_size = 20
+text = "5 / -5"
+
+[node name="BlueModInfo" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/MModifierStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/MModifierStats/BlueModInfo"]
+layout_mode = 2
+texture = ExtResource("3_r0qoi")
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/MModifierStats/BlueModInfo"]
+layout_mode = 2
+
+[node name="StartVMod" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/MModifierStats/BlueModInfo/CenterContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.490196, 0.490196, 1, 1)
+theme_override_fonts/font = ExtResource("4_5nbhv")
+theme_override_font_sizes/font_size = 20
+text = "5 / -5"
+
+[node name="HandSize" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/HandSize"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Initial hand size: 3 / 8"
+horizontal_alignment = 1
+
+[node name="QuitGame" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody"]
+layout_mode = 2
+
+[node name="LeftGap" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/QuitGame"]
+layout_mode = 2
+
+[node name="Button" type="TextureButton" parent="VBoxContainer/HBoxContainer/VBaseBody/QuitGame"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+texture_normal = ExtResource("2_n4bum")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/QuitGame/Button"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.0
+offset_top = -20.0
+offset_right = 41.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/QuitGame/Button/CenterContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="RightGap" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/QuitGame"]
+layout_mode = 2
+
+[node name="RightGap" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2

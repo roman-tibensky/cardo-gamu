@@ -1,7 +1,9 @@
+Label
+CenterContainer
+TextureButton
+Button
 MarginContainer
+HBoxContainer
+VBoxContainer
 Sprite2D
 Node
-CenterContainer
-Label
-Button
-VBoxContainer

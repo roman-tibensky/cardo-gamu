@@ -268,6 +268,16 @@ func moveDiscardToDeck():
 
 
 func _on_enemy_base_enemy_defeat():
+	#create new enemy
 	var enemyData = EnemiesData.new()
 	enemy.setup_enemy(enemyData.get_enemy_data()['enemy1'], EnemySizeRegular)
-	pass # Replace with function body.
+	
+	#end round without enemy attacking
+	$RoundManagement/RoundManagement.processModifiers()
+	
+	#reset deck and hand
+	discardAllCards()
+	moveDiscardToDeck()
+	initDraw()
+	
+	

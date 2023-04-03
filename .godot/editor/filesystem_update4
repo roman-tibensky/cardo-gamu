@@ -1,5 +1,1 @@
-res://Playspace.tscn
-res://Playspace.gd
-res://Cards/CardBase.gd
-res://EnemyBase.gd
-res://PlayerInfo.gd
+res://Assets/Menu/Menu.tscn

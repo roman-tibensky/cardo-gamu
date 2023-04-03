@@ -7,18 +7,11 @@
 const constants = preload("res://constants.gd")
 const life_pools = constants.new().life_pools
 const targetEnum = constants.new().targetEnum
+const statChars = constants.new().statChars
 
 enum {card1,card2,card3,card4,card5,card6,card7,card8,card9,card10,card11,card12}
 
-const lifeChar ="+"  #"\u2764"
-const costChar = "\u2620"
-const attackSingleChar = "\u2316"
-const attackRandomChar = "\u26A1"
-const attackAllChar = "\u2748" #bomb alternative \u1F4A3
-const roundsChar = "R"
-const specialChar = "*"
-const multipleChar = "x"
-const countDownChar = "T"
+
 
 var card_data = {
 	card1 = set_body(
@@ -274,34 +267,34 @@ func preparePoolStrings(lines):
 		var currentString = ""
 		var current_adjust = line.adjust
 		if (line.periodical_adjust > 0):
-			currentString = str(currentString, specialChar)
+			currentString = str(currentString, statChars.specialChar)
 			current_adjust = line.periodical_adjust
 			
 		if (line.timer_adjust > 0):
-			currentString = str(currentString, specialChar)
+			currentString = str(currentString, statChars.specialChar)
 			current_adjust = line.timer_adjust
 
 		match (line.target):
 			targetEnum.SELF:
 				if (line.adjust> 0):
-					currentString = str(currentString, lifeChar, current_adjust)
+					currentString = str(currentString, statChars.lifeChar, current_adjust)
 				else:
-					currentString = str(currentString, costChar, abs(current_adjust))
+					currentString = str(currentString, statChars.costChar, abs(current_adjust))
 			targetEnum.SINGLE:
-				currentString = str(currentString, attackSingleChar, abs(current_adjust))
+				currentString = str(currentString, statChars.attackSingleChar, abs(current_adjust))
 			targetEnum.RANDOM:
-				currentString = str(currentString, attackRandomChar, abs(current_adjust))
+				currentString = str(currentString, statChars.attackRandomChar, abs(current_adjust))
 			targetEnum.ALL:
-				currentString = str(currentString, attackAllChar, abs(current_adjust))
+				currentString = str(currentString, statChars.attackAllChar, abs(current_adjust))
 				
 		if (line.number_of_rounds_adjust > 0):
-			currentString =+ (" " + roundsChar + line.number_of_rounds_adjust)
+			currentString =+ (" " + statChars.roundsChar + line.number_of_rounds_adjust)
 			
 		if (line.execute_times > 1):
-			currentString = str(currentString, " ", multipleChar, line.execute_times)
+			currentString = str(currentString, " ", statChars.multipleChar, line.execute_times)
 			
 		if (line.timer > 0):
-			currentString = str(currentString, " " + countDownChar, line.execute_times)
+			currentString = str(currentString, " " + statChars.countDownChar, line.execute_times)
 			
 		match (line.pool):
 			life_pools.RED:
