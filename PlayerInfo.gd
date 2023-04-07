@@ -4,9 +4,10 @@ const constants = preload("res://constants.gd")
 const life_pools = constants.new().life_pools
 const targetEnum = constants.new().targetEnum
 
-@onready var PlayerManagement = preload("res://Assets/player/player_management.gd")
+var PlayerManagement = preload("res://Assets/player/player_management.gd")
 var playerManagement
 var playerData
+var characterId
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -20,13 +21,14 @@ var actionStage = 0
 
 func _ready():
 	playerManagement = PlayerManagement.new()
-	setup_player()
+	#setup_player()
 	pass
 
 
 # Called when the node enters the scene tree for the first time.
-func setup_player():
-	playerData = playerManagement.playerData.player1
+func setup_player(char):
+	characterId = char
+	playerData = playerManagement.characterData[characterId]
 	poolCurrent[life_pools.RED] = playerData.redStarting
 	poolMax[life_pools.RED] = playerData.redMaxPool
 	poolModCurrent[life_pools.RED] = playerData.redModifierStarting

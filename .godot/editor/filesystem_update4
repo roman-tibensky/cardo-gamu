@@ -1,1 +1,13 @@
 res://Assets/Menu/Menu.tscn
+res://Assets/Menu/CharButton.gd
+res://Playspace.tscn
+res://EnemyBase.tscn
+res://RoundManagement.tscn
+res://Cards/CardBase.tscn
+res://Assets/Menu/Menu.gd
+res://Assets/player/player_management.gd
+res://Cards/Player_Deck.gd
+res://PlayerInfo.gd
+res://Playspace.gd
+res://RoundManagement.gd
+res://Cards/Inline.gdshader

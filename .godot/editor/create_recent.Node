@@ -1,8 +1,8 @@
+MarginContainer
 Label
 CenterContainer
 TextureButton
 Button
-MarginContainer
 HBoxContainer
 VBoxContainer
 Sprite2D

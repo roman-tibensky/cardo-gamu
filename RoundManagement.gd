@@ -17,10 +17,13 @@ var poolMod = {}
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	playerManagement = PlayerManagement.new()
-	player = playerManagement.playerData.player1
-	setup_player_modifiers()
+
 	pass # Replace with function body.
 
+
+func setup_player(char):
+	player = playerManagement.characterData[char]
+	setup_player_modifiers()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func setup_player_modifiers():

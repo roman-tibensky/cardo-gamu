@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://b1tjhhfxwbf0a"]
+[gd_scene load_steps=10 format=3 uid="uid://b1tjhhfxwbf0a"]
 
+[ext_resource type="Script" path="res://Assets/Menu/Menu.gd" id="1_krmcu"]
 [ext_resource type="Texture2D" uid="uid://dqn2i0m4kpss3" path="res://Assets/Menu/background.png" id="1_lfkj3"]
 [ext_resource type="Texture2D" uid="uid://bevlf6u7mgjph" path="res://Assets/Menu/button.png" id="2_n4bum"]
 [ext_resource type="Shader" path="res://Cards/Inline.gdshader" id="3_dknp0"]
@@ -9,17 +10,27 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y47q6"]
 shader = ExtResource("3_dknp0")
 shader_parameter/color = null
-shader_parameter/width = null
+shader_parameter/width = 15.0
 shader_parameter/pattern = null
-shader_parameter/inside = null
-shader_parameter/add_margins = null
+shader_parameter/inside = false
+shader_parameter/add_margins = true
 shader_parameter/onoff = null
 
 [sub_resource type="Theme" id="Theme_a0ltp"]
 
-[node name="MarginContainer" type="MarginContainer"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5ice6"]
+shader = ExtResource("3_dknp0")
+shader_parameter/color = null
+shader_parameter/width = 15.0
+shader_parameter/pattern = null
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/onoff = null
+
+[node name="Menu" type="MarginContainer"]
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("1_krmcu")
 
 [node name="MenuBackground" type="Sprite2D" parent="."]
 texture = ExtResource("1_lfkj3")
@@ -102,21 +113,29 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Character Selection"
 horizontal_alignment = 1
 
+[node name="PreCharGap" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
 [node name="Characters" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBaseBody"]
 layout_mode = 2
 
-[node name="Char1" type="TextureButton" parent="VBoxContainer/HBoxContainer/VBaseBody/Characters"]
+[node name="LeftGap" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Characters"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="Character1" type="TextureButton" parent="VBoxContainer/HBoxContainer/VBaseBody/Characters"]
 material = SubResource("ShaderMaterial_y47q6")
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_a0ltp")
 action_mode = 0
-texture_normal = ExtResource("1_lfkj3")
+texture_normal = ExtResource("2_n4bum")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Characters/Char1"]
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Characters/Character1"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -130,24 +149,28 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/Characters/Char1/CenterContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/Characters/Character1/CenterContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Broken Bill"
 horizontal_alignment = 1
 
-[node name="Char2" type="TextureButton" parent="VBoxContainer/HBoxContainer/VBaseBody/Characters"]
-material = SubResource("ShaderMaterial_y47q6")
-custom_minimum_size = Vector2(0, 40)
+[node name="BetweenButtonsGap" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Characters"]
+clip_contents = true
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="Character2" type="TextureButton" parent="VBoxContainer/HBoxContainer/VBaseBody/Characters"]
+material = SubResource("ShaderMaterial_5ice6")
+custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_a0ltp")
 action_mode = 0
-texture_normal = ExtResource("1_lfkj3")
+texture_normal = ExtResource("2_n4bum")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Characters/Char2"]
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Characters/Character2"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -161,26 +184,27 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/Characters/Char2/CenterContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/Characters/Character2/CenterContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Stable Steve"
 horizontal_alignment = 1
 
+[node name="RightGap" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Characters"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="PostCharGap" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
 [node name="CharacterDescription" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/CharacterDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "I am a character very much"
-
-[node name="InitMax" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 12
-text = "Initial / Max"
-horizontal_alignment = 1
 
 [node name="Stats" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBaseBody"]
 layout_mode = 2
@@ -193,10 +217,12 @@ size_flags_horizontal = 3
 layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/InitStats/HealthInfo"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 12
-text = "Energy"
+theme_override_font_sizes/font_size = 11
+text = "Energy
+Initial / Max"
 horizontal_alignment = 1
 
 [node name="RedLifeInfo" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/InitStats"]
@@ -261,10 +287,12 @@ size_flags_horizontal = 3
 layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/MModifierStats/ModInfo"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 12
-text = "Modifiers"
+text = "Modifiers
+Round / Action "
 horizontal_alignment = 1
 
 [node name="RedModInfo" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Stats/MModifierStats"]
@@ -370,3 +398,7 @@ layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
+
+[connection signal="focus_entered" from="." to="VBoxContainer/HBoxContainer/VBaseBody/Characters/Character1" method="_on_menu_focus_entered"]
+[connection signal="button_down" from="VBoxContainer/HBoxContainer/VBaseBody/Characters/Character1" to="VBoxContainer/HBoxContainer/VBaseBody/Characters/Character1" method="_on_button_down"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBaseBody/Characters/Character1" to="VBoxContainer/HBoxContainer/VBaseBody/Characters/Character1" method="_on_pressed"]

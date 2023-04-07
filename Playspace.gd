@@ -23,10 +23,10 @@ const CardSlot = preload("res://Cards/CardSlot.tscn")
 var enemy
 
 var player
+var characterId = "Character1"
 var roundManagementNode
 
 var cardSelected
-#@onready var deckSize = playerDeck.get_size()
 
 @onready var deckPosition = $Deck.position
 @onready var discardPosition = $DiscardPile.position
@@ -96,6 +96,8 @@ func manageHighlights(active):
 func _ready():
 	#$Deck/DeckDraw.scale *= DeckCardSize/$Deck/DeckDraw.size
 	randomize()
+	
+	
 	var enemyData = EnemiesData.new()
 	enemy = $Enemies/EnemyBase
 	enemy.setup_enemy(enemyData.get_enemy_data()['enemy1'], EnemySizeRegular)
@@ -104,9 +106,11 @@ func _ready():
 	
 	player = $Player/PlayerBase
 	player.scale *= (PlayerSize / player.size)
+	player.setup_player(characterId)
 	
 	roundManagementNode = $RoundManagement/RoundManagement
 	roundManagementNode.scale *= (RoundManagementSize / roundManagementNode.size)
+	roundManagementNode.setup_player(characterId)
 	initDraw()
 	
 func initDraw():
@@ -122,12 +126,12 @@ func initDraw():
 func draw_card():
 	angle = PI/2 + cardSpread*(float(handSize)/2 - handSize)
 	var new_card = CardBase.instantiate()
-	if(playerDeck.get_size() < 1):
+	if(playerDeck.get_size(characterId) < 1):
 		moveDiscardToDeck()
 		
-	cardSelected = randi() % playerDeck.get_size()
+	cardSelected = randi() % playerDeck.get_size(characterId)
 	
-	new_card.cardName = playerDeck.get_card(cardSelected)
+	new_card.cardName = playerDeck.get_card(characterId, cardSelected)
 
 	# continue horrifying oval math thing
 	#ovalAngleVector = Vector2i(horRad * cos(angle), -verRad * sin(angle))
@@ -146,7 +150,7 @@ func draw_card():
 	new_card.state = new_card.card_state.MoveDrawnCardToHand
 		
 	$CardsInHand.add_child(new_card)
-	playerDeck.remove_card(cardSelected)
+	playerDeck.remove_card(characterId, cardSelected)
 	
 	angle += cardSpread
 	#deckSize = playerDeck.get_size()
@@ -156,7 +160,7 @@ func draw_card():
 	
 	#reorganize cards when pushing new card
 	organizeHand()
-	return playerDeck.get_size()
+	return playerDeck.get_size(characterId)
 		
 		
 func _input(event):
@@ -260,7 +264,7 @@ func _on_round_management_round_end():
 	
 func moveDiscardToDeck():
 	for Card in $CardsInPlay.get_children():
-		playerDeck.add_card(Card.cardName)
+		playerDeck.add_card(characterId, Card.cardName)
 		Card.queue_free()
 		var a = is_instance_valid(Card)
 	pass
