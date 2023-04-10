@@ -34,6 +34,7 @@ script = ExtResource("1_krmcu")
 
 [node name="MenuBackground" type="Sprite2D" parent="."]
 texture = ExtResource("1_lfkj3")
+centered = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -198,17 +199,18 @@ custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 
 [node name="PostCharGap" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody"]
-custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
 
 [node name="CharacterDescription" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody"]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/CharacterDescription"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 14
 text = "I am a character very much"
+autowrap_mode = 2
 
 [node name="Stats" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBaseBody"]
 layout_mode = 2

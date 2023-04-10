@@ -15,10 +15,16 @@ var isSelected  = false
 var highlightColor = Color(1, 0.5, 0.5, 155)
 var selectedColor = Color(1, 0, 0, 255)
 var backgroundColor = Color(1, 1, 1, 255)
-signal startNewGAme
+signal startNewGame
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	print(size)
+	print(Vector2($MenuBackground.texture.get_width(), $MenuBackground.texture.get_height()))
+	print(size / Vector2($MenuBackground.texture.get_width(), $MenuBackground.texture.get_height()))
+	print($MenuBackground.scale)
+	$MenuBackground.scale = size / Vector2($MenuBackground.texture.get_width(), $MenuBackground.texture.get_height())
+	print($MenuBackground.scale)
 	playerManagement = PlayerManagement.new()
 	buttonKeys = playerManagement.characterData.keys()
 	buttonsSelected = [false, false]
@@ -75,16 +81,11 @@ func _on_character_2_mouse_exited():
 
 
 func _on_new_game_button_button_down():
-	print("staaaart")
+	startNewGame.emit(selectedChar)
 	pass # Replace with function body.
 
 
 func _on_quit_button_button_down():
-	print("quiiiiiit")
 	get_tree().quit()
 	pass # Replace with function body.
 
-
-func _on_quit_button_pressed():
-	print("bah")
-	pass # Replace with function body.

@@ -21,9 +21,10 @@ var playerDeck = PlayerDeck.new()
 const CardSlot = preload("res://Cards/CardSlot.tscn")
 @onready var EnemiesData = preload("res://Assets/enemies/enemy_management.gd")
 var enemy
+var mainMenu
 
 var player
-var characterId = "Character1"
+var characterId
 var roundManagementNode
 
 var cardSelected
@@ -41,6 +42,7 @@ var cardSpread = 0.2 * CardSize.x/117
 var ovalAngleVector = Vector2i()
 
 
+
 var handSize = -1
 
 var arrowStartPosition
@@ -50,6 +52,57 @@ var cardSlotEmpty = []
 
 var selectedCard = null
 var clickReadyAfterSelect = false
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	clearScreeForMenu()
+	#$Deck/DeckDraw.scale *= DeckCardSize/$Deck/DeckDraw.size
+	randomize()
+
+func clearScreeForMenu():
+	$Deck.visible = false
+	$DiscardPile.visible = false
+	$Player/PlayerBase.visible = false
+	$RoundManagement/RoundManagement.visible = false
+	$Enemies/EnemyBase.visible = false
+	
+	mainMenu = $MainMenu/Menu
+	
+	#mainMenu.position = Vector2((get_viewport().size.x / 2) - (mainMenu.size.x / 2), 200)
+	mainMenu.position.x = (get_viewport().size.x / 2) - (mainMenu.size.x / 2)
+	mainMenu.position.y = (get_viewport().size.y / 2) - (mainMenu.size.y / 2)
+	
+	$MainMenu/Menu.visible = true
+	
+	
+	
+func _on_menu_start_new_game(requestedChar):
+	print(requestedChar)
+	$Deck.visible = true
+	$DiscardPile.visible = true
+	$Player/PlayerBase.visible = true
+	$RoundManagement/RoundManagement.visible = true
+	$Enemies/EnemyBase.visible = true
+	
+	$MainMenu/Menu.visible = false
+	
+	characterId = requestedChar
+	var enemyData = EnemiesData.new()
+	enemy = $Enemies/EnemyBase
+	enemy.setup_enemy(enemyData.get_enemy_data()['enemy1'], EnemySizeRegular)
+	$Enemies/EnemyBase.visible = true
+	
+	
+	player = $Player/PlayerBase
+	player.scale *= (PlayerSize / player.size)
+	player.setup_player(characterId)
+	
+	roundManagementNode = $RoundManagement/RoundManagement
+	roundManagementNode.scale *= (RoundManagementSize / roundManagementNode.size)
+	roundManagementNode.setup_player(characterId)
+	initDraw()
+
 
 func getHasCardSelected():
 	return selectedCard
@@ -92,26 +145,7 @@ func manageHighlights(active):
 		$Enemies.get_child(i).highlightMangement(active)
 		
 		
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	#$Deck/DeckDraw.scale *= DeckCardSize/$Deck/DeckDraw.size
-	randomize()
-	
-	
-	var enemyData = EnemiesData.new()
-	enemy = $Enemies/EnemyBase
-	enemy.setup_enemy(enemyData.get_enemy_data()['enemy1'], EnemySizeRegular)
-	$Enemies/EnemyBase.visible = true
-	
-	
-	player = $Player/PlayerBase
-	player.scale *= (PlayerSize / player.size)
-	player.setup_player(characterId)
-	
-	roundManagementNode = $RoundManagement/RoundManagement
-	roundManagementNode.scale *= (RoundManagementSize / roundManagementNode.size)
-	roundManagementNode.setup_player(characterId)
-	initDraw()
+
 	
 func initDraw():
 	var waitTime = 0
@@ -285,3 +319,4 @@ func _on_enemy_base_enemy_defeat():
 	initDraw()
 	
 	
+
