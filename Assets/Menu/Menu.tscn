@@ -51,15 +51,15 @@ layout_mode = 2
 [node name="VBaseBody" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="GameOver" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody"]
+[node name="SystemInfo" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="Text" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/GameOver"]
+[node name="Text" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/SystemInfo"]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Text that says the game is over"
+text = "Welcome to Primal TriStream"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -67,20 +67,23 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="NewGame" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody"]
+[node name="NewGame" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBaseBody"]
 layout_mode = 2
 
 [node name="LeftGap" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/NewGame"]
+custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
-[node name="Button" type="TextureButton" parent="VBoxContainer/HBoxContainer/VBaseBody/NewGame"]
+[node name="NewGameButton" type="TextureButton" parent="VBoxContainer/HBoxContainer/VBaseBody/NewGame"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+size_flags_horizontal = 3
+action_mode = 0
 texture_normal = ExtResource("2_n4bum")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/NewGame/Button"]
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/NewGame/NewGameButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -94,11 +97,12 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/NewGame/Button/CenterContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/NewGame/NewGameButton/CenterContainer"]
 layout_mode = 2
 text = "New game"
 
 [node name="RightGap" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/NewGame"]
+custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
 [node name="GapAfterNewGame" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody"]
@@ -151,7 +155,7 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/Characters/Character1/CenterContainer"]
 layout_mode = 2
-text = "Broken Bill"
+text = "a"
 horizontal_alignment = 1
 
 [node name="BetweenButtonsGap" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Characters"]
@@ -186,7 +190,7 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/Characters/Character2/CenterContainer"]
 layout_mode = 2
-text = "Stable Steve"
+text = "b"
 horizontal_alignment = 1
 
 [node name="RightGap" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/Characters"]
@@ -358,20 +362,23 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Initial hand size: 3 / 8"
 horizontal_alignment = 1
 
-[node name="QuitGame" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody"]
+[node name="QuitGame" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBaseBody"]
 layout_mode = 2
 
 [node name="LeftGap" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/QuitGame"]
+custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
-[node name="Button" type="TextureButton" parent="VBoxContainer/HBoxContainer/VBaseBody/QuitGame"]
+[node name="QuitButton" type="TextureButton" parent="VBoxContainer/HBoxContainer/VBaseBody/QuitGame"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+size_flags_horizontal = 3
+action_mode = 0
 texture_normal = ExtResource("2_n4bum")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/QuitGame/Button"]
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/QuitGame/QuitButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -385,11 +392,12 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/QuitGame/Button/CenterContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBaseBody/QuitGame/QuitButton/CenterContainer"]
 layout_mode = 2
 text = "Quit"
 
 [node name="RightGap" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBaseBody/QuitGame"]
+custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
 [node name="RightGap" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
@@ -400,5 +408,12 @@ layout_mode = 2
 layout_mode = 2
 
 [connection signal="focus_entered" from="." to="VBoxContainer/HBoxContainer/VBaseBody/Characters/Character1" method="_on_menu_focus_entered"]
-[connection signal="button_down" from="VBoxContainer/HBoxContainer/VBaseBody/Characters/Character1" to="VBoxContainer/HBoxContainer/VBaseBody/Characters/Character1" method="_on_button_down"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBaseBody/Characters/Character1" to="VBoxContainer/HBoxContainer/VBaseBody/Characters/Character1" method="_on_pressed"]
+[connection signal="button_down" from="VBoxContainer/HBoxContainer/VBaseBody/NewGame/NewGameButton" to="." method="_on_new_game_button_button_down"]
+[connection signal="button_down" from="VBoxContainer/HBoxContainer/VBaseBody/Characters/Character1" to="." method="_on_character_1_button_down"]
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/VBaseBody/Characters/Character1" to="." method="_on_character_1_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/HBoxContainer/VBaseBody/Characters/Character1" to="." method="_on_character_1_mouse_exited"]
+[connection signal="button_down" from="VBoxContainer/HBoxContainer/VBaseBody/Characters/Character2" to="." method="_on_character_2_button_down"]
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/VBaseBody/Characters/Character2" to="." method="_on_character_2_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/HBoxContainer/VBaseBody/Characters/Character2" to="." method="_on_character_2_mouse_exited"]
+[connection signal="button_down" from="VBoxContainer/HBoxContainer/VBaseBody/QuitGame/QuitButton" to="." method="_on_quit_button_button_down"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBaseBody/QuitGame/QuitButton" to="." method="_on_quit_button_pressed"]

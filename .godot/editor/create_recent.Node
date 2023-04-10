@@ -1,9 +1,9 @@
+HBoxContainer
 MarginContainer
 Label
 CenterContainer
 TextureButton
 Button
-HBoxContainer
 VBoxContainer
 Sprite2D
 Node

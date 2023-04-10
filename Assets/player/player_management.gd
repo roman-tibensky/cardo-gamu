@@ -7,20 +7,20 @@ var characterData = {
 		handSizeDefault = 4,
 		handSizeMax = 6,
 		
-		redStarting = 11,
-		redMaxPool = 21,
-		redModifierStarting = 1,
-		redModifierAction = -1,
+		redStarting = 10,
+		redMaxPool = 25,
+		redModifierStarting = 2,
+		redModifierAction = -2,
 		
-		greenStarting = 12,
-		greenMaxPool = 23,
+		greenStarting = 10,
+		greenMaxPool = 25,
 		greenModifierStarting = 2,
 		greenModifierAction = -2,
 		
-		blueStarting = 13,
+		blueStarting = 10,
 		blueMaxPool = 25,
-		blueModifierStarting = 3,
-		blueModifierAction = -3,
+		blueModifierStarting = 2,
+		blueModifierAction = -2,
 		
 		cardSetStarting = "not implemented",
 		cardPool = "not implemented"
