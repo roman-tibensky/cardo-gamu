@@ -3,11 +3,14 @@ extends MarginContainer
 const constants = preload("res://constants.gd")
 const life_pools = constants.new().life_pools
 const targetEnum = constants.new().targetEnum
+const deathMessageSelfDestruct = constants.new().deathMessageSelfDestruct
 
 var PlayerManagement = preload("res://Assets/player/player_management.gd")
 var playerManagement
 var playerData
 var characterId
+signal gameOver
+
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -16,8 +19,7 @@ var characterId
 var poolCurrent = {}
 var poolMax = {}
 var poolModCurrent = {}
-
-var actionStage = 0
+var isAlive
 
 func _ready():
 	playerManagement = PlayerManagement.new()
@@ -27,6 +29,7 @@ func _ready():
 
 # Called when the node enters the scene tree for the first time.
 func setup_player(char):
+	isAlive = true
 	characterId = char
 	playerData = playerManagement.characterData[characterId]
 	poolCurrent[life_pools.RED] = playerData.redStarting
@@ -67,34 +70,22 @@ func setup_player(char):
 
 
 	
-func manageHealth(pool, alteration):
-	alterHealthWLimitCheck(pool, alteration)
+func manageHealth(pool, alteration, message = ""):
+	alterHealthWLimitCheck(pool, alteration, message)
 	$VBoxContainer/LifeContainer.get_node(pool + "BarWGaps/Bar/Count/Background/Number").text = str(poolCurrent[pool])
 	$VBoxContainer/LifeContainer.get_node(pool + "BarWGaps/Bar/TextureProgressBar").value = poolCurrent[pool]
 	
 	
 func takeAction():
-	if (poolCurrent[life_pools.RED] < 0):
-		alterHealthWLimitCheck(life_pools.RED, playerData.redModifierAction)
-		
-	poolCurrent[life_pools.RED] += playerData.redModifierAction
-	
-	if (poolCurrent[life_pools.GREEN] < 0):
-		alterHealthWLimitCheck(life_pools.GREEN, playerData.greenModifierAction)
-		
-	poolCurrent[life_pools.GREEN] += playerData.greenModifierAction
-	
-	if (poolCurrent[life_pools.BLUE] < 0):
-		alterHealthWLimitCheck(life_pools.BLUE, playerData.blueModifierAction)
-		
-	poolCurrent[life_pools.BLUE] += playerData.blueModifierAction
+	alterHealthWLimitCheck(life_pools.RED, playerData.redModifierAction, playerData.name + deathMessageSelfDestruct[life_pools.RED])
+	alterHealthWLimitCheck(life_pools.GREEN, playerData.greenModifierAction, playerData.name + deathMessageSelfDestruct[life_pools.GREEN])
+	alterHealthWLimitCheck(life_pools.BLUE, playerData.blueModifierAction, playerData.name + deathMessageSelfDestruct[life_pools.BLUE])
 
-func alterHealthWLimitCheck(pool, alteration):
+func alterHealthWLimitCheck(pool, alteration, deathMessage):
 	if(poolCurrent[pool] + alteration <=0):
 		#TODO: implement GOLEM, UNDEAD, SPIRIT states
-		#TODO: desu-troy
-		
-		pass
+		isAlive = false
+		gameOver.emit(deathMessage)
 	elif((poolCurrent[pool] + alteration > poolMax[pool])):
 		poolCurrent[pool] = poolMax[pool]
 	else:

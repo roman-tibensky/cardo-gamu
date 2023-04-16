@@ -9,13 +9,77 @@ const life_pools = constants.new().life_pools
 const targetEnum = constants.new().targetEnum
 const statChars = constants.new().statChars
 
-enum {card1,card2,card3,card4,card5,card6,card7,card8,card9,card10,card11,card12}
+#enum {card1,card2,card3,card4,card5,card6,card7,card8,card9,card10,card11,card12}
 
 
 
 var card_data = {
-	card1 = set_body(
-		"Card1", "Card1 description", #Name, Description
+	cardRedSelfMurder = set_body(
+		"RedSelfMurder", "000000000", #Name, Description
+		"res://Assets/cards/images/card0.png", #card front
+		# "res://Assets/cards/images/card1.png", #card front
+		"res://Assets/cards/images/card-back.png", # card back
+		#[], #pre player phase
+		[ # player phase
+			set_action(life_pools.RED, targetEnum.SELF, -30, 0, 0, 1),
+			set_action(life_pools.GREEN, targetEnum.SELF, 0, 0, 0, 1),
+			set_action(life_pools.GREEN, targetEnum.SINGLE, 0, 0, 0, 1)
+		]
+		#[], # post player phase
+		#[], # pre enemy phase
+		#[], # enemy phase
+		#[] # post enemy phase
+	),
+	cardGreenSelfMurder = set_body(
+		"GreenSelfMurder", "000000000", #Name, Description
+		"res://Assets/cards/images/card0.png", #card front
+		# "res://Assets/cards/images/card1.png", #card front
+		"res://Assets/cards/images/card-back.png", # card back
+		#[], #pre player phase
+		[ # player phase
+			set_action(life_pools.RED, targetEnum.SELF, 0, 0, 0, 1),
+			set_action(life_pools.GREEN, targetEnum.SELF, -30, 0, 0, 1),
+			set_action(life_pools.GREEN, targetEnum.SINGLE, 0, 0, 0, 1)
+		]
+		#[], # post player phase
+		#[], # pre enemy phase
+		#[], # enemy phase
+		#[] # post enemy phase
+	),
+	cardBlueSelfMurder = set_body(
+		"BlueSelfMurder", "000000000", #Name, Description
+		"res://Assets/cards/images/card0.png", #card front
+		# "res://Assets/cards/images/card1.png", #card front
+		"res://Assets/cards/images/card-back.png", # card back
+		#[], #pre player phase
+		[ # player phase
+			set_action(life_pools.RED, targetEnum.SELF, 0, 0, 0, 1),
+			set_action(life_pools.BLUE, targetEnum.SELF, -30, 0, 0, 1),
+			set_action(life_pools.GREEN, targetEnum.SINGLE, 0, 0, 0, 1)
+		]
+		#[], # post player phase
+		#[], # pre enemy phase
+		#[], # enemy phase
+		#[] # post enemy phase
+	),
+	card0 = set_body(
+		"Card0", "000000000", #Name, Description
+		"res://Assets/cards/images/card0.png", #card front
+		# "res://Assets/cards/images/card1.png", #card front
+		"res://Assets/cards/images/card-back.png", # card back
+		#[], #pre player phase
+		[ # player phase
+			set_action(life_pools.RED, targetEnum.SELF, 0, 0, 0, 1),
+			set_action(life_pools.GREEN, targetEnum.SELF, 0, 0, 0, 1),
+			set_action(life_pools.GREEN, targetEnum.SINGLE, 0, 0, 0, 1)
+		]
+		#[], # post player phase
+		#[], # pre enemy phase
+		#[], # enemy phase
+		#[] # post enemy phase
+	),
+	cardGreenKill = set_body(
+		"Green Kill", "Card1 description", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		# "res://Assets/cards/images/card1.png", #card front
 		"res://Assets/cards/images/card-back.png", # card back

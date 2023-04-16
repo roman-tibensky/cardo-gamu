@@ -10,13 +10,14 @@ const statChars = constants.new().statChars
 var enemy_data = {
 	enemy1 = set_body(
 		"Enemy 1", "Is definitely something you want to kill let me tell you", #Name, Description
+		" got murderlized by Enemy 1", #death message
 		"res://Assets/enemies/images/enemy1.png", #enemy background
 		15,15,15, #RED, GREEN, BLUE health
 
 		#[], #pre player phase
 		[ #actions to be cycled through
 			[ # player phase
-				set_action(life_pools.RED, targetEnum.SINGLE, -6, 0, 0, 1),
+				set_action(life_pools.RED, targetEnum.SINGLE, -60, 0, 0, 1),
 				set_action(life_pools.GREEN, targetEnum.SINGLE, -6, 0, 0, 1),
 				set_action(life_pools.BLUE, targetEnum.SINGLE, -6, 0, 0, 1),
 				set_action(life_pools.GREEN, targetEnum.SELF, -1, 0, 0, 1),
@@ -44,7 +45,7 @@ func get_enemy_data():
 
 
 func set_body(
-	new_name, new_description, new_source_front,
+	new_name, new_description, new_death_message, new_source_front,
 	new_maxRedPool, new_maxGreenPool, new_maxBluePool,
 	#new_pre_player_phase, 
 	# new_player_phase
@@ -55,6 +56,7 @@ func set_body(
 	return {
 		name= new_name,
 		description= new_description,
+		deathMessage = new_death_message,
 		source_front= new_source_front,
 		maxRedPool= new_maxRedPool,
 		maxGreenPool= new_maxGreenPool,

@@ -43,6 +43,7 @@ func _ready():
 
 # Called when the node enters the scene tree for the first time.
 func setup_enemy(enemySetup, enemySize):
+	actionStage = 0
 		
 	scale = Vector2(1,1)
 	scale *= (enemySize / size)
@@ -115,7 +116,8 @@ func generateActions():
 	$VBoxContainer/StatsContainer/ActionContainer/GreenActionWGap/GreenActionContainer/CenterContainer/Action.text = poolsText.green
 	$VBoxContainer/StatsContainer/ActionContainer/BlueActionWGap/BlueActionContainer/CenterContainer/Action.text = poolsText.blue
 
-func manageHealth(pool, alteration):
+func manageHealth(pool, alteration, ignoreThis = ""):
+	#ignoreThis variable only used in other instances of this function
 	alterHealthWLimitCheck(pool, alteration)
 	
 	$VBoxContainer/StatsContainer/LifeContainer.get_node(pool + "BarWGaps/Bar/TextureProgressBar").value = poolCurrent[pool]
@@ -158,7 +160,6 @@ func _physics_process(delta):
 				#TODO: use Tween instead - tutorial 3B
 				position = startPos.lerp(targetPos,t)
 				#rotation = startRot * (1-t) + targetRot*t
-
 
 				#to control the speed of process
 				t += delta * float(moveSpeed)

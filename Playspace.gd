@@ -2,8 +2,8 @@ extends Node2D
 
 const constants = preload("res://constants.gd")
 const life_pools = constants.new().life_pools
-
 const targetEnum =  constants.new().targetEnum
+const deathMessageSelfDestruct = constants.new().deathMessageSelfDestruct
 
 #var CardSize = Vector2i(281, 338)
 var PlayerSize = Vector2(320, 170)
@@ -18,10 +18,10 @@ var DeckCardSize = Vector2i(117, 142)
 const CardBase = preload("res://Cards/CardBase.tscn")
 const PlayerDeck = preload("res://Cards/Player_Deck.gd")
 var playerDeck = PlayerDeck.new()
+var currentDeck
 const CardSlot = preload("res://Cards/CardSlot.tscn")
 @onready var EnemiesData = preload("res://Assets/enemies/enemy_management.gd")
 var enemy
-var mainMenu
 
 var player
 var characterId
@@ -56,26 +56,27 @@ var clickReadyAfterSelect = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	clearScreeForMenu()
+	player = $Player/PlayerBase
+	player.scale *= (PlayerSize / player.size)
+
+	
+	roundManagementNode = $RoundManagement/RoundManagement
+	roundManagementNode.scale *= (RoundManagementSize / roundManagementNode.size)
+	
+	clearScreenForMenu("Welcome to Primal TriStream")
 	#$Deck/DeckDraw.scale *= DeckCardSize/$Deck/DeckDraw.size
 	randomize()
 
-func clearScreeForMenu():
+func clearScreenForMenu(message):
 	$Deck.visible = false
 	$DiscardPile.visible = false
 	$Player/PlayerBase.visible = false
 	$RoundManagement/RoundManagement.visible = false
 	$Enemies/EnemyBase.visible = false
 	
-	mainMenu = $MainMenu/Menu
+	$MainMenu/Menu.showMenu(message)
 	
-	#mainMenu.position = Vector2((get_viewport().size.x / 2) - (mainMenu.size.x / 2), 200)
-	mainMenu.position.x = (get_viewport().size.x / 2) - (mainMenu.size.x / 2)
-	mainMenu.position.y = (get_viewport().size.y / 2) - (mainMenu.size.y / 2)
-	
-	$MainMenu/Menu.visible = true
-	
-	
+
 	
 func _on_menu_start_new_game(requestedChar):
 	print(requestedChar)
@@ -87,22 +88,31 @@ func _on_menu_start_new_game(requestedChar):
 	
 	$MainMenu/Menu.visible = false
 	
+	clearAllCards()
 	characterId = requestedChar
+	player.setup_player(characterId)
+	#make a copy of the deck for this session
+	currentDeck = [] + playerDeck.get_deck(characterId)
+	roundManagementNode.setup_player(characterId)
+	
 	var enemyData = EnemiesData.new()
 	enemy = $Enemies/EnemyBase
 	enemy.setup_enemy(enemyData.get_enemy_data()['enemy1'], EnemySizeRegular)
 	$Enemies/EnemyBase.visible = true
 	
-	
-	player = $Player/PlayerBase
-	player.scale *= (PlayerSize / player.size)
-	player.setup_player(characterId)
-	
-	roundManagementNode = $RoundManagement/RoundManagement
-	roundManagementNode.scale *= (RoundManagementSize / roundManagementNode.size)
-	roundManagementNode.setup_player(characterId)
 	initDraw()
 
+
+func clearAllCards():
+		#clear discard pile and selected cards
+	for Card in $CardsInPlay.get_children():
+		Card.queue_free()
+		
+	#clear held cards
+	for Card in $CardsInHand.get_children():
+		Card.queue_free()
+		
+	handSize = 0
 
 func getHasCardSelected():
 	return selectedCard
@@ -112,8 +122,6 @@ func getHasCardSelected():
 #TODO: expand according to card effect target
 func setHasCardSelected(val):
 	selectedCard = val
-	
-	
 	#does card need targeting?
 	var cardContainer = $CardsInHand.get_child(selectedCard)
 	var targetsOtherThanSelf = false
@@ -144,9 +152,7 @@ func manageHighlights(active):
 	for i in range($Enemies.get_child_count()):
 		$Enemies.get_child(i).highlightMangement(active)
 		
-		
 
-	
 func initDraw():
 	var waitTime = 0
 	var cardsToDraw = player.playerData.handSizeDefault - $CardsInHand.get_child_count() #player.playerData.handSizeDefault - handSize - 1
@@ -158,14 +164,17 @@ func initDraw():
 		draw_card()
 
 func draw_card():
+	if( handSize >= player.playerData.handSizeMax):
+		#do not go over hand limit
+		return
 	angle = PI/2 + cardSpread*(float(handSize)/2 - handSize)
 	var new_card = CardBase.instantiate()
-	if(playerDeck.get_size(characterId) < 1):
+	if(currentDeck.size() < 1):
 		moveDiscardToDeck()
 		
-	cardSelected = randi() % playerDeck.get_size(characterId)
+	cardSelected = randi() % currentDeck.size()
 	
-	new_card.cardName = playerDeck.get_card(characterId, cardSelected)
+	new_card.cardName = currentDeck[cardSelected]
 
 	# continue horrifying oval math thing
 	#ovalAngleVector = Vector2i(horRad * cos(angle), -verRad * sin(angle))
@@ -184,17 +193,16 @@ func draw_card():
 	new_card.state = new_card.card_state.MoveDrawnCardToHand
 		
 	$CardsInHand.add_child(new_card)
-	playerDeck.remove_card(characterId, cardSelected)
+	currentDeck.remove_at(cardSelected)
 	
 	angle += cardSpread
-	#deckSize = playerDeck.get_size()
 	
 	handSize += 1
 	#cardNumber += 1
 	
 	#reorganize cards when pushing new card
 	organizeHand()
-	return playerDeck.get_size(characterId)
+	return currentDeck.size()
 		
 		
 func _input(event):
@@ -230,13 +238,20 @@ func _input(event):
 		
 func calculate_action_effects(actions, owner, target):
 	for action in actions:
+		var onPlayerDeath = ""
 		match action.target:
 			targetEnum.SINGLE:
-				target.manageHealth(action.pool, action.adjust)
+				
+				if("enemy" in owner && "playerData" in target):
+					onPlayerDeath = target.playerData.name + owner.enemy.deathMessage
+					
+				target.manageHealth(action.pool, action.adjust, onPlayerDeath)
 				pass
 				
 			targetEnum.SELF:
-				owner.manageHealth(action.pool, action.adjust)
+				if("playerData" in owner):
+					onPlayerDeath = owner.playerData.name + deathMessageSelfDestruct[action.pool]
+				owner.manageHealth(action.pool, action.adjust, onPlayerDeath)
 				pass
 	
 	#TODO: after the tutorial, the actual damage and stuff
@@ -293,14 +308,15 @@ func _on_round_management_round_end():
 		calculate_action_effects(enemyNode.enemy.actions[enemyNode.actionStage], enemyNode, player)
 		enemyNode.switchToNextAction()
 	
-	discardAllCards()
-	initDraw()
+	print(player.isAlive)
+	if (player.isAlive):
+		discardAllCards()
+		initDraw()
 	
 func moveDiscardToDeck():
 	for Card in $CardsInPlay.get_children():
-		playerDeck.add_card(characterId, Card.cardName)
+		currentDeck.append(Card.cardName)
 		Card.queue_free()
-		var a = is_instance_valid(Card)
 	pass
 	#TODO
 
@@ -318,5 +334,15 @@ func _on_enemy_base_enemy_defeat():
 	moveDiscardToDeck()
 	initDraw()
 	
-	
 
+func _on_deck_draw_button_down():
+	roundManagementNode.actionUpdate()
+	draw_card()
+	#do not disable, deck automatically refills
+		#if(deckSize == 0):
+		#	$Deck/DeckDraw.disabled = true
+
+
+func _on_player_base_game_over(message):
+	clearAllCards()
+	clearScreenForMenu(message)

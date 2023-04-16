@@ -5,7 +5,7 @@ var characterData = {
 		name = "Stable Steve",
 		description = "The normal one",
 		handSizeDefault = 4,
-		handSizeMax = 6,
+		handSizeMax = 7,
 		
 		redStarting = 10,
 		redMaxPool = 25,
@@ -28,7 +28,7 @@ var characterData = {
 	Character2 = {
 		name = "Broken Bill",
 		description = "The stupid one used for testing",
-		handSizeDefault = 4,
+		handSizeDefault = 2,
 		handSizeMax = 6,
 		
 		redStarting = 11,

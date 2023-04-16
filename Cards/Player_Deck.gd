@@ -1,5 +1,5 @@
 var DeckCards1 = [
-	"card1",
+		"card1",
 	"card1",
 	"card1",
 	"card5",
@@ -7,17 +7,18 @@ var DeckCards1 = [
 	"card2",
 	"card4",
 	"card9"
+
 ]
 
 var DeckCards2 = [
-	"card1",
-	"card1",
-	"card1",
-	"card5",
-	"card5",
-	"card2",
-	"card4",
-	"card9"
+	"cardGreenKill",
+	"cardRedSelfMurder",
+	"cardGreenSelfMurder",
+	"cardBlueSelfMurder",
+	"card0",
+	"card0",
+	"card0",
+	"card0"
 ]
 
 var CharacterHands = {
@@ -27,6 +28,9 @@ var CharacterHands = {
 
 func get_size(char):
 	return CharacterHands[char].size()
+
+func get_deck(char):
+	return CharacterHands[char]
 	
 func get_card(char, card):
 	return CharacterHands[char][card]

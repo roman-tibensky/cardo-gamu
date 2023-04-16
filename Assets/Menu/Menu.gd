@@ -19,12 +19,7 @@ signal startNewGame
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print(size)
-	print(Vector2($MenuBackground.texture.get_width(), $MenuBackground.texture.get_height()))
-	print(size / Vector2($MenuBackground.texture.get_width(), $MenuBackground.texture.get_height()))
-	print($MenuBackground.scale)
 	$MenuBackground.scale = size / Vector2($MenuBackground.texture.get_width(), $MenuBackground.texture.get_height())
-	print($MenuBackground.scale)
 	playerManagement = PlayerManagement.new()
 	buttonKeys = playerManagement.characterData.keys()
 	buttonsSelected = [false, false]
@@ -43,7 +38,7 @@ func selectCharacter(index):
 		$VBoxContainer/HBoxContainer/VBaseBody/Characters.get_node(buttonKeys[i]).material.set_shader_parameter("onoff", 1) #int(index == i)
 		$VBoxContainer/HBoxContainer/VBaseBody/Characters.get_node(buttonKeys[i]).material.set_shader_parameter("color", selectedColor if index == i else backgroundColor )
 	
-	$VBoxContainer/HBoxContainer/VBaseBody/HandSize/Label.text = str(char.handSizeDefault) + " / " + str(char.handSizeMax)
+	$VBoxContainer/HBoxContainer/VBaseBody/HandSize/Label.text = "Default/Max hand size: " + str(char.handSizeDefault) + " / " + str(char.handSizeMax)
 	$VBoxContainer/HBoxContainer/VBaseBody/Stats/InitStats/RedLifeInfo/CenterContainer/InitVMax.text = str(char.redStarting) + " / " + str(char.redMaxPool)
 	$VBoxContainer/HBoxContainer/VBaseBody/Stats/InitStats/GreenLifeInfo/CenterContainer/InitVMax.text = str(char.greenStarting) + " / " + str(char.greenMaxPool)
 	$VBoxContainer/HBoxContainer/VBaseBody/Stats/InitStats/BlueLifeInfo/CenterContainer/InitVMax.text = str(char.blueStarting) + " / " + str(char.blueMaxPool)
@@ -53,6 +48,13 @@ func selectCharacter(index):
 	
 	$VBoxContainer/HBoxContainer/VBaseBody/CharacterDescription/Label.text = char.description
 	
+func showMenu(message):
+	
+	visible = true
+	$VBoxContainer/HBoxContainer/VBaseBody/SystemInfo/Text.text = message
+	$MenuBackground.scale = size / Vector2($MenuBackground.texture.get_width(), $MenuBackground.texture.get_height())
+	position.x = (get_viewport().size.x / 2) - (size.x / 2)
+	position.y = (get_viewport().size.y / 2) - (size.y / 2)
 
 func _on_character_1_button_down():
 	selectCharacter(0)

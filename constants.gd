@@ -18,3 +18,10 @@ const statChars = {
 	multipleChar = "x",
 	countDownChar = "T"
 }
+
+
+const deathMessageSelfDestruct = {
+	life_pools.RED: "\'s body broke beyond repair",
+	life_pools.GREEN: "\'s soul faded into oblivion",
+	life_pools.BLUE: "\'s mana destablized and so did they"
+}
