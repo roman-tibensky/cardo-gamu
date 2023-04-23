@@ -1,18 +1,57 @@
-[gd_scene load_steps=11 format=3 uid="uid://ctwvv603e2pxr"]
+[gd_scene load_steps=14 format=3 uid="uid://ctwvv603e2pxr"]
 
 [ext_resource type="Script" path="res://Playspace.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://bi72icmcln0kw" path="res://Konachan.com - 280157 blue forest heriki_(trkj) original polychromatic scenic tree.jpg" id="2"]
 [ext_resource type="Script" path="res://Cards/DeckDraw.gd" id="3"]
+[ext_resource type="Texture2D" uid="uid://0rs6cc466vib" path="res://Assets/HelpScreen/button.png" id="3_us1c3"]
 [ext_resource type="Texture2D" uid="uid://u836uvtorbef" path="res://Assets/cards/images/card-back.png" id="4"]
+[ext_resource type="FontFile" uid="uid://dfdbbw8l6wpii" path="res://Assets/fonts/Xolonium-Regular.ttf" id="4_7gpme"]
 [ext_resource type="Texture2D" uid="uid://dcmhnhw1lslef" path="res://Assets/cards/images/card-deck-empty.png" id="5"]
 [ext_resource type="PackedScene" uid="uid://c1jk1yqn6h0fb" path="res://EnemyBase.tscn" id="6"]
 [ext_resource type="Script" path="res://Cards/DiscardButton.gd" id="7"]
 [ext_resource type="PackedScene" uid="uid://7j7g4ddab2ld" path="res://PlayerInfo.tscn" id="8_xxrio"]
 [ext_resource type="PackedScene" uid="uid://eriy2apy1gsd" path="res://RoundManagement.tscn" id="9_yjjxa"]
 [ext_resource type="PackedScene" uid="uid://b1tjhhfxwbf0a" path="res://Assets/Menu/Menu.tscn" id="10_p81yv"]
+[ext_resource type="PackedScene" uid="uid://dgueeorrglj8a" path="res://Assets/HelpScreen/Help.tscn" id="11_2nk1n"]
 
 [node name="Playspace" type="Node2D"]
 script = ExtResource("1")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(988, 496)
+texture = ExtResource("2")
+
+[node name="HelpButton" type="Node2D" parent="."]
+
+[node name="InGameHelp" type="TextureButton" parent="HelpButton"]
+custom_minimum_size = Vector2(60, 60)
+offset_left = 700.0
+offset_top = 10.0
+offset_right = 760.0
+offset_bottom = 70.0
+texture_normal = ExtResource("3_us1c3")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="HelpButton/InGameHelp"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="HelpButton/InGameHelp/CenterContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_7gpme")
+theme_override_font_sizes/font_size = 40
+text = "?"
 
 [node name="Enemies" type="Node" parent="."]
 
@@ -23,10 +62,6 @@ script = ExtResource("1")
 [node name="CardsInPlay" type="Node" parent="."]
 
 [node name="CardsInHand" type="Node" parent="."]
-
-[node name="Background" type="Sprite2D" parent="."]
-position = Vector2(988, 496)
-texture = ExtResource("2")
 
 [node name="Deck" type="Node2D" parent="."]
 position = Vector2(20, 550)
@@ -68,10 +103,19 @@ offset_bottom = 611.0
 [node name="MainMenu" type="Node" parent="."]
 
 [node name="Menu" parent="MainMenu" instance=ExtResource("10_p81yv")]
+visible = false
 
+[node name="HelpWindow" type="Node" parent="."]
+
+[node name="Help" parent="HelpWindow" instance=ExtResource("11_2nk1n")]
+visible = false
+
+[connection signal="button_down" from="HelpButton/InGameHelp" to="." method="_on_in_game_help_button_down"]
 [connection signal="enemyDefeat" from="Enemies/EnemyBase" to="." method="_on_enemy_base_enemy_defeat"]
 [connection signal="button_down" from="Deck/DeckDraw" to="." method="_on_deck_draw_button_down"]
 [connection signal="gameOver" from="Player/PlayerBase" to="." method="_on_player_base_game_over"]
 [connection signal="action_modification" from="RoundManagement/RoundManagement" to="." method="_on_round_management_action_modification"]
 [connection signal="round_end" from="RoundManagement/RoundManagement" to="." method="_on_round_management_round_end"]
+[connection signal="helpTriggered" from="MainMenu/Menu" to="." method="_on_menu_help_triggered"]
 [connection signal="startNewGame" from="MainMenu/Menu" to="." method="_on_menu_start_new_game"]
+[connection signal="triggerClose" from="HelpWindow/Help" to="." method="_on_help_trigger_close"]

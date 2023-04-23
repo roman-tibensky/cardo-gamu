@@ -58,8 +58,9 @@ func actionUpdate():
 
 
 func _on_end_round_button_button_down():
-	processModifiers()
-	round_end.emit()	
+	if $'../../HelpWindow/Help'.visible == false:
+		processModifiers()
+		round_end.emit()	
 
 func processModifiers():
 	for pool in life_pools:

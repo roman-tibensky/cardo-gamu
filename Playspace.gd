@@ -56,6 +56,10 @@ var clickReadyAfterSelect = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	$HelpButton/InGameHelp.position.x = get_viewport().size.x - $HelpButton/InGameHelp.size.x - 40
+	$HelpButton/InGameHelp.position.y = 40
+	
 	player = $Player/PlayerBase
 	player.scale *= (PlayerSize / player.size)
 
@@ -68,6 +72,7 @@ func _ready():
 	randomize()
 
 func clearScreenForMenu(message):
+	$HelpButton.visible = false
 	$Deck.visible = false
 	$DiscardPile.visible = false
 	$Player/PlayerBase.visible = false
@@ -75,11 +80,13 @@ func clearScreenForMenu(message):
 	$Enemies/EnemyBase.visible = false
 	
 	$MainMenu/Menu.showMenu(message)
+	$HelpWindow/Help.visible = false
 	
 
 	
 func _on_menu_start_new_game(requestedChar):
 	print(requestedChar)
+	$HelpButton.visible = true
 	$Deck.visible = true
 	$DiscardPile.visible = true
 	$Player/PlayerBase.visible = true
@@ -206,7 +213,7 @@ func draw_card():
 		
 		
 func _input(event):
-	if clickReadyAfterSelect && event.is_action_pressed("left_click"):
+	if $HelpWindow/Help.visible != true && clickReadyAfterSelect && event.is_action_pressed("left_click"):
 		for i in range($Enemies.get_child_count()):
 			var enemy = $Enemies.get_child(i)
 			var enemytPos = $Enemies.get_child(i).position
@@ -303,15 +310,16 @@ func _on_round_management_action_modification(pool, mod):
 
 
 func _on_round_management_round_end():
-	for i in range($Enemies.get_child_count()):
-		var enemyNode = $Enemies.get_child(i)
-		calculate_action_effects(enemyNode.enemy.actions[enemyNode.actionStage], enemyNode, player)
-		enemyNode.switchToNextAction()
-	
-	print(player.isAlive)
-	if (player.isAlive):
-		discardAllCards()
-		initDraw()
+	if $HelpWindow/Help.visible != true:
+		for i in range($Enemies.get_child_count()):
+			var enemyNode = $Enemies.get_child(i)
+			calculate_action_effects(enemyNode.enemy.actions[enemyNode.actionStage], enemyNode, player)
+			enemyNode.switchToNextAction()
+		
+		print(player.isAlive)
+		if (player.isAlive):
+			discardAllCards()
+			initDraw()
 	
 func moveDiscardToDeck():
 	for Card in $CardsInPlay.get_children():
@@ -336,8 +344,9 @@ func _on_enemy_base_enemy_defeat():
 	
 
 func _on_deck_draw_button_down():
-	roundManagementNode.actionUpdate()
-	draw_card()
+	if $HelpWindow/Help.visible != true:
+		roundManagementNode.actionUpdate()
+		draw_card()
 	#do not disable, deck automatically refills
 		#if(deckSize == 0):
 		#	$Deck/DeckDraw.disabled = true
@@ -346,3 +355,15 @@ func _on_deck_draw_button_down():
 func _on_player_base_game_over(message):
 	clearAllCards()
 	clearScreenForMenu(message)
+
+
+func _on_help_trigger_close():
+	$HelpWindow/Help.visible = false
+
+
+func _on_menu_help_triggered():
+	$HelpWindow/Help.switchPage(0)
+
+
+func _on_in_game_help_button_down():
+	$HelpWindow/Help.switchPage(2)

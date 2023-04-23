@@ -25,11 +25,7 @@ var targetPos = Vector2()
 var targetRot = 0
 var targetScale = Vector2i()
 
-
 var discardPile = Vector2i()
-
-
-
 
 var setup = true
 var movingIntoPlay = false
@@ -45,7 +41,6 @@ var handSize = 0
 
 var canSelect = true
 var movingToDiscard = false
-
 
 @onready var origScale = scale
 
@@ -78,7 +73,7 @@ func _input(event):
 	
 		match state:
 			card_state.InFocus, card_state.InGrab, card_state.InPlay:
-				if event.is_action_pressed("left_click"): 
+				if $'../../HelpWindow/Help'.visible == false && event.is_action_pressed("left_click"): 
 					if card_state.IsSelected && canSelect:
 						oldState = state
 						state = card_state.IsSelected
@@ -274,14 +269,15 @@ func _physics_process(delta):
 			pass
 
 func _on_FocusButton_mouse_entered():
-	match state:
-		card_state.InHand, card_state.ReorganizeHand:
-			setup = true
-			targetPos.x = cardPos.x - $'../../'.CardSize.x/2
-			targetPos.y = get_viewport().size.y - $'../../'.CardSize.y*zoomInSize*1.05
-			targetRot = 0
-			
-			state = card_state.InFocus
+	if $'../../HelpWindow/Help'.visible == false:
+		match state:
+			card_state.InHand, card_state.ReorganizeHand:
+				setup = true
+				targetPos.x = cardPos.x - $'../../'.CardSize.x/2
+				targetPos.y = get_viewport().size.y - $'../../'.CardSize.y*zoomInSize*1.05
+				targetRot = 0
+				
+				state = card_state.InFocus
 			
 
 func _on_FocusButton_mouse_exited():

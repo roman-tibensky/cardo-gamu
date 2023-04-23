@@ -16,6 +16,8 @@ var highlightColor = Color(1, 0.5, 0.5, 155)
 var selectedColor = Color(1, 0, 0, 255)
 var backgroundColor = Color(1, 1, 1, 255)
 signal startNewGame
+signal helpTriggered
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -28,6 +30,7 @@ func _ready():
 	selectCharacter(1)
 	
 	pass # Replace with function body.
+
 
 func selectCharacter(index):
 	selectedChar = buttonKeys[index]
@@ -48,13 +51,15 @@ func selectCharacter(index):
 	
 	$VBoxContainer/HBoxContainer/VBaseBody/CharacterDescription/Label.text = char.description
 	
-func showMenu(message):
 	
+func showMenu(message):
 	visible = true
 	$VBoxContainer/HBoxContainer/VBaseBody/SystemInfo/Text.text = message
+	await get_tree().create_timer(0.0001).timeout
 	$MenuBackground.scale = size / Vector2($MenuBackground.texture.get_width(), $MenuBackground.texture.get_height())
 	position.x = (get_viewport().size.x / 2) - (size.x / 2)
 	position.y = (get_viewport().size.y / 2) - (size.y / 2)
+
 
 func _on_character_1_button_down():
 	selectCharacter(0)
@@ -73,9 +78,11 @@ func _on_character_1_mouse_exited():
 func _on_character_2_button_down():
 	selectCharacter(1)
 
+
 func _on_character_2_mouse_entered():
 	if !buttonsSelected[1]:
 		$VBoxContainer/HBoxContainer/VBaseBody/Characters.get_node(buttonKeys[1]).material.set_shader_parameter("color", highlightColor)
+
 
 func _on_character_2_mouse_exited():
 	if !buttonsSelected[1]:
@@ -84,10 +91,11 @@ func _on_character_2_mouse_exited():
 
 func _on_new_game_button_button_down():
 	startNewGame.emit(selectedChar)
-	pass # Replace with function body.
 
 
 func _on_quit_button_button_down():
 	get_tree().quit()
-	pass # Replace with function body.
 
+
+func _on_help_button_button_down():
+	helpTriggered.emit()
