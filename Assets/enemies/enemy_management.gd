@@ -8,7 +8,7 @@ const statChars = constants.new().statChars
 
 
 var enemy_data = {
-	enemy1 = set_body(
+	bbEnemy1 = set_body(
 		"Enemy 1", "Is definitely something you want to kill let me tell you", #Name, Description
 		" got murderlized by Enemy 1", #death message
 		"res://Assets/enemies/images/enemy1.png", #enemy background
@@ -31,6 +31,27 @@ var enemy_data = {
 			[ # player phase
 				set_action(life_pools.GREEN, targetEnum.SELF, 2, 0, 0, 1),
 				set_action(life_pools.BLUE, targetEnum.SELF, 1, 0, 0, 1)
+			]
+		]
+		#[], # post player phase
+		#[], # pre enemy phase
+		#[], # enemy phase
+		#[] # post enemy phase
+	),
+	ssRat = set_body(
+		"Rat", "Watch out or he will tell on you", #Name, Description
+		" got nibbled to death byt a rat", #death message
+		"res://Assets/enemies/images/enemy1.png", #enemy background
+		5,5,5, #RED, GREEN, BLUE health
+
+		#[], #pre player phase
+		[ #actions to be cycled through
+			[ # player phase
+				set_action(life_pools.RED, targetEnum.SINGLE, -2, 0, 0, 1)
+			],
+			[ # player phase
+				set_action(life_pools.RED, targetEnum.SELF, -1, 0, 0, 1),
+				set_action(life_pools.GREEN, targetEnum.SINGLE, -5, 0, 0, 1)
 			]
 		]
 		#[], # post player phase

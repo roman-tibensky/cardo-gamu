@@ -21,6 +21,9 @@ var playerDeck = PlayerDeck.new()
 var currentDeck
 const CardSlot = preload("res://Cards/CardSlot.tscn")
 @onready var EnemiesData = preload("res://Assets/enemies/enemy_management.gd")
+@onready var EnemiesLists = preload("res://Assets/enemies/Player_Enemies.gd")
+var currentEnemyList
+var enemyIndex = 0
 var enemy
 
 var player
@@ -56,6 +59,7 @@ var clickReadyAfterSelect = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	enemy = $Enemies/EnemyBase
 	
 	$HelpButton/InGameHelp.position.x = get_viewport().size.x - $HelpButton/InGameHelp.size.x - 40
 	$HelpButton/InGameHelp.position.y = 40
@@ -71,27 +75,27 @@ func _ready():
 	#$Deck/DeckDraw.scale *= DeckCardSize/$Deck/DeckDraw.size
 	randomize()
 
+
 func clearScreenForMenu(message):
+	
 	$HelpButton.visible = false
 	$Deck.visible = false
 	$DiscardPile.visible = false
 	$Player/PlayerBase.visible = false
 	$RoundManagement/RoundManagement.visible = false
-	$Enemies/EnemyBase.visible = false
+	enemy.visible = false
 	
 	$MainMenu/Menu.showMenu(message)
 	$HelpWindow/Help.visible = false
 	
-
 	
 func _on_menu_start_new_game(requestedChar):
-	print(requestedChar)
 	$HelpButton.visible = true
 	$Deck.visible = true
 	$DiscardPile.visible = true
 	$Player/PlayerBase.visible = true
 	$RoundManagement/RoundManagement.visible = true
-	$Enemies/EnemyBase.visible = true
+	enemy.visible = true
 	
 	$MainMenu/Menu.visible = false
 	
@@ -100,17 +104,22 @@ func _on_menu_start_new_game(requestedChar):
 	player.setup_player(characterId)
 	#make a copy of the deck for this session
 	currentDeck = [] + playerDeck.get_deck(characterId)
+	currentEnemyList = [] + EnemiesLists.new().CharacterEnemies[requestedChar]
 	roundManagementNode.setup_player(characterId)
-	
-	var enemyData = EnemiesData.new()
-	enemy = $Enemies/EnemyBase
-	enemy.setup_enemy(enemyData.get_enemy_data()['enemy1'], EnemySizeRegular)
-	$Enemies/EnemyBase.visible = true
-	
+		
+	enemyIndex = 0
+	createEnemy()
 	initDraw()
 
 
+func createEnemy():
+	var enemyData = EnemiesData.new()
+	enemy.setup_enemy(enemyData.get_enemy_data()[currentEnemyList[enemyIndex]], EnemySizeRegular)
+	
+
 func clearAllCards():
+	var cardIsPlay =$CardsInPlay.get_children()
+	var cardsInHand =$CardsInHand.get_children()
 		#clear discard pile and selected cards
 	for Card in $CardsInPlay.get_children():
 		Card.queue_free()
@@ -214,6 +223,9 @@ func draw_card():
 		
 func _input(event):
 	if $HelpWindow/Help.visible != true && clickReadyAfterSelect && event.is_action_pressed("left_click"):
+		#make sure other events blocked by card selection don't trigger before the click is processed
+		await get_tree().create_timer(0.0001).timeout
+		
 		for i in range($Enemies.get_child_count()):
 			var enemy = $Enemies.get_child(i)
 			var enemytPos = $Enemies.get_child(i).position
@@ -237,6 +249,7 @@ func _input(event):
 				break
 				
 		if selectedCard != null:
+
 			$CardsInHand.get_child(selectedCard).cardPlayed(false)
 			selectedCard = null
 			clickReadyAfterSelect = false
@@ -316,7 +329,6 @@ func _on_round_management_round_end():
 			calculate_action_effects(enemyNode.enemy.actions[enemyNode.actionStage], enemyNode, player)
 			enemyNode.switchToNextAction()
 		
-		print(player.isAlive)
 		if (player.isAlive):
 			discardAllCards()
 			initDraw()
@@ -331,20 +343,24 @@ func moveDiscardToDeck():
 
 func _on_enemy_base_enemy_defeat():
 	#create new enemy
-	var enemyData = EnemiesData.new()
-	enemy.setup_enemy(enemyData.get_enemy_data()['enemy1'], EnemySizeRegular)
-	
-	#end round without enemy attacking
-	$RoundManagement/RoundManagement.processModifiers()
-	
-	#reset deck and hand
-	discardAllCards()
-	moveDiscardToDeck()
-	initDraw()
+	enemyIndex += 1
+	if enemyIndex >= currentEnemyList.size():
+		clearAllCards()
+		clearScreenForMenu("YOU WIN!")
+	else:
+		createEnemy()
+		
+		#end round without enemy attacking
+		$RoundManagement/RoundManagement.processModifiers()
+
+		#reset deck and hand
+		discardAllCards()
+		moveDiscardToDeck()
+		initDraw()
 	
 
 func _on_deck_draw_button_down():
-	if $HelpWindow/Help.visible != true:
+	if $HelpWindow/Help.visible != true && selectedCard == null:
 		roundManagementNode.actionUpdate()
 		draw_card()
 	#do not disable, deck automatically refills

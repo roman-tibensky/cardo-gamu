@@ -94,9 +94,7 @@ func setup_enemy(enemySetup, enemySize):
 	
 	
 func switchToNextAction():
-	print(actionStage)
 	actionStage = (actionStage + 1) % enemy.actions.size()
-	print(actionStage)
 	generateActions()
 	
 func highlightMangement(isHighlighted):

@@ -5,7 +5,7 @@
 [ext_resource type="FontFile" uid="uid://dfdbbw8l6wpii" path="res://Assets/fonts/Xolonium-Regular.ttf" id="2"]
 [ext_resource type="Texture2D" uid="uid://d2ujeq2bgoiui" path="res://Assets/cardParts/background shade.png" id="3"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cgqtd"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_31xtp"]
 shader = ExtResource("1_gjuyr")
 shader_parameter/color = null
 shader_parameter/width = null
@@ -20,7 +20,7 @@ offset_bottom = 250.0
 script = ExtResource("1")
 
 [node name="CardFront" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_cgqtd")
+material = SubResource("ShaderMaterial_31xtp")
 centered = false
 
 [node name="Border" type="Sprite2D" parent="."]

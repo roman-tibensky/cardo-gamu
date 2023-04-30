@@ -14,8 +14,8 @@ const statChars = constants.new().statChars
 
 
 var card_data = {
-	cardRedSelfMurder = set_body(
-		"RedSelfMurder", "000000000", #Name, Description
+	bbRedSelfMurder = set_body(
+		"RedSelfMurder", "ouchies red", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		# "res://Assets/cards/images/card1.png", #card front
 		"res://Assets/cards/images/card-back.png", # card back
@@ -30,8 +30,8 @@ var card_data = {
 		#[], # enemy phase
 		#[] # post enemy phase
 	),
-	cardGreenSelfMurder = set_body(
-		"GreenSelfMurder", "000000000", #Name, Description
+	bbGreenSelfMurder = set_body(
+		"GreenSelfMurder", "ouchies green", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		# "res://Assets/cards/images/card1.png", #card front
 		"res://Assets/cards/images/card-back.png", # card back
@@ -46,8 +46,8 @@ var card_data = {
 		#[], # enemy phase
 		#[] # post enemy phase
 	),
-	cardBlueSelfMurder = set_body(
-		"BlueSelfMurder", "000000000", #Name, Description
+	bbBlueSelfMurder = set_body(
+		"BlueSelfMurder", "ouchies blue", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		# "res://Assets/cards/images/card1.png", #card front
 		"res://Assets/cards/images/card-back.png", # card back
@@ -62,8 +62,8 @@ var card_data = {
 		#[], # enemy phase
 		#[] # post enemy phase
 	),
-	card0 = set_body(
-		"Card0", "000000000", #Name, Description
+	bbCard0 = set_body(
+		"do nothing", "000000000", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		# "res://Assets/cards/images/card1.png", #card front
 		"res://Assets/cards/images/card-back.png", # card back
@@ -78,8 +78,8 @@ var card_data = {
 		#[], # enemy phase
 		#[] # post enemy phase
 	),
-	cardGreenKill = set_body(
-		"Green Kill", "Card1 description", #Name, Description
+	bbCardGreenKill = set_body(
+		"Green Kill", "Imma murder you", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		# "res://Assets/cards/images/card1.png", #card front
 		"res://Assets/cards/images/card-back.png", # card back
@@ -88,6 +88,22 @@ var card_data = {
 			set_action(life_pools.RED, targetEnum.SELF, 2, 0, 0, 1),
 			set_action(life_pools.GREEN, targetEnum.SELF, -1, 0, 0, 1),
 			set_action(life_pools.GREEN, targetEnum.SINGLE, -30, 0, 0, 1)
+		]
+		#[], # post player phase
+		#[], # pre enemy phase
+		#[], # enemy phase
+		#[] # post enemy phase
+	),
+	card1 = set_body(
+		"Card1", "Card1 description", #Name, Description
+		"res://Assets/cards/images/card0.png", #card front
+		# "res://Assets/cards/images/card2.png", #card front
+		"res://Assets/cards/images/card-back.png", # card back
+		#[], #pre player phase
+		[ # player phase
+			set_action(life_pools.RED, targetEnum.SELF, 2, 0, 0, 1),
+			set_action(life_pools.GREEN, targetEnum.SELF, -1, 0, 0, 1),
+			set_action(life_pools.GREEN, targetEnum.SINGLE, -3, 0, 0, 1)
 		]
 		#[], # post player phase
 		#[], # pre enemy phase
