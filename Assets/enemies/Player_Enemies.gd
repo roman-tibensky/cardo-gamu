@@ -19,5 +19,5 @@ var EnemiesPlayer2 = [
 
 var CharacterEnemies = {
 	Character1 = EnemiesPlayer1, 
-	Character2 = EnemiesPlayer1, 
+	Character2 = EnemiesPlayer2, 
 }
