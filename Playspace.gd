@@ -118,9 +118,7 @@ func createEnemy():
 	
 
 func clearAllCards():
-	var cardIsPlay =$CardsInPlay.get_children()
-	var cardsInHand =$CardsInHand.get_children()
-		#clear discard pile and selected cards
+	#clear discard pile and selected cards
 	for Card in $CardsInPlay.get_children():
 		Card.queue_free()
 		
@@ -265,13 +263,16 @@ func calculate_action_effects(actions, owner, target):
 				if("enemy" in owner && "playerData" in target):
 					onPlayerDeath = target.playerData.name + owner.enemy.deathMessage
 					
-				target.manageHealth(action.pool, action.adjust, onPlayerDeath)
+				for i in action.execute_times:
+					target.manageHealth(action.pool, action.adjust, onPlayerDeath)
 				pass
 				
 			targetEnum.SELF:
 				if("playerData" in owner):
 					onPlayerDeath = owner.playerData.name + deathMessageSelfDestruct[action.pool]
-				owner.manageHealth(action.pool, action.adjust, onPlayerDeath)
+					
+				for i in action.execute_times:
+					owner.manageHealth(action.pool, action.adjust * action.execute_times, onPlayerDeath)
 				pass
 	
 	#TODO: after the tutorial, the actual damage and stuff

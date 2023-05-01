@@ -20,6 +20,7 @@ const helpPages = [
 
 	"Action symbols:\n\n" +
 	statChars.lifeChar + "= heal attribute for X points\n" +
+	statChars.giveLife + "= heal opponent's attribute for X points\n" +
 	statChars.costChar + "= pay X points of own attribute\n" +
 	statChars.attackSingleChar + "= attack a single opponent's attribute for X points\n" +
 	statChars.attackRandomChar + "= attack a random opponent's attribute for X points\n" +

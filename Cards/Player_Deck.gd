@@ -1,5 +1,5 @@
 var DeckCards1 = [
-		"card1",
+	"card1",
 	"card1",
 	"card1",
 	"card5",
@@ -18,9 +18,9 @@ var DeckCards2 = [
 	"bbCardGreenKill",
 	"bbCardGreenKill",
 	"bbCardGreenKill",
-	"bbCard0",
-	"bbCard0",
-	"bbCard0",
+	"bbCardGreenKill",
+	"bbCardGreenKill",
+	"bbCardGreenKill",
 	"bbCard0"
 ]
 

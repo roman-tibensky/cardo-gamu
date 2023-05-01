@@ -9,6 +9,7 @@ enum targetEnum {SINGLE, RANDOM, ALL, SELF}
 
 const statChars = {
 	lifeChar = "+", #"\u2764"
+	giveLife = "\u2764",
 	costChar = "\u2620",
 	attackSingleChar = "\u2316",
 	attackRandomChar = "\u26A1",

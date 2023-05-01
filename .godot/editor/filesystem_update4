@@ -10,3 +10,5 @@ res://Assets/enemies/Player_Enemies.gd
 res://Assets/enemies/enemy_management.gd
 res://Playspace.gd
 res://Cards/Player_Deck.gd
+res://constants.gd
+res://Assets/HelpScreen/Help.gd
