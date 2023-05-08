@@ -76,8 +76,8 @@ var card_data = {
 		]
 
 	),
-	card1 = set_body(
-		"Card1", "Card1 description", #Name, Description
+	unBaseShout = set_body(
+		"Battle Cry", "Intimidate enemies, boost your adrenaline", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		"res://Assets/cards/images/card-back.png", # card back
 		[ # card actions
@@ -86,8 +86,8 @@ var card_data = {
 			set_action(life_pools.GREEN, targetEnum.SINGLE, -3)
 		]
 	),
-	card2 = set_body(
-		"Card2", "Card2 description", #Name, Description
+	unBaseManaRelease = set_body(
+		"Mana Release", "Easily manageable burst of mana", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		"res://Assets/cards/images/card-back.png", # card back
 		[ # card actions
@@ -96,8 +96,8 @@ var card_data = {
 			set_action(life_pools.BLUE, targetEnum.SINGLE, -3)
 		]
 	),
-	card3 = set_body(
-		"Card3", "Card3 description", #Name, Description
+	unManaGeneration = set_body(
+		"Mana Generation", "Punch so hard you gain mana out of thin air", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		"res://Assets/cards/images/card-back.png", # card back
 		[ # card actions
@@ -106,8 +106,8 @@ var card_data = {
 			set_action(life_pools.RED, targetEnum.SINGLE, -3)
 		]
 	),
-	card4 = set_body(
-		"Card4", "Card4 description", #Name, Description
+	unLifeHeal = set_body(
+		"Health heal", "Sacrifice you health to gain mana and spirit", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		"res://Assets/cards/images/card-back.png", # card back
 		[ # card actions
@@ -116,27 +116,27 @@ var card_data = {
 			set_action(life_pools.RED, targetEnum.SELF, -3)
 		]
 	),
-	card5 = set_body(
-		"Card5", "Card5 description", #Name, Description
+	unMeditation = set_body(
+		"Meditation", "Do you really have time for this?", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		"res://Assets/cards/images/card-back.png", # card back
 		[ # card actions
-			set_action(life_pools.GREEN, targetEnum.SELF, 2),
-			set_action(life_pools.BLUE, targetEnum.SELF, 2),
-			set_action(life_pools.RED, targetEnum.SELF, 2)
+			set_action(life_pools.GREEN, targetEnum.SELF, 4),
+			set_action(life_pools.BLUE, targetEnum.SELF, 4),
+			set_action(life_pools.RED, targetEnum.SELF, 4)
 		]
 	),
-	card6 = set_body(
-		"Card6", "Card6 description", #Name, Description
+	unAwkwardPunch = set_body(
+		"Awkward punch", "Is your arm supposed to bend that way?", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		"res://Assets/cards/images/card-back.png", # card back
 		[ # card actions
-			set_action(life_pools.RED, targetEnum.SELF, -3),
+			set_action(life_pools.RED, targetEnum.SELF, -2),
 			set_action(life_pools.RED, targetEnum.SINGLE, -6)
 		]
 	),
-	card7= set_body(
-		"Card7", "Card7 description", #Name, Description
+	unAgryPounce = set_body(
+		"Angry pounce", "Painful and terrifying", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		"res://Assets/cards/images/card-back.png", # card back
 		[ # card actions
@@ -148,8 +148,8 @@ var card_data = {
 		]
 	),
 
-	card8 = set_body(
-		"Card8", "Card8 description", #Name, Description
+	unCastHeal = set_body(
+		"Cast heal", "Accompanied by a satisfying 'ping'", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		"res://Assets/cards/images/card-back.png", # card back
 		[ # card actions
@@ -157,8 +157,8 @@ var card_data = {
 			set_action(life_pools.BLUE, targetEnum.SELF, -4)
 		]
 	),
-	card9 = set_body(
-		"Card9", "Card9 description", #Name, Description
+	unSiphonHealth = set_body(
+		"Siphon health", "An unstable incantation", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		"res://Assets/cards/images/card-back.png", # card back
 		[ # card actions
@@ -169,8 +169,8 @@ var card_data = {
 			set_action(life_pools.BLUE, targetEnum.SINGLE, -5)
 		]
 	),
-	card10 = set_body(
-		"Card10 ", "Card10  description", #Name, Description
+	unCalmSpirit = set_body(
+		"Calm Spirit", "Ohmmmmmm", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		"res://Assets/cards/images/card-back.png", # card back
 		[ # card actions
@@ -179,8 +179,8 @@ var card_data = {
 			set_action(life_pools.BLUE, targetEnum.SELF, -3)
 		]
 	),
-	card11 = set_body(
-		"Card11", "Card11 description", #Name, Description
+	unManaLeech = set_body(
+		"Mana leech", "All shall feed your mana pool", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		"res://Assets/cards/images/card-back.png", # card back
 		[ # card actions
@@ -190,8 +190,8 @@ var card_data = {
 			set_action(life_pools.BLUE, targetEnum.SINGLE, -3)
 		]
 	),
-	card12 = set_body(
-		"Card12", "Card12 description", #Name, Description
+	unManaCrush = set_body(
+		"Mana crush", "Rip out the mana of your opponent", #Name, Description
 		"res://Assets/cards/images/card0.png", #card front
 		"res://Assets/cards/images/card-back.png", # card back
 		[ # card actions

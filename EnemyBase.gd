@@ -32,6 +32,7 @@ var inPlayPos = Vector2()
 var outOfPlayPos = Vector2()
 var t = 0
 var moveSpeed = 1
+var basePortX
 
 
 func _ready():
@@ -42,8 +43,9 @@ func _ready():
 
 
 # Called when the node enters the scene tree for the first time.
-func setup_enemy(enemySetup, enemySize):
+func setup_enemy(enemySetup, enemySize, portX):
 	actionStage = 0
+	basePortX = portX
 		
 	scale = Vector2(1,1)
 	scale *= (enemySize / size)
@@ -83,7 +85,7 @@ func setup_enemy(enemySetup, enemySize):
 	
 	generateActions()
 	
-	var enemyX = (get_viewport().size.x / 2) - (enemySize.x / 2)
+	var enemyX = (basePortX / 2) - (enemySize.x / 2)
 	inPlayPos = Vector2(enemyX, 50)
 	outOfPlayPos = Vector2(enemyX, 0 - enemySize.y - 15)
 

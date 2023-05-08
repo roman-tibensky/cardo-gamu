@@ -1,6 +1,7 @@
+NinePatchRect
+CenterContainer
 MarginContainer
 Label
-CenterContainer
 TextureButton
 Node2D
 HBoxContainer

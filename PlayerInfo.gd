@@ -67,8 +67,8 @@ func setup_player(char):
 	$VBoxContainer/LifeContainer/BlueBarWGaps/Bar/TextureProgressBar.set_tint_progress(Color(0.16,0.32,0.68,1))
 
 
-
-
+func manageHealthSelf(pool, alteration):
+	manageHealth(pool, alteration,playerData.name + deathMessageSelfDestruct[pool])
 	
 func manageHealth(pool, alteration, message = ""):
 	alterHealthWLimitCheck(pool, alteration, message)

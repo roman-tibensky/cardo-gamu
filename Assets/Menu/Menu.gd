@@ -27,7 +27,7 @@ func _ready():
 	buttonsSelected = [false, false]
 	$VBoxContainer/HBoxContainer/VBaseBody/Characters/Character1/CenterContainer/Label.text = playerManagement.characterData[buttonKeys[0]].name
 	$VBoxContainer/HBoxContainer/VBaseBody/Characters/Character2/CenterContainer/Label.text = playerManagement.characterData[buttonKeys[1]].name
-	selectCharacter(1)
+	selectCharacter(0)
 	
 	pass # Replace with function body.
 
@@ -54,7 +54,7 @@ func selectCharacter(index):
 	
 func showMenu(message):
 	visible = true
-	$VBoxContainer/HBoxContainer/VBaseBody/SystemInfo/Text.text = message
+	$VBoxContainer/HBoxContainer/VBaseBody/SystemInfo/NinePatchRect/CenterContainer/Text.text = message
 	await get_tree().create_timer(0.0001).timeout
 	$MenuBackground.scale = size / Vector2($MenuBackground.texture.get_width(), $MenuBackground.texture.get_height())
 	position.x = (get_viewport().size.x / 2) - (size.x / 2)

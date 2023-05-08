@@ -44,28 +44,34 @@ var movingToDiscard = false
 
 @onready var origScale = scale
 
+
+var basePortY
+
 #onready var card_info = card_list.get_card_data()[card_name]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	cardList = CardList.new()
-	card = cardList.get_card_data()[cardName]
-	var poolsText = cardList.preparePoolStrings(card.actions)
 	cardSize = size
-	
 	$CardFront.texture = load(card.source_front)
 	$CardFront.scale *= cardSize/$CardFront.texture.get_size()
-	
 	$CardBack.texture = load(card.source_back)
 	$CardBack.scale *= cardSize/$CardBack.texture.get_size()
-	
 	$CardFront.set_material($CardFront.get_material().duplicate(true))
-	
+	$CardFront.material.set_shader_parameter("onoff",1)
+	$CardFront.material.set_shader_parameter("color",Color(0, 0, 0, 255))
+
+
+func setupCard(newName, screenSizeY):
+	basePortY = screenSizeY
+	cardName = newName
+	cardList = CardList.new()
+	card = cardList.get_card_data()[cardName]
+	var poolsText = cardList.preparePoolStrings(card.actions)	
 	$TextGrid/NameCont/NameContainer/CenterContainer/Name.text = card.card_name
 	$TextGrid/RedPoolCont/RedPoolContainer/CenterContainer/RedPool.text = poolsText.red
 	$TextGrid/GreenPoolCont/GreenPoolContainer/CenterContainer/GreenPool.text = poolsText.green
 	$TextGrid/BluePoolCont/BluePoolContainer/CenterContainer/BluePool.text = poolsText.blue
-	$TextGrid/DescCont/DescContainer/CenterContainer/Desc.text = card.description
+	$TextGrid/DescCont/DescContainer/NinePatchRect/CenterContainer/Desc.text = card.description
 
 
 func _input(event):
@@ -220,6 +226,7 @@ func _physics_process(delta):
 				scale.x = origScale.x * ( 2*t - 1)
 				if $CardBack.visible && t >= 0.5:
 					$CardBack.visible = false
+					$CardFront.material.set_shader_parameter("onoff",0)
 
 				#to control the speed of process
 				t += delta * float(drawSpeed)
@@ -274,7 +281,9 @@ func _on_FocusButton_mouse_entered():
 			card_state.InHand, card_state.ReorganizeHand:
 				setup = true
 				targetPos.x = cardPos.x - $'../../'.CardSize.x/2
-				targetPos.y = get_viewport().size.y - $'../../'.CardSize.y*zoomInSize*1.05
+				#targetPos.y = get_viewport().size.y - $'../../'.CardSize.y*zoomInSize*1.05
+				targetPos.y = basePortY - $'../../'.CardSize.y*zoomInSize*1.05
+				basePortY
 				targetRot = 0
 				
 				state = card_state.InFocus

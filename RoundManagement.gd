@@ -56,7 +56,6 @@ func actionUpdate():
 
 
 
-
 func _on_end_round_button_button_down():
 	if $'../../HelpWindow/Help'.visible == false:
 		processModifiers()

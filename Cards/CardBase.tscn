@@ -5,7 +5,7 @@
 [ext_resource type="FontFile" uid="uid://dfdbbw8l6wpii" path="res://Assets/fonts/Xolonium-Regular.ttf" id="2"]
 [ext_resource type="Texture2D" uid="uid://d2ujeq2bgoiui" path="res://Assets/cardParts/background shade.png" id="3"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_31xtp"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e4qf4"]
 shader = ExtResource("1_gjuyr")
 shader_parameter/color = null
 shader_parameter/width = null
@@ -20,7 +20,7 @@ offset_bottom = 250.0
 script = ExtResource("1")
 
 [node name="CardFront" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_31xtp")
+material = SubResource("ShaderMaterial_e4qf4")
 centered = false
 
 [node name="Border" type="Sprite2D" parent="."]
@@ -167,13 +167,26 @@ size_flags_horizontal = 3
 layout_mode = 2
 texture = ExtResource("3")
 
-[node name="CenterContainer" type="CenterContainer" parent="TextGrid/DescCont/DescContainer"]
-layout_mode = 2
+[node name="CenterContainer" type="CenterContainer" parent="TextGrid/DescCont/DescContainer/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -93.5
+offset_top = -53.0
+offset_right = 93.5
+offset_bottom = 53.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Desc" type="Label" parent="TextGrid/DescCont/DescContainer/CenterContainer"]
+[node name="Desc" type="Label" parent="TextGrid/DescCont/DescContainer/NinePatchRect/CenterContainer"]
+custom_minimum_size = Vector2(175, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2")
-text = "[insert]"
+text = "Intimidate enemies, boost your adrenaline"
+autowrap_mode = 3
 
 [node name="RightGap" type="MarginContainer" parent="TextGrid/DescCont"]
 custom_minimum_size = Vector2(5, 0)

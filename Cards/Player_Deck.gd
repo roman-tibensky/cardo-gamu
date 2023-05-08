@@ -1,12 +1,19 @@
 var DeckCards1 = [
-	"card1",
-	"card1",
-	"card1",
-	"card5",
-	"card5",
-	"card2",
-	"card4",
-	"card9"
+	"unBaseShout",
+	"unBaseShout",
+	"unBaseManaRelease",
+	"unBaseManaRelease",
+	"unManaGeneration",
+	"unManaGeneration",
+	"unLifeHeal",
+	"unMeditation",
+	"unAwkwardPunch",
+	"unAgryPounce",
+	"unCastHeal",
+	"unSiphonHealth",
+	"unCalmSpirit",
+	"unManaLeech",
+	"unManaCrush"
 
 ]
 

@@ -55,10 +55,17 @@ var cardSlotEmpty = []
 
 var selectedCard = null
 var clickReadyAfterSelect = false
+var basePortX
+var basePortY
+
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	#to prevent screen resizing cause shenanigans
+	basePortX = get_viewport().size.x
+	basePortY = get_viewport().size.y
+	
 	enemy = $Enemies/EnemyBase
 	
 	$HelpButton/InGameHelp.position.x = get_viewport().size.x - $HelpButton/InGameHelp.size.x - 40
@@ -100,6 +107,8 @@ func _on_menu_start_new_game(requestedChar):
 	$MainMenu/Menu.visible = false
 	
 	clearAllCards()
+	await get_tree().create_timer(0.0001).timeout
+	
 	characterId = requestedChar
 	player.setup_player(characterId)
 	#make a copy of the deck for this session
@@ -114,7 +123,7 @@ func _on_menu_start_new_game(requestedChar):
 
 func createEnemy():
 	var enemyData = EnemiesData.new()
-	enemy.setup_enemy(enemyData.get_enemy_data()[currentEnemyList[enemyIndex]], EnemySizeRegular)
+	enemy.setup_enemy(enemyData.get_enemy_data()[currentEnemyList[enemyIndex]], EnemySizeRegular, basePortX)
 	
 
 func clearAllCards():
@@ -125,7 +134,7 @@ func clearAllCards():
 	#clear held cards
 	for Card in $CardsInHand.get_children():
 		Card.queue_free()
-		
+	
 	handSize = 0
 
 func getHasCardSelected():
@@ -188,7 +197,7 @@ func draw_card():
 		
 	cardSelected = randi() % currentDeck.size()
 	
-	new_card.cardName = currentDeck[cardSelected]
+	new_card.setupCard(currentDeck[cardSelected], basePortY)
 
 	# continue horrifying oval math thing
 	#ovalAngleVector = Vector2i(horRad * cos(angle), -verRad * sin(angle))
@@ -320,7 +329,7 @@ func discardAllCards():
 		organizeHand()
 
 func _on_round_management_action_modification(pool, mod):
-	player.manageHealth(pool, mod)
+	player.manageHealthSelf(pool, mod)
 
 
 func _on_round_management_round_end():
@@ -361,6 +370,9 @@ func _on_enemy_base_enemy_defeat():
 	
 
 func _on_deck_draw_button_down():
+	if( handSize >= player.playerData.handSizeMax):
+		#do not go over hand limit
+		return
 	if $HelpWindow/Help.visible != true && selectedCard == null:
 		roundManagementNode.actionUpdate()
 		draw_card()
