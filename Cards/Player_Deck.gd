@@ -18,16 +18,14 @@ var DeckCards1 = [
 ]
 
 var DeckCards2 = [
-#	"bbCardGreenKill",
-#	"bbBlueSelfMurder",
-#	"bbGreenSelfMurder",
-#	"bbCardGreenKill",
+	"bbCardRedKill",
+	"bbRedSelfMurder",
+	"bbGreenSelfMurder",
+	"bbBlueSelfMurder",
+	"bbCardBlueKill",
 	"bbCardGreenKill",
-	"bbCardGreenKill",
-	"bbCardGreenKill",
-	"bbCardGreenKill",
-	"bbCardGreenKill",
-	"bbCardGreenKill",
+	"bbCard0",
+	"bbCard0",
 	"bbCard0"
 ]
 

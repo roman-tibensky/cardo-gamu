@@ -18,6 +18,9 @@ var backgroundColor = Color(1, 1, 1, 255)
 signal startNewGame
 signal helpTriggered
 
+var basePortY = 0
+var basePortX = 0
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -50,6 +53,10 @@ func selectCharacter(index):
 	$VBoxContainer/HBoxContainer/VBaseBody/Stats/MModifierStats/BlueModInfo/CenterContainer/StartVMod.text = str(char.blueModifierStarting) + " / " + str(char.blueModifierAction)
 	
 	$VBoxContainer/HBoxContainer/VBaseBody/CharacterDescription/Label.text = char.description
+
+func setViewPort(portX, portY):
+	basePortX = portX
+	basePortY = portY
 	
 	
 func showMenu(message):
@@ -57,8 +64,8 @@ func showMenu(message):
 	$VBoxContainer/HBoxContainer/VBaseBody/SystemInfo/NinePatchRect/CenterContainer/Text.text = message
 	await get_tree().create_timer(0.0001).timeout
 	$MenuBackground.scale = size / Vector2($MenuBackground.texture.get_width(), $MenuBackground.texture.get_height())
-	position.x = (get_viewport().size.x / 2) - (size.x / 2)
-	position.y = (get_viewport().size.y / 2) - (size.y / 2)
+	position.x = (basePortX / 2) - (size.x / 2)
+	position.y = (basePortY / 2) - (size.y / 2)
 
 
 func _on_character_1_button_down():

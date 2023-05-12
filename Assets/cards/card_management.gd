@@ -111,8 +111,8 @@ var card_data = {
 		"res://Assets/cards/images/card0.png", #card front
 		"res://Assets/cards/images/card-back.png", # card back
 		[ # card actions
-			set_action(life_pools.GREEN, targetEnum.SELF, 1),
-			set_action(life_pools.BLUE, targetEnum.SELF, 4),
+			set_action(life_pools.GREEN, targetEnum.SELF, 2),
+			set_action(life_pools.BLUE, targetEnum.SELF, 2),
 			set_action(life_pools.RED, targetEnum.SELF, -3)
 		]
 	),

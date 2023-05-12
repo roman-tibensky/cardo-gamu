@@ -307,19 +307,20 @@ func setup_card():
 
 func moveNeighbourCard(cardIndex, goesLeft, spreadFactor):
 	var neighbourCard = $'../'.get_child(cardIndex)
-	var baseOfSpread = $'../../'.CardSize.x *0.5
-	if goesLeft:
-		neighbourCard.targetPos = neighbourCard.cardPos - spreadFactor*Vector2(baseOfSpread, 0)
-	else:
-		neighbourCard.targetPos = neighbourCard.cardPos + spreadFactor*Vector2(baseOfSpread, 0)
-		
-	neighbourCard.setup = true
-	neighbourCard.state = card_state.ReorganizeHand
-	neighbourCard.moveNeighbourgCardCheck = true
+	if neighbourCard != null:
+		var baseOfSpread = $'../../'.CardSize.x *0.5
+		if goesLeft:
+			neighbourCard.targetPos = neighbourCard.cardPos - spreadFactor*Vector2(baseOfSpread, 0)
+		else:
+			neighbourCard.targetPos = neighbourCard.cardPos + spreadFactor*Vector2(baseOfSpread, 0)
+			
+		neighbourCard.setup = true
+		neighbourCard.state = card_state.ReorganizeHand
+		neighbourCard.moveNeighbourgCardCheck = true
 
 func resetNeighbourCard(cardIndex):
 	var neighbourCard = $'../'.get_child(cardIndex)
-	if neighbourCard.state != card_state.InFocus && !moveNeighbourgCardCheck:
+	if neighbourCard != null && neighbourCard.state != card_state.InFocus && !moveNeighbourgCardCheck:
 		neighbourCard.targetPos = neighbourCard.cardPos
 		neighbourCard.setup = true
 		neighbourCard.state = card_state.ReorganizeHand

@@ -120,11 +120,6 @@ var enemy_data = {
 				set_action(life_pools.BLUE, targetEnum.SELF, 0),
 			],
 			[
-				set_action(life_pools.RED, targetEnum.SELF, 0),
-				set_action(life_pools.GREEN, targetEnum.SELF, 0),
-				set_action(life_pools.BLUE, targetEnum.SELF, 0),
-			],
-			[
 				set_action(life_pools.RED, targetEnum.SINGLE, -50),
 				set_action(life_pools.GREEN, targetEnum.SINGLE, -50),
 				set_action(life_pools.BLUE, targetEnum.SINGLE, -50)

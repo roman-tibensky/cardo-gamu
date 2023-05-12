@@ -66,6 +66,8 @@ func _ready():
 	basePortX = get_viewport().size.x
 	basePortY = get_viewport().size.y
 	
+	$MainMenu/Menu.setViewPort(basePortX, basePortY)
+	
 	enemy = $Enemies/EnemyBase
 	
 	$HelpButton/InGameHelp.position.x = get_viewport().size.x - $HelpButton/InGameHelp.size.x - 40
@@ -78,7 +80,7 @@ func _ready():
 	roundManagementNode = $RoundManagement/RoundManagement
 	roundManagementNode.scale *= (RoundManagementSize / roundManagementNode.size)
 	
-	clearScreenForMenu("Welcome to Primal TriStream")
+	clearScreenForMenu("Welcome to Primal Trinity")
 	#$Deck/DeckDraw.scale *= DeckCardSize/$Deck/DeckDraw.size
 	randomize()
 
@@ -375,7 +377,10 @@ func _on_deck_draw_button_down():
 		return
 	if $HelpWindow/Help.visible != true && selectedCard == null:
 		roundManagementNode.actionUpdate()
-		draw_card()
+		#wait for damage emit to process
+		await get_tree().create_timer(0.0001).timeout
+		if player.isAlive:
+			draw_card()
 	#do not disable, deck automatically refills
 		#if(deckSize == 0):
 		#	$Deck/DeckDraw.disabled = true
