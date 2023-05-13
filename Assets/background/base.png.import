@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bi72icmcln0kw"
-path="res://.godot/imported/Konachan.com - 280157 blue forest heriki_(trkj) original polychromatic scenic tree.jpg-bbfd0ad7cd9899e52054dc973fb5d9cb.ctex"
+uid="uid://cyq0uc7gkwvp1"
+path="res://.godot/imported/base.png-3e422523f5903feb48bde0751386ea26.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Konachan.com - 280157 blue forest heriki_(trkj) original polychromatic scenic tree.jpg"
-dest_files=["res://.godot/imported/Konachan.com - 280157 blue forest heriki_(trkj) original polychromatic scenic tree.jpg-bbfd0ad7cd9899e52054dc973fb5d9cb.ctex"]
+source_file="res://Assets/background/base.png"
+dest_files=["res://.godot/imported/base.png-3e422523f5903feb48bde0751386ea26.ctex"]
 
 [params]
 

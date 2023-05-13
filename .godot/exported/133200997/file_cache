@@ -1,0 +1,12 @@
+res://Assets/fonts/EnemyDescription.tres::55ec7d84ff17669abe4fb50fb447b1d0::1679127681::res://.godot/exported/133200997/export-cbdd994ef329021ee5e19e21e125b13f-EnemyDescription.res
+res://Assets/HelpScreen/Help.tscn::5308fdaba9df82f22072cde56655f3bd::1683547394::res://.godot/exported/133200997/export-6bea1ff3928a363c4661281a4b10340d-Help.scn
+res://Assets/Menu/Menu.tscn::994574e91cce20a839a2bfd495f10fd8::1683547394::res://.godot/exported/133200997/export-431ac514d853e844d6df8f5036398672-Menu.scn
+res://Cards/CardBase.tscn::8427f352031441469c26f4829b46b606::1683547394::res://.godot/exported/133200997/export-660019919a9ecf904dbaafacbacd073a-CardBase.scn
+res://Cards/CardSlot.tscn::b62929502c86058f270fadfdf53afd0a::1679127681::res://.godot/exported/133200997/export-3156cf0bbb11295378d05d6b9e3380ee-CardSlot.scn
+res://Arrow.tscn::d521d5657452816fa6dd4005fb6750fa::1679127681::res://.godot/exported/133200997/export-2e68aaf93a8a6c19c3c48e2e3dbb2fb6-Arrow.scn
+res://Bar.tscn::14f08dc6a0daeef2ad39b1ff38d2f944::1683979758::res://.godot/exported/133200997/export-e91e946b4de7060879cc7de316a0b7bf-Bar.scn
+res://default_env.tres::94e1fff5f2c4e5cbdabd319d51b4aff7::1679127681::res://.godot/exported/133200997/export-7cf3fd67ad9f55210191d77b582b8209-default_env.res
+res://EnemyBase.tscn::7ea7a938b6cbaac8175d18b31247a1b8::1683547394::res://.godot/exported/133200997/export-343baeed0ab88c5c5de3bf13599057b1-EnemyBase.scn
+res://PlayerInfo.tscn::e5ab263de05e58c4e12fe3da007de700::1679138614::res://.godot/exported/133200997/export-a3b73340b3a9f970d4a785ed14ee3d0b-PlayerInfo.scn
+res://Playspace.tscn::172ceaf909f8bc4050b4e2e15851be95::1683979758::res://.godot/exported/133200997/export-d22e0f20e36f75a646e42d6688945783-Playspace.scn
+res://RoundManagement.tscn::4996687cbd2d1b9b1581b573871020bc::1683547394::res://.godot/exported/133200997/export-9a9485bdc5db11a3738699d10affd1ae-RoundManagement.scn

@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://ctwvv603e2pxr"]
 
 [ext_resource type="Script" path="res://Playspace.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://bi72icmcln0kw" path="res://Konachan.com - 280157 blue forest heriki_(trkj) original polychromatic scenic tree.jpg" id="2"]
+[ext_resource type="Texture2D" uid="uid://cyq0uc7gkwvp1" path="res://Assets/background/base.png" id="2_p5fbm"]
 [ext_resource type="Script" path="res://Cards/DeckDraw.gd" id="3"]
 [ext_resource type="Texture2D" uid="uid://0rs6cc466vib" path="res://Assets/HelpScreen/button.png" id="3_us1c3"]
 [ext_resource type="Texture2D" uid="uid://u836uvtorbef" path="res://Assets/cards/images/card-back.png" id="4"]
@@ -18,8 +18,8 @@
 script = ExtResource("1")
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(988, 496)
-texture = ExtResource("2")
+position = Vector2(803, 326)
+texture = ExtResource("2_p5fbm")
 
 [node name="HelpButton" type="Node2D" parent="."]
 
